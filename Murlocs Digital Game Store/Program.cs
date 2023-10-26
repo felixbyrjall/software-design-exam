@@ -1,10 +1,10 @@
-﻿namespace InventoryManager;
+﻿namespace DigitalGameStore;
 
 class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello, World!");
+        Console.WriteLine("Fredrik sin branch");
     }
 }
 
