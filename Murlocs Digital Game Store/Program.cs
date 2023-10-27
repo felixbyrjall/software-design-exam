@@ -1,9 +1,11 @@
-﻿namespace InventoryManager;
+﻿using DigitalGameStore.UI;
+namespace DigitalGameStore;
 
 class Program
 {
 	static void Main(string[] args)
 	{
-		Console.WriteLine("Hello, World!");
+		Start startMenu = new Start();
+		startMenu.StartMenu();
 	}
 }
