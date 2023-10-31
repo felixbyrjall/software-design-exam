@@ -5,6 +5,7 @@ namespace DB;
 public partial class DigitalGameStoreContext : DbContext {
     public DbSet<Product> Product => Set<Product>();
     public DbSet<Publisher> Publisher => Set<Publisher>();
+    public DbSet<Users> Users => Set<Users>();
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
         optionsBuilder.UseSqlite(@"Data source = Resources/DigitalGameStore.db");
@@ -14,6 +15,7 @@ public partial class DigitalGameStoreContext : DbContext {
 
         modelBuilder.Entity<Product>(entity => { entity.HasKey(e => e.Product_Id); });
         modelBuilder.Entity<Publisher>(entity => { entity.HasKey(e => e.Publisher_ID); });
+        modelBuilder.Entity<Users>(entity => { entity.HasKey(e => e.UserID); });
         /* entity.Property(e => e.Name);
          entity.Property(e => e.Price);
          entity.Property(e => e.Date);
