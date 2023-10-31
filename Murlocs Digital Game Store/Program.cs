@@ -1,11 +1,8 @@
-﻿using DigitalGameStore.UI;
-namespace DigitalGameStore;
+﻿using DB;
+using DigitalGameStore.UI;
 
-class Program
-{
-	static void Main(string[] args)
-	{
-		Start startMenu = new Start();
+Start startMenu = new Start();
 		startMenu.StartMenu();
-	}
-}
+		
+		
+
