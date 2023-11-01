@@ -54,20 +54,19 @@ namespace DigitalGameStore.UI
 			
 			Console.Clear();
 			Console.WriteLine(title);
-			Console.WriteLine("ADD MENU");
-			s.AddProduct("Halo3", 100, "22.10.2001", 2);
+			s.addMenu();
 			Console.WriteLine("Press any key to go back");
 			Console.ReadKey(true);
 			RunMainMenu();
 		}
+	
+	
+	
 
-
-		private void EditMenu()
-		{
+		private void EditMenu() {
+			Delete s = new();
 			Console.WriteLine(title);
-			Console.WriteLine("EDIT MENU");
-			
-			Console.WriteLine("Press any key to go back");
+			s.deleteMenu();
 			Console.ReadKey(true);
 			RunMainMenu();
 
