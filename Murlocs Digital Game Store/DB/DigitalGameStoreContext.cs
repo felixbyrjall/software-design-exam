@@ -6,9 +6,11 @@ public partial class DigitalGameStoreContext : DbContext {
     public DbSet<Product> Product => Set<Product>();
     public DbSet<Publisher> Publisher => Set<Publisher>();
     public DbSet<Users> Users => Set<Users>();
+    
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
-        optionsBuilder.UseSqlite(@"Data source = Resources/DigitalGameStore.db");
+        string dbFilePath = Path.Combine( "Resources", "DigitalGameStore.db");
+        optionsBuilder.UseSqlite($@"Data source = /Users/fredrikgaaso/Library/Mobile Documents/com~apple~CloudDocs/Desktop/HK/Eksamen-shit/eksamen_software/Murlocs Digital Game Store/Resources/DigitalGameStore.db");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
