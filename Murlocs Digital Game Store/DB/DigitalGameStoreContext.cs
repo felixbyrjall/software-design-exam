@@ -10,7 +10,6 @@ public partial class DigitalGameStoreContext : DbContext {
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
         optionsBuilder.UseSqlite($@"Data source = Resources/DigitalGameStore.db");
-        
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
