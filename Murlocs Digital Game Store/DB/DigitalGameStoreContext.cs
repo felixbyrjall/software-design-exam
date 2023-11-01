@@ -9,8 +9,7 @@ public partial class DigitalGameStoreContext : DbContext {
     
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
-        string dbFilePath = Path.Combine( "Resources", "DigitalGameStore.db");
-        optionsBuilder.UseSqlite($@"Data source = /Users/fredrikgaaso/Library/Mobile Documents/com~apple~CloudDocs/Desktop/HK/Eksamen-shit/eksamen_software/Murlocs Digital Game Store/Resources/DigitalGameStore.db");
+        optionsBuilder.UseSqlite($@"Data source = Resources/DigitalGameStore.db");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
