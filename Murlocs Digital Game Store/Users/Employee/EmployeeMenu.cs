@@ -1,9 +1,12 @@
-﻿using System;
-namespace DigitalGameStore.UI
-{
-	public class Start
-	{
-		string title = @"
+﻿using System.Threading.Channels;
+using DigitalGameStore.Login;
+using DigitalGameStore.UI;
+
+namespace DigitalGameStore.Users.Employee;
+
+public class EmployeeMenu {
+    
+    string title = @"
     __  ___           __                   ____  _       _ __        __   ______                        _____ __                
    /  |/  /_  _______/ /___  __________   / __ \(_)___ _(_) /_____ _/ /  / ____/___ _____ ___  ___     / ___// /_____  ________ 
   / /|_/ / / / / ___/ / __ \/ ___/ ___/  / / / / / __ `/ / __/ __ `/ /  / / __/ __ `/ __ `__ \/ _ \    \__ \/ __/ __ \/ ___/ _ \
@@ -11,60 +14,29 @@ namespace DigitalGameStore.UI
 /_/  /_/\__,_/_/  /_/\____/\___/____/  /_____/_/\__, /_/\__/\__,_/_/   \____/\__,_/_/ /_/ /_/\___/   /____/\__/\____/_/   \___/ 
                                                /____/                                                                           
 ";
-		public void StartMenu()
+		public void EmployeeOptions()
 		{
-			Console.Title = "Murlocs Digital Game Store";
-			RunMainMenu();
-		}
+			FindUser findUser = new FindUser();
 
-		private void RunMainMenu()
-		{
+			Console.WriteLine("Welcome " + findUser.GetUsername());
 			string prompt = "(Use the arrows to select an option)";
-			string[] options = { "Add", "Edit", "Remove", "List Products", "Sort Products", "Exit"};
+			string[] options = { "List Products", "Sort Products", "Exit"};
 			Menu mainMenu = new Menu(title, prompt, options);
+
 			int selectedIndex = mainMenu.Run();
 
 			switch (selectedIndex)
 			{
 				case 0:
-					AddMenu();
-					break;
-				case 1:
-					EditMenu();
-					break;
-				case 2:
-					RemoveMenu();
-					break;
-				case 3:
 					ListMenu();
 					break;
-				case 4:
+				case 1:
 					SortMenu();
 					break;
-				case 5:
+				case 2:
 					ExitMenu();
 					break;
 			}
-		}
-		private void AddMenu()
-		{
-			Console.Clear();
-			Console.WriteLine(title);
-			Console.WriteLine("ADD MENU");
-			Console.WriteLine("Press any key to go back");
-			Console.ReadKey(true);
-			RunMainMenu();
-		}
-
-
-		private void EditMenu()
-		{
-
-		}
-
-		private void RemoveMenu()
-		{
-
 		}
 
 		private void ListMenu()
@@ -82,6 +54,4 @@ namespace DigitalGameStore.UI
 			Console.ReadKey(true);
 			Environment.Exit(0);
 		}
-	}
 }
-
