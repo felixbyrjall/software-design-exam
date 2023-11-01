@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DigitalGameStore.Migrations
 {
     [DbContext(typeof(DigitalGameStoreContext))]
-    [Migration("20231031165903_users")]
-    partial class users
+    [Migration("20231101130945_kukk")]
+    partial class kukk
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

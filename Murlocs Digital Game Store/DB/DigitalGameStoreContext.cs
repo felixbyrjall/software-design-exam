@@ -6,9 +6,10 @@ public partial class DigitalGameStoreContext : DbContext {
     public DbSet<Product> Product => Set<Product>();
     public DbSet<Publisher> Publisher => Set<Publisher>();
     public DbSet<Users> Users => Set<Users>();
+    
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
-        optionsBuilder.UseSqlite(@"Data source = Resources/DigitalGameStore.db");
+        optionsBuilder.UseSqlite($@"Data source = Resources/DigitalGameStore.db");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder) {

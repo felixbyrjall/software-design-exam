@@ -5,10 +5,14 @@
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <RootNamespace>DigitalGameStore</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="UI\" />
+    <None Update="Resources\DigitalGameStore.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
