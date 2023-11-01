@@ -1,10 +1,10 @@
 ﻿using DB;
 using DigitalGameStore;
 using DigitalGameStore.UI;
-
-Start startMenu = new Start();
+Console.WriteLine(Directory.GetCurrentDirectory());
+/*Start startMenu = new Start();
 		startMenu.StartMenu();
-
+*/
 
 
 		
