@@ -16,12 +16,13 @@ public class Tests {
         using DigitalGameStoreContext db = new();
         string expectedName = "Fredrik";
         db.Users.Add(new()
-            { UserID = 1, Username = "Fredrik", Email = "noe", Password = "Noe", Type = "noe", MurlocCoins = 100 });
+            { Username = "Fredrik", Email = "noe", Password = "Noe", Type = "noe", MurlocCoins = 100 });
         db.SaveChanges();
 
        string actualName = db.Users.Single().Username;
+       int actualID = db.Users.Single().UserID;
 
         Assert.That(actualName, Is.EqualTo(expectedName));
-
+        Assert.That(actualID, Is.EqualTo(2));
     }
 }

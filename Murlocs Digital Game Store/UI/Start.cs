@@ -1,4 +1,6 @@
 ﻿using System;
+using DigitalGameStore.AdminOptions;
+
 namespace DigitalGameStore.UI
 {
 	public class Start
@@ -16,6 +18,7 @@ namespace DigitalGameStore.UI
 			Console.Title = "Murlocs Digital Game Store";
 			RunMainMenu();
 		}
+		
 
 		private void RunMainMenu()
 		{
@@ -46,11 +49,13 @@ namespace DigitalGameStore.UI
 					break;
 			}
 		}
-		private void AddMenu()
-		{
+		private void AddMenu() {
+			Add s = new();
+			
 			Console.Clear();
 			Console.WriteLine(title);
 			Console.WriteLine("ADD MENU");
+			s.AddProduct("Halo3", 100, "22.10.2001", 2);
 			Console.WriteLine("Press any key to go back");
 			Console.ReadKey(true);
 			RunMainMenu();
@@ -59,6 +64,12 @@ namespace DigitalGameStore.UI
 
 		private void EditMenu()
 		{
+			Console.WriteLine(title);
+			Console.WriteLine("EDIT MENU");
+			
+			Console.WriteLine("Press any key to go back");
+			Console.ReadKey(true);
+			RunMainMenu();
 
 		}
 
