@@ -32,6 +32,7 @@ public class AdminMenu
             case 0:
                 Add add = new Add();
                 add.addMenu();
+                AdminOptions();
                 break;
             case 1:
                 Delete delete = new Delete();
