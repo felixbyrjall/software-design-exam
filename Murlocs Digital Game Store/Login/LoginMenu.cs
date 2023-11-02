@@ -71,9 +71,10 @@ public class LoginMenu {
             case "Customer":
                 customer.CustomerOptions();
                 break;
-        }
-        
-        Console.WriteLine("The Username and Password given did not match any User in our database, please try again.");
-        LoginScreen();
+            default:
+				Console.WriteLine("The Username and Password given did not match any User in our database, please try again.");
+				LoginScreen();
+                break;
+		}
     }
 }
