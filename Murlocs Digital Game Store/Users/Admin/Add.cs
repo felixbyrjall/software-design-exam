@@ -6,7 +6,7 @@ using Microsoft.Data.Sqlite;
 namespace DigitalGameStore.Admin; 
 
 public class Add{
-	private string? name;
+    private string? name;
     private string? price;
     private string? date;
     private string? publisherId;
@@ -56,19 +56,19 @@ public class Add{
 
 		Console.WriteLine("Name:");
 		name = Console.ReadLine();
-		isStringEmpty(name, 1);
+		isStringEmpty(name, nameof(name));
 
 		Console.WriteLine("Price:");
         price = Console.ReadLine();
-        isInputAnInt(price, 1);
+        isInputAnInt(price, nameof(price));
 
         Console.WriteLine("Release date:");
         date = Console.ReadLine();
-        isStringEmpty(date, 2);
+        isStringEmpty(date, nameof(date));
 
         Console.WriteLine("Publisher id:");
         publisherId = Console.ReadLine();
-        isInputAnInt(publisherId, 2);
+        isInputAnInt(publisherId, nameof(publisherId));
 
         AddProduct(name,int.Parse(price),date,int.Parse(publisherId));
         
@@ -77,43 +77,44 @@ public class Add{
 
     }
 
-    public void isStringEmpty(string s, int i) // Checks if the string inputs of name and release date are null or empty.
+    public void isStringEmpty(string s1, string s2) // Checks if the string inputs of name and release date are null or empty.
     {
-		if (string.IsNullOrWhiteSpace(s))
+		if (string.IsNullOrWhiteSpace(s1))
         {
-            Console.WriteLine("Invalid input, please try again (Input cannot be empty or a whitespace)");
-            switch (i)
+			Console.WriteLine(s2);
+			Console.WriteLine("Invalid input, please try again (Input cannot be empty or a whitespace)");
+            switch (s2)
             {
-                case 1:
-                    Console.WriteLine("Name:");
+				case nameof(name):
+					Console.WriteLine("Name:");
 					name = Console.ReadLine();
-					isStringEmpty(name, 1);
+					isStringEmpty(name, nameof(name));
 					break;
-                case 2:
+                case nameof(date):
                     Console.WriteLine("Release date:");
                     date = Console.ReadLine();
-                    isStringEmpty(date, 2);
+                    isStringEmpty(date, nameof(date));
                     break;
             }
         }
 	}
 
-	public void isInputAnInt(string s, int i) // Checks if the string inputs of name and release date are null or empty.
+	public void isInputAnInt(string s1, string s2) // Checks if the string inputs of price and publisherid are integers and not empty.
 	{
-		if (!int.TryParse(s, out _) || string.IsNullOrWhiteSpace(s))
+		if (!int.TryParse(s1, out _) || string.IsNullOrWhiteSpace(s1))
 		{
 			Console.WriteLine("Invalid input, please try again (Can only contain a number, and not be empty)");
-			switch (i)
+			switch (s2)
 			{
-				case 1:
+				case nameof(price):
 					Console.WriteLine("Price:");
 					price = Console.ReadLine();
-					isInputAnInt(price, 1);
+					isInputAnInt(price, nameof(price));
 					break;
-				case 2:
+				case nameof(publisherId):
 					Console.WriteLine("Publisher id:");
 					publisherId = Console.ReadLine();
-					isInputAnInt(publisherId, 2);
+					isInputAnInt(publisherId, nameof(price));
 					break;
 			}
 		}
