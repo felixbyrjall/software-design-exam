@@ -1,8 +1,4 @@
-﻿using DB;
-using DigitalGameStore;
-using DigitalGameStore.UI;
-Start startMenu = new Start();
-		startMenu.StartMenu();
-		
-		
+using DigitalGameStore.Login;
 
+LoginMenu loginMenu = new LoginMenu();
+loginMenu.LoginOptions();

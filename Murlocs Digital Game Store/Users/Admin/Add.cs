@@ -2,7 +2,7 @@ using System.Data;
 using DB;
 using Microsoft.Data.Sqlite;
 
-namespace DigitalGameStore.AdminOptions; 
+namespace DigitalGameStore.Admin; 
 
 public class Add{
 

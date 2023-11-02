@@ -1,8 +1,8 @@
 using System.Data;
 using Microsoft.Data.Sqlite;
-namespace DigitalGameStore.AdminOptions; 
+namespace DigitalGameStore.Admin; 
 
-public class Delete {
+public class Delete{
     
     public void DeleteProduct(string productName) {
         try {
