@@ -5,7 +5,7 @@
 namespace DigitalGameStore.Migrations
 {
     /// <inheritdoc />
-    public partial class kukk : Migration
+    public partial class test : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

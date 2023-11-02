@@ -21,8 +21,8 @@ public class Tests {
         db.SaveChanges();
 
        string actualName = db.Users.Single().Username;
+       int actualID = db.Users.Single().UserID;
 
         Assert.That(actualName, Is.EqualTo(expectedName));
-        
     }
 }

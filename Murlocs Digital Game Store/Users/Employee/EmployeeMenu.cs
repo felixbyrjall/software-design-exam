@@ -1,12 +1,13 @@
-﻿using System.Threading.Channels;
+using System;
+using DigitalGameStore.Admin;
 using DigitalGameStore.Login;
-using DigitalGameStore.UI;
 
-namespace DigitalGameStore.Users.Employee;
+namespace DigitalGameStore.UI
+{
+	public class EmployeeMenu
+	{
+		string title = @"
 
-public class EmployeeMenu {
-    
-    string title = @"
     __  ___           __                   ____  _       _ __        __   ______                        _____ __                
    /  |/  /_  _______/ /___  __________   / __ \(_)___ _(_) /_____ _/ /  / ____/___ _____ ___  ___     / ___// /_____  ________ 
   / /|_/ / / / / ___/ / __ \/ ___/ ___/  / / / / / __ `/ / __/ __ `/ /  / / __/ __ `/ __ `__ \/ _ \    \__ \/ __/ __ \/ ___/ _ \
@@ -14,13 +15,15 @@ public class EmployeeMenu {
 /_/  /_/\__,_/_/  /_/\____/\___/____/  /_____/_/\__, /_/\__/\__,_/_/   \____/\__,_/_/ /_/ /_/\___/   /____/\__/\____/_/   \___/ 
                                                /____/                                                                           
 ";
+
 		public void EmployeeOptions()
 		{
+
 			FindUser findUser = new FindUser();
 
 			Console.WriteLine("Welcome " + findUser.GetUsername());
 			string prompt = "(Use the arrows to select an option)";
-			string[] options = { "List Products", "Sort Products", "Exit"};
+			string[] options = { "List Products", "Sort Products", "Exit" };
 			Menu mainMenu = new Menu(title, prompt, options);
 
 			int selectedIndex = mainMenu.Run();
@@ -54,4 +57,5 @@ public class EmployeeMenu {
 			Console.ReadKey(true);
 			Environment.Exit(0);
 		}
+	}
 }

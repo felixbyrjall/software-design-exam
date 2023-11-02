@@ -1,9 +1,9 @@
 ﻿using System.Data;
 using System.Runtime.CompilerServices;
 using DB;
+using DigitalGameStore.Admin;
 using DigitalGameStore.UI;
 using DigitalGameStore.Users.Customer;
-using DigitalGameStore.Users.Employee;
 using Microsoft.Data.Sqlite;
 
 namespace DigitalGameStore.Login;
@@ -47,6 +47,7 @@ public class LoginMenu {
         FindUser findUser = new FindUser();
         CustomerMenu customer = new CustomerMenu();
         EmployeeMenu employee = new EmployeeMenu();
+        AdminMenu admin = new AdminMenu();
         
         Console.WriteLine("Welcome to the Murloc Digital Game Store!");
         Console.WriteLine("Please Login:\n");
@@ -64,8 +65,8 @@ public class LoginMenu {
             case "Employee":
                 employee.EmployeeOptions();
                 break;
-            case "noe":
-                employee.EmployeeOptions();
+            case "admin":
+                admin.AdminOptions();
                 break;
             case "Customer":
                 customer.CustomerOptions();
