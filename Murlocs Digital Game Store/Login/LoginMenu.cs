@@ -53,9 +53,9 @@ public class LoginMenu {
         Console.WriteLine("Please Login:\n");
 
         Console.WriteLine("Username: ");
-        string usernameInput = Console.ReadLine();
+        string? usernameInput = Console.ReadLine();
         Console.WriteLine("Password: ");
-        string passwordInput = Console.ReadLine();
+        string? passwordInput = Console.ReadLine();
 
         findUser.userSearch(usernameInput, passwordInput);
         string userType = findUser.GetType();
