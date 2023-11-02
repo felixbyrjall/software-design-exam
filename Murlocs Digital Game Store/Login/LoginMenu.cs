@@ -71,7 +71,7 @@ public class LoginMenu {
             case "Customer":
                 customer.CustomerOptions();
                 break;
-            default:
+            default: // if the user types in the wrong username/password combo, this case returns an error message
 				Console.WriteLine("The Username and Password given did not match any User in our database, please try again.");
 				LoginScreen();
                 break;
