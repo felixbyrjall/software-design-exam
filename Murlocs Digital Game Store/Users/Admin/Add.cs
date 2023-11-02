@@ -35,7 +35,6 @@ public class Add{
                          +myReader["Name"] + " Price: " + myReader["Price"] + " Publisher:" +myReader["publisherId"]);
                 }
                 selectCMD.Connection.Close();
-                
             }
         }
         catch (Exception e) {
