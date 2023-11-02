@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DigitalGameStore.Migrations
 {
     [DbContext(typeof(DigitalGameStoreContext))]
-    [Migration("20231101134633_test")]
-    partial class test
+    [Migration("20231102115423_updated")]
+    partial class updated
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,6 +26,10 @@ namespace DigitalGameStore.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Date")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Genre")
                         .IsRequired()
                         .HasColumnType("TEXT");
 

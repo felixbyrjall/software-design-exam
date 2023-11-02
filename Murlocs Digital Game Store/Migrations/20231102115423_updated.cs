@@ -5,7 +5,7 @@
 namespace DigitalGameStore.Migrations
 {
     /// <inheritdoc />
-    public partial class test : Migration
+    public partial class updated : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -49,6 +49,7 @@ namespace DigitalGameStore.Migrations
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     Price = table.Column<int>(type: "INTEGER", nullable: false),
                     Date = table.Column<string>(type: "TEXT", nullable: false),
+                    Genre = table.Column<string>(type: "TEXT", nullable: false),
                     PublisherID = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
