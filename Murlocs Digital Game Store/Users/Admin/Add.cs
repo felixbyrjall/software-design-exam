@@ -27,7 +27,7 @@ public class Add{
             insertCMD.ExecuteNonQuery();
             insertCMD.Connection.Close();
 
-
+            // Should be an independent method for the sake of SOLID
             using (SqliteCommand selectCMD = _sqliteConnection.CreateCommand()) {
                 selectCMD.CommandText = "SELECT * FROM Product";
                 selectCMD.CommandType = CommandType.Text;
@@ -56,7 +56,7 @@ public class Add{
 
 		Console.WriteLine("Name:");
 		_name = Console.ReadLine();
-		isStringEmpty(_name, nameof(_name));
+		IsStringEmpty(_name, nameof(_name));
 
 		Console.WriteLine("Price:");
         _price = Console.ReadLine();
@@ -64,7 +64,7 @@ public class Add{
 
         Console.WriteLine("Release date:");
         _date = Console.ReadLine();
-        isStringEmpty(_date, nameof(_date));
+        IsStringEmpty(_date, nameof(_date));
 
         Console.WriteLine("Publisher id:");
         _publisherId = Console.ReadLine();
@@ -77,7 +77,7 @@ public class Add{
 
     }
 
-    public void isStringEmpty(string s1, string s2) // Checks if the string inputs of name and release date are null or empty.
+    public void IsStringEmpty(string s1, string s2) // Checks if the string inputs of name and release date are null or empty.
     {
 		if (string.IsNullOrWhiteSpace(s1))
         {
@@ -88,12 +88,12 @@ public class Add{
 				case nameof(_name):
 					Console.WriteLine("Name:");
 					_name = Console.ReadLine();
-					isStringEmpty(_name, nameof(_name));
+					IsStringEmpty(_name, nameof(_name));
 					break;
                 case nameof(_date):
                     Console.WriteLine("Release date:");
                     _date = Console.ReadLine();
-                    isStringEmpty(_date, nameof(_date));
+                    IsStringEmpty(_date, nameof(_date));
                     break;
             }
         }
