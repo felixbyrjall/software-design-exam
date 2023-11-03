@@ -10,46 +10,58 @@ namespace DigitalGameStore.Login;
 
 public class LoginMenu {
 
-    string title = @"
-    __  ___           __                   ____  _       _ __        __   ______                        _____ __                
-   /  |/  /_  _______/ /___  __________   / __ \(_)___ _(_) /_____ _/ /  / ____/___ _____ ___  ___     / ___// /_____  ________ 
-  / /|_/ / / / / ___/ / __ \/ ___/ ___/  / / / / / __ `/ / __/ __ `/ /  / / __/ __ `/ __ `__ \/ _ \    \__ \/ __/ __ \/ ___/ _ \
- / /  / / /_/ / /  / / /_/ / /__(__  )  / /_/ / / /_/ / / /_/ /_/ / /  / /_/ / /_/ / / / / / /  __/   ___/ / /_/ /_/ / /  /  __/
-/_/  /_/\__,_/_/  /_/\____/\___/____/  /_____/_/\__, /_/\__/\__,_/_/   \____/\__,_/_/ /_/ /_/\___/   /____/\__/\____/_/   \___/ 
-                                               /____/                                                                           
-";
-    
-    public void LoginOptions() {
+    public void LoginOptions()
+    {
         RegisterUser registerUser = new RegisterUser();
-        
+
         string prompt = "(Use the arrows to select an option)";
-        string[] options = { "Login", "Sign up", "Exit"};
-        Menu mainMenu = new Menu(title, prompt, options);
+        string[] options = { "Browse Games", "Interest list", "Recommendations", "Exit" };
+        Menu mainMenu = new Menu(prompt, options);
 
         int selectedIndex = mainMenu.Run();
 
         switch (selectedIndex)
         {
             case 0:
-                LoginScreen();
-                break;
+				Func.Clear();
+				BrowseMenu();
+				break;
             case 1:
-                registerUser.CreateUser();
+				Func.Clear();
+				InterestList();
                 break;
-            case 2:
+			case 2:
+				Func.Clear();
+				RecommendGames();
+				break;
+			case 3:
                 Environment.Exit(0);
                 break;
         }
     }
 
-    public void LoginScreen() {
+    public void BrowseMenu()
+    {
+
+    }
+
+    public void InterestList()
+    {
+
+    }
+
+    public void RecommendGames()
+    {
+
+    }
+
+    /*public void LoginScreen() {
 
         FindUser findUser = new FindUser();
         CustomerMenu customer = new CustomerMenu();
         EmployeeMenu employee = new EmployeeMenu();
         AdminMenu admin = new AdminMenu();
         
-        Console.WriteLine("Welcome to the Murloc Digital Game Store!");
         Console.WriteLine("Please Login:\n");
 
         Console.WriteLine("Username: ");
@@ -76,5 +88,5 @@ public class LoginMenu {
 				LoginScreen();
                 break;
 		}
-    }
+    }*/
 }
