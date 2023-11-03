@@ -1,4 +1,10 @@
 using DigitalGameStore.Login;
 
-LoginMenu loginMenu = new LoginMenu();
-loginMenu.LoginOptions();
+public class Program
+{
+	public static void Main(string[] args)
+	{
+		LoginMenu loginMenu = new LoginMenu();
+		loginMenu.LoginOptions();
+	}
+}

@@ -53,9 +53,9 @@ public class LoginMenu {
         Console.WriteLine("Please Login:\n");
 
         Console.WriteLine("Username: ");
-        string usernameInput = Console.ReadLine();
+        string? usernameInput = Console.ReadLine();
         Console.WriteLine("Password: ");
-        string passwordInput = Console.ReadLine();
+        string? passwordInput = Console.ReadLine();
 
         findUser.userSearch(usernameInput, passwordInput);
         string userType = findUser.GetType();
@@ -71,9 +71,10 @@ public class LoginMenu {
             case "Customer":
                 customer.CustomerOptions();
                 break;
-        }
-        
-        Console.WriteLine("The Username and Password given did not match any User in our database, please try again.");
-        LoginScreen();
+            default: // if the user types in the wrong username/password combo, this case returns an error message
+				Console.WriteLine("The Username and Password given did not match any User in our database, please try again.");
+				LoginScreen();
+                break;
+		}
     }
 }
