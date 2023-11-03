@@ -4,9 +4,10 @@ namespace DigitalGameStore.UI
 {
 	public class Func
 	{
+		#region Console action
 		public static string? _userInput;
 
-		public static void ConsoleClear()
+		public static void Clear()
 		{
 			Clear();
 		}
@@ -21,7 +22,9 @@ namespace DigitalGameStore.UI
 		{
 			WriteLine(s);
 		}
+		#endregion
 
+		#region Console style
 		public static void TextColor(string color)
 		{
 			try
@@ -43,6 +46,20 @@ namespace DigitalGameStore.UI
 				BackgroundColor = ConsoleColor.Green; // If developer types in an invalid color (ex. typo), sets the background color to green for easy debugging
 			}
 		}
+
+		public static void PrintTitle()
+		{
+			string title = @"
+    __  ___           __                   ____  _       _ __        __   ______                        _____ __                
+   /  |/  /_  _______/ /___  __________   / __ \(_)___ _(_) /_____ _/ /  / ____/___ _____ ___  ___     / ___// /_____  ________ 
+  / /|_/ / / / / ___/ / __ \/ ___/ ___/  / / / / / __ `/ / __/ __ `/ /  / / __/ __ `/ __ `__ \/ _ \    \__ \/ __/ __ \/ ___/ _ \
+ / /  / / /_/ / /  / / /_/ / /__(__  )  / /_/ / / /_/ / / /_/ /_/ / /  / /_/ / /_/ / / / / / /  __/   ___/ / /_/ /_/ / /  /  __/
+/_/  /_/\__,_/_/  /_/\____/\___/____/  /_____/_/\__, /_/\__/\__,_/_/   \____/\__,_/_/ /_/ /_/\___/   /____/\__/\____/_/   \___/ 
+                                               /____/                                                                           
+";
+			Func.WriteOutput(title);
+		}
+		#endregion
 
 	}
 }
