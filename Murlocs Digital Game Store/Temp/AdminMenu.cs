@@ -5,16 +5,6 @@ namespace DigitalGameStore.Admin;
 
 public class AdminMenu
 {
-    string title = @"
-
-    __  ___           __                   ____  _       _ __        __   ______                        _____ __                
-   /  |/  /_  _______/ /___  __________   / __ \(_)___ _(_) /_____ _/ /  / ____/___ _____ ___  ___     / ___// /_____  ________ 
-  / /|_/ / / / / ___/ / __ \/ ___/ ___/  / / / / / __ `/ / __/ __ `/ /  / / __/ __ `/ __ `__ \/ _ \    \__ \/ __/ __ \/ ___/ _ \
- / /  / / /_/ / /  / / /_/ / /__(__  )  / /_/ / / /_/ / / /_/ /_/ / /  / /_/ / /_/ / / / / / /  __/   ___/ / /_/ /_/ / /  /  __/
-/_/  /_/\__,_/_/  /_/\____/\___/____/  /_____/_/\__, /_/\__/\__,_/_/   \____/\__,_/_/ /_/ /_/\___/   /____/\__/\____/_/   \___/ 
-                                               /____/                                                                           
-";
-
     public void AdminOptions()
     {
 
@@ -23,7 +13,7 @@ public class AdminMenu
         Console.WriteLine("Welcome " + findUser.GetUsername());
         string prompt = "(Use the arrows to select an option)";
         string[] options = { "Add Product", "Delete Product", "Exit" };
-        Menu mainMenu = new Menu(title, prompt, options);
+        Menu mainMenu = new Menu(prompt, options);
 
         int selectedIndex = mainMenu.Run();
 
