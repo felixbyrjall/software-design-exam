@@ -8,6 +8,7 @@ public class Product {
     public string Name { get; set; } = string.Empty;
     public int Price { get; set; }
     public string Date { get; set; } = string.Empty;
+    public string Genre { get; set; } = string.Empty;
     
     public int PublisherID { get; set; }
     public Publisher? Publisher { get; set; }
