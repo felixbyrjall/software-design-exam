@@ -28,18 +28,18 @@ namespace DigitalGameStore.UI
 
 				if(i == SelectedIndex)
 				{
-					prefix = "*";
-					Console.ForegroundColor = ConsoleColor.Black;
-					Console.BackgroundColor = ConsoleColor.White;
+					prefix = ">";
+					Func.TextColor("black");
+					Func.BgColor("white");
 				}
 				else
 				{
 					prefix = " ";
-					Console.ForegroundColor = ConsoleColor.White;
-					Console.BackgroundColor = ConsoleColor.Black;
+					Func.TextColor("white");
+					Func.BgColor("black");
 				}
 
-				Console.WriteLine($"{prefix}<<{currentOption}>>");
+				Console.WriteLine($"{prefix}{currentOption}");
 			}
 			Console.ResetColor();
 		}
