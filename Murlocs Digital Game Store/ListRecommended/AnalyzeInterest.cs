@@ -6,17 +6,11 @@ using System.Threading.Tasks;
 
 namespace DigitalGameStore.Recommender
 {
-    public class UserInterest
+    public class AnalyzeInterest
     {
         // DB connection
 
-        public async Task AddGameToIntList(int gameId)
-        {
-            // Add gameId to Interest_List in the database, using down/up arrow + enter.
-            // Return interest_list.
-        }
-
-        public async Task<List<int>> GetUserInterestedGenreIds()
+        public async Task<List<int>> GetInterestedGenreIds()
         {
             // Fetch list of game IDs interested in
             var interestedGameIds = new List<int>(); // DB Logic - Interested Games.
@@ -28,10 +22,10 @@ namespace DigitalGameStore.Recommender
             return interestedGenreIds;
         }
 
-        public async Task<int> CountMatchingGenres(List<int> gameGenreIds)
+        public async Task<int> CompareGenres(List<int> gameGenreIds)
         {
             // Get the interested genre IDs.
-            var interestedGenreIds = await GetUserInterestedGenreIds();
+            var interestedGenreIds = await GetInterestedGenreIds();
 
             // Count how many of the game's genres match the interests.
             // Can be done using LINQ to compare two lists and count matching elements.
