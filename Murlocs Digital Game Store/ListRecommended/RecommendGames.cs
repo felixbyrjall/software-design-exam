@@ -16,10 +16,10 @@ namespace DigitalGameStore.Recommender
         }
 
         // The Scoring system
-        private int ScoreGame(Game game, UserInterest userInterest) 
+        private int ScoreGame(Game game, AnalyzeInterest userInterest) 
         {
             int score = 0;
-            int matchingGenreCount = userInterest.CountMatchingGenres(game.GenreIds);
+            int matchingGenreCount = userInterest.CompareGenres(game.GenreIds);
 
             score += matchingGenreCount * 10;
 
@@ -34,7 +34,7 @@ namespace DigitalGameStore.Recommender
         }
 
         // Creating the Recommended Game List.
-        public async Task<List<Game>> RecommendGames(UserInterest userInterest)
+        public async Task<List<Game>> RecommendGames(AnalyzeInterest userInterest)
         {   
             var allGames = await GetAllGames();
             var recommendedGames = new List<Game>();
