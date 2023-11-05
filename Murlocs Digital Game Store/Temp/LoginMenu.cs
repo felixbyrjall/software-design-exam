@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using DB;
 using DigitalGameStore.Admin;
+using DigitalGameStore.InterestList;
 using DigitalGameStore.RecommendGames;
 using DigitalGameStore.UI;
 using DigitalGameStore.Users.Customer;
@@ -25,16 +26,13 @@ public class LoginMenu {
         switch (selectedIndex)
         {
             case 0:
-				Func.Clear();
 				BrowseMenu(); // On enter --> Add game to interest list or read more about game or back
 				break;
             case 1:
-				Func.Clear();
 				InterestList(); // Browse your games (edit/delete) --> add more games --> BrowseMenu()
                 break;
 			case 2:
-				Func.Clear();
-				RecommendGames().Wait(); // Browse recommended games --> add to interestlist (Refreshes recommendedgameslist)
+				RecommendGames(); // Browse recommended games --> add to interestlist (Refreshes recommendedgameslist)
 				break;
 			case 3:
                 Environment.Exit(0);
@@ -50,23 +48,67 @@ public class LoginMenu {
     public void InterestList()
     {
 
+        AddGame addGame = new AddGame();
+        DeleteGame deleteGame = new DeleteGame();
+        DisplayList displayList = new DisplayList();
+
+        string prompt = "(Use the arrows to select an option)";
+        string[] options = { "Display List", "Add Interest", "Delete Interest", "Exit" };
+        Menu mainMenu = new Menu(prompt, options);
+
+        int selectedIndex = mainMenu.Run();
+
+        switch (selectedIndex)
+        {
+
+            case 0:
+                Console.WriteLine("Here is your Interest List: ");
+                displayList.DisplayInterest();
+                break;
+            case 1:
+                Console.WriteLine("What game would you like to add from your interest list?: ");
+                int addInput = Console.Read();
+                Console.ReadLine();
+                addGame.Add(addInput);
+                InterestList();
+                break;
+            case 2:
+                Console.WriteLine("What game would you like to delete from your interest list?: ");
+                int deleteInput = Console.Read();
+                Console.ReadLine();
+                deleteGame.Delete(deleteInput);
+                InterestList();
+                break;
+            case 3:
+                Environment.Exit(0);
+                break;
+
+        }
     }
 
-    public async Task RecommendGames()
+    public async Task RecommendGamesAsync()
     {
-        var interestAnalyzer = new InterestAnalyzer(_context);
-        var gameRecommender = new GameRecommender(_context);
-        var recommendedGames = await gameRecommender.RecommendGames(interestAnalyzer);
-
-        foreach (var game in recommendedGames)
+        using (var context = new Context()) // Use the correct context class name
         {
-            Console.WriteLine($"{game.Name}");
-        }
+            var interestAnalyzer = new InterestAnalyzer(context);
+            var gameRecommender = new GameRecommender(context);
 
-        Console.WriteLine("\nPress any key to return to the menu...");
-        Console.ReadKey(true);
-        Func.Clear();
-        LoginOptions();
+            var recommendedGames = await gameRecommender.RecommendGames(interestAnalyzer);
+
+            foreach (var game in recommendedGames)
+            {
+                Console.WriteLine($"{game.Name} - Score: {game.Score}");
+            }
+
+            Console.WriteLine("Press any key to return to the menu...");
+            Console.ReadKey();
+        }
+    }
+
+    // Make sure to call this method asynchronously from the menu option.
+    public void RecommendGames()
+    {
+        RecommendGamesAsync().GetAwaiter().GetResult(); // This will synchronously wait for the async operation.
     }
 
     /*public void LoginScreen() {

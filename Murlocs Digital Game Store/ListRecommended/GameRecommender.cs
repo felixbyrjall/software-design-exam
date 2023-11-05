@@ -38,6 +38,7 @@ namespace DigitalGameStore.RecommendGames
 
             return score;
         }
+        
 
         // Creating the recommended list by iterating through all games and using the scoring system.
         public async Task<List<Game>> RecommendGames(InterestAnalyzer userInterest)

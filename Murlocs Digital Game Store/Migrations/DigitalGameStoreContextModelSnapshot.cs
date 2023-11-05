@@ -9,11 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DigitalGameStore.Migrations
 {
-<<<<<<< HEAD
-    [DbContext(typeof(GameContext))]
-=======
     [DbContext(typeof(Context))]
->>>>>>> origin/fredrik
     partial class DigitalGameStoreContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
