@@ -1,17 +1,13 @@
-using DigitalGameStore.DB;
-using DigitalGameStore.RecommendGames;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
 namespace DB;
 
-public partial class DigitalGameStoreContext : DbContext
-{
-    public DbSet<Game> Game => Set<Game>();
+public partial class DigitalGameStoreContext : DbContext {
+    public DbSet<Product> Product => Set<Product>();
     public DbSet<Publisher> Publisher => Set<Publisher>();
-    public DbSet<Genre> Genre => Set<Genre>();
-    public DbSet<GameGenres> GameGenres => Set<GameGenres>();
-
+    public DbSet<Users> Users => Set<Users>();
+    
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
