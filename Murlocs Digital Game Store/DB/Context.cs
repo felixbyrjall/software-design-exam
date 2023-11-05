@@ -5,20 +5,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DB;
 
-<<<<<<<< HEAD:Murlocs Digital Game Store/DB/GameContext.cs
-public partial class GameContext : DbContext {
-    public DbSet<Game> Game { get; set; }
-    public DbSet<Genre> Genre { get; set; }
-    public DbSet<GameGenres> GameGenres { get; set; }
-    public DbSet<InterestTable> InterestTable { get; set; }
-========
-public partial class Context : DbContext {
+public partial class Context : DbContext
+{
     public DbSet<Game> Game => Set<Game>();
     public DbSet<Publisher> Publisher => Set<Publisher>();
     public DbSet<Genre> Genre => Set<Genre>();
     public DbSet<GameGenres> GameGenres => Set<GameGenres>();
-    
->>>>>>>> origin/fredrik:Murlocs Digital Game Store/DB/Context.cs
+
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
