@@ -6,14 +6,22 @@ public class Tests {
     [SetUp]
     public void Setup()
     {
+<<<<<<< HEAD
         using GameContext db = new();
+=======
+        using Context db = new();
+>>>>>>> origin/fredrik
         db.RemoveRange(db.Game);
         db.SaveChanges();
     }
 
     [Test]
     public void Test1() {
+<<<<<<< HEAD
         using GameContext db = new();
+=======
+        using Context db = new();
+>>>>>>> origin/fredrik
         string expectedName = "Fredrik";
         db.Game.Add(new()
             { Game_Id = 1, Name = "Fredrik", ReleaseDate = "noe", Score = 0, PublisherID = 1 });

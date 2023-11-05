@@ -9,7 +9,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DigitalGameStore.Migrations
 {
+<<<<<<< HEAD
     [DbContext(typeof(GameContext))]
+=======
+    [DbContext(typeof(Context))]
+>>>>>>> origin/fredrik
     partial class DigitalGameStoreContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -19,7 +23,7 @@ namespace DigitalGameStore.Migrations
 
             modelBuilder.Entity("DB.Publisher", b =>
                 {
-                    b.Property<int>("Publisher_ID")
+                    b.Property<int>("Publisher_Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -27,7 +31,7 @@ namespace DigitalGameStore.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Publisher_ID");
+                    b.HasKey("Publisher_Id");
 
                     b.ToTable("Publisher");
                 });
@@ -61,34 +65,34 @@ namespace DigitalGameStore.Migrations
 
             modelBuilder.Entity("DigitalGameStore.DB.GameGenres", b =>
                 {
-                    b.Property<int>("GameGenres_ID")
+                    b.Property<int>("GameGenres_Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Game_ID")
+                    b.Property<int>("Game_Id")
                         .HasColumnType("INTEGER");
 
                     b.Property<int?>("GamesGame_Id")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("Genre_ID")
+                    b.Property<int>("Genre_Id")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int?>("GenresGenre_ID")
+                    b.Property<int?>("GenresGenre_Id")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("GameGenres_ID");
+                    b.HasKey("GameGenres_Id");
 
                     b.HasIndex("GamesGame_Id");
 
-                    b.HasIndex("GenresGenre_ID");
+                    b.HasIndex("GenresGenre_Id");
 
                     b.ToTable("GameGenres");
                 });
 
             modelBuilder.Entity("DigitalGameStore.DB.Genre", b =>
                 {
-                    b.Property<int>("Genre_ID")
+                    b.Property<int>("Genre_Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
@@ -96,21 +100,21 @@ namespace DigitalGameStore.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.HasKey("Genre_ID");
+                    b.HasKey("Genre_Id");
 
                     b.ToTable("Genre");
                 });
 
             modelBuilder.Entity("DigitalGameStore.DB.InterestTable", b =>
                 {
-                    b.Property<int>("Interest_ID")
+                    b.Property<int>("Interest_Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
                     b.Property<int>("GameID")
                         .HasColumnType("INTEGER");
 
-                    b.HasKey("Interest_ID");
+                    b.HasKey("Interest_Id");
 
                     b.HasIndex("GameID");
 
@@ -136,7 +140,7 @@ namespace DigitalGameStore.Migrations
 
                     b.HasOne("DigitalGameStore.DB.Genre", "Genres")
                         .WithMany("GameGenres")
-                        .HasForeignKey("GenresGenre_ID");
+                        .HasForeignKey("GenresGenre_Id");
 
                     b.Navigation("Games");
 
