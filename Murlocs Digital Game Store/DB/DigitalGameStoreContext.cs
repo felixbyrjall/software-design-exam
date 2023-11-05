@@ -18,10 +18,10 @@ public partial class DigitalGameStoreContext : DbContext {
     protected override void OnModelCreating(ModelBuilder modelBuilder) {
 
         modelBuilder.Entity<Game>(entity => { entity.HasKey(e => e.Game_Id); });
-        modelBuilder.Entity<Publisher>(entity => { entity.HasKey(e => e.Publisher_ID); });
-        modelBuilder.Entity<Genre>(entity => { entity.HasKey(e => e.Genre_ID); });
-        modelBuilder.Entity<GameGenres>(entity => { entity.HasKey(e => e.GameGenres_ID); });
-        modelBuilder.Entity<InterestTable>(entity => { entity.HasKey(e => e.Interest_ID); });
+        modelBuilder.Entity<Publisher>(entity => { entity.HasKey(e => e.Publisher_Id); });
+        modelBuilder.Entity<Genre>(entity => { entity.HasKey(e => e.Genre_Id); });
+        modelBuilder.Entity<GameGenres>(entity => { entity.HasKey(e => e.GameGenres_Id); });
+        modelBuilder.Entity<InterestTable>(entity => { entity.HasKey(e => e.Interest_Id); });
 
         /* entity.Property(e => e.Name);
          entity.Property(e => e.Price);
