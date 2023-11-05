@@ -10,9 +10,6 @@
 
   <ItemGroup>
     <None Remove="UI\" />
-    <None Update="Resources\DigitalGameStore.db">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Remove="Temp\" />
   </ItemGroup>
   <ItemGroup>

@@ -7,7 +7,7 @@ using DigitalGameStore.DB;
 
 namespace DigitalGameStore.Recommender
 {
-    public class GameRecommender
+   /* public class GameRecommender
     {
         // List all games, call to db to retrieve all games
         public async Task<List<Game>> GetAllGames() {
@@ -19,16 +19,16 @@ namespace DigitalGameStore.Recommender
         private int ScoreGame(Game game, UserInterest userInterest) 
         {
             int score = 0;
-            int matchingGenreCount = userInterest.CountMatchingGenres(game.GenreIds);
+            int matchingGenreCount = userInterest.CountMatchingGenres(game.GenreID);
 
             score += matchingGenreCount * 10;
 
 
-            /* PUBLISHER SCORING 
+             PUBLISHER SCORING 
             if (userInterest.InterestedPublisher(game.PublisherId))
             {
                 score += 10;
-            } */
+            } 
 
             return score; 
         }
@@ -54,5 +54,6 @@ namespace DigitalGameStore.Recommender
             return recommendedGames; // Show top 5. 
         }
        
-    }
+    }*/
+    
 }

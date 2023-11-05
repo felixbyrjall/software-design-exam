@@ -11,10 +11,11 @@ namespace DigitalGameStore.DB
     {
         public int Game_Id { get; set; }
         public string Name { get; set; } = string.Empty;
-        public int GenreId { get; set; }
-        public int PublisherId { get; set; }
+        public string ReleaseDate { get; set; } = string.Empty;
         public int Score { get; set; } // Hold the score for interestlist
-
+        
+        public int PublisherID { get; set; }
+        public Publisher? Publisher { get; set; }
 
     }
 }

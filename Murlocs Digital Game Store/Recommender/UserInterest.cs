@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DB;
 
 namespace DigitalGameStore.Recommender
 {
@@ -10,7 +11,7 @@ namespace DigitalGameStore.Recommender
     {
         // DB connection
 
-        public async Task AddGameToIntList(int gameId)
+         public async Task AddGameToIntList(int gameId)
         {
             // Add gameId to Interest_List in the database, using down/up arrow + enter.
             // Return interest_list.
