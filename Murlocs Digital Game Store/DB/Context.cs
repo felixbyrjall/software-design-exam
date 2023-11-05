@@ -1,4 +1,5 @@
 using DigitalGameStore.DB;
+using DigitalGameStore.Migrations;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,7 +22,7 @@ public partial class Context : DbContext {
         modelBuilder.Entity<Publisher>(entity => { entity.HasKey(e => e.Publisher_Id); });
         modelBuilder.Entity<Genre>(entity => { entity.HasKey(e => e.Genre_Id); });
         modelBuilder.Entity<GameGenres>(entity => { entity.HasKey(e => e.GameGenres_Id); });
-        modelBuilder.Entity<InterestTable>(entity => { entity.HasKey(e => e.Interest_Id); });
+        modelBuilder.Entity<Interest>(entity => { entity.HasKey(e => e.Interest_Id); });
 
         /* entity.Property(e => e.Name);
          entity.Property(e => e.Price);

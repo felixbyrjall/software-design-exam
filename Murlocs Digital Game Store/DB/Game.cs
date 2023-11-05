@@ -17,7 +17,7 @@ namespace DigitalGameStore.DB
         public int PublisherID { get; set; }
         public Publisher? Publisher { get; set; }
 
-        public ICollection<InterestTable>? InterestTables { get; set; }
+        public ICollection<Interest>? Interests { get; set; }
 
     }
 }
