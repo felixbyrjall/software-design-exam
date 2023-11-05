@@ -5,7 +5,7 @@
 namespace DigitalGameStore.Migrations
 {
     /// <inheritdoc />
-    public partial class Database : Migration
+    public partial class InterestTable : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -84,6 +84,25 @@ namespace DigitalGameStore.Migrations
                         principalColumn: "Genre_ID");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "InterestTable",
+                columns: table => new
+                {
+                    Interest_ID = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    GameID = table.Column<int>(type: "INTEGER", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_InterestTable", x => x.Interest_ID);
+                    table.ForeignKey(
+                        name: "FK_InterestTable_Game_GameID",
+                        column: x => x.GameID,
+                        principalTable: "Game",
+                        principalColumn: "Game_Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Game_PublisherID",
                 table: "Game",
@@ -98,6 +117,11 @@ namespace DigitalGameStore.Migrations
                 name: "IX_GameGenres_GenresGenre_ID",
                 table: "GameGenres",
                 column: "GenresGenre_ID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_InterestTable_GameID",
+                table: "InterestTable",
+                column: "GameID");
         }
 
         /// <inheritdoc />
@@ -107,10 +131,13 @@ namespace DigitalGameStore.Migrations
                 name: "GameGenres");
 
             migrationBuilder.DropTable(
-                name: "Game");
+                name: "InterestTable");
 
             migrationBuilder.DropTable(
                 name: "Genre");
+
+            migrationBuilder.DropTable(
+                name: "Game");
 
             migrationBuilder.DropTable(
                 name: "Publisher");
