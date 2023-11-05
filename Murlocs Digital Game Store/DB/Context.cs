@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DB; 
 
-public partial class DigitalGameStoreContext : DbContext {
+public partial class Context : DbContext {
     public DbSet<Game> Game => Set<Game>();
     public DbSet<Publisher> Publisher => Set<Publisher>();
     public DbSet<Genre> Genre => Set<Genre>();

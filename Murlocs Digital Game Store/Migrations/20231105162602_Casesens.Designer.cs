@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DigitalGameStore.Migrations
 {
-    [DbContext(typeof(DigitalGameStoreContext))]
+    [DbContext(typeof(Context))]
     [Migration("20231105162602_Casesens")]
     partial class Casesens
     {
