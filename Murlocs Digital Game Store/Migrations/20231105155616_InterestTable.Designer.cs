@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DigitalGameStore.Migrations
 {
-    [DbContext(typeof(DigitalGameStoreContext))]
+    [DbContext(typeof(GameContext))]
     [Migration("20231105155616_InterestTable")]
     partial class InterestTable
     {

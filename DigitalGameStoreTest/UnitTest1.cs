@@ -6,14 +6,14 @@ public class Tests {
     [SetUp]
     public void Setup()
     {
-        using DigitalGameStoreContext db = new();
+        using GameContext db = new();
         db.RemoveRange(db.Game);
         db.SaveChanges();
     }
 
     [Test]
     public void Test1() {
-        using DigitalGameStoreContext db = new();
+        using GameContext db = new();
         string expectedName = "Fredrik";
         db.Game.Add(new()
             { Game_Id = 1, Name = "Fredrik", ReleaseDate = "noe", Score = 0, PublisherID = 1 });

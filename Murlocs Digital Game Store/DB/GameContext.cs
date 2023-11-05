@@ -1,13 +1,14 @@
+using DigitalGameStore.DB;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
 namespace DB;
 
-public partial class DigitalGameStoreContext : DbContext {
-    public DbSet<Product> Product => Set<Product>();
-    public DbSet<Publisher> Publisher => Set<Publisher>();
-    public DbSet<Users> Users => Set<Users>();
-    
+public partial class GameContext : DbContext {
+    public DbSet<Game> Game { get; set; }
+    public DbSet<Genre> Genre { get; set; }
+    public DbSet<GameGenres> GameGenres { get; set; }
+    public DbSet<InterestTable> InterestTable { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
