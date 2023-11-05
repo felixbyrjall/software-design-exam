@@ -3,22 +3,23 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DB;
 
 namespace DigitalGameStore.RecommendGames
 {
     public class InterestAnalyzer : IInterestAnalyzer
     {
-        private readonly GameContext _context;
+        private readonly Context _context;
 
-        public InterestAnalyzer(GameContext context)
+        public InterestAnalyzer(Context context)
         {
             _context = context;
         }
 
         public async Task<List<int>> GetIntGames()
         {
-            var interestedGameIds = await _context.Interest_List
-                .Select(il => il.Game_id)
+            var interestedGameIds = await _context.Interest
+                .Select(il => il.GameID)
                 .ToListAsync();
             return interestedGameIds;
         }
@@ -26,9 +27,9 @@ namespace DigitalGameStore.RecommendGames
         public async Task<List<int>> GetIntGenres()
         {
             var interestedGameIds = await GetIntGames();
-            var interestedGenreIds = await _context.Game_Genres
-                .Where(gg => interestedGameIds.Contains(gg.Game_id))
-                .Select(gg => gg.Genre_id)
+            var interestedGenreIds = await _context.GameGenres
+                .Where(gg => interestedGameIds.Contains(gg.Game_Id))
+                .Select(gg => gg.Genre_Id)
                 .ToListAsync();
             return interestedGenreIds;
         }

@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using DB;
 using DigitalGameStore.Admin;
+using DigitalGameStore.RecommendGames;
 using DigitalGameStore.UI;
 using DigitalGameStore.Users.Customer;
 using Microsoft.Data.Sqlite;
@@ -9,6 +10,7 @@ using Microsoft.Data.Sqlite;
 namespace DigitalGameStore.Login;
 
 public class LoginMenu {
+    private Context _context;
 
     public void LoginOptions()
     {
@@ -32,7 +34,7 @@ public class LoginMenu {
                 break;
 			case 2:
 				Func.Clear();
-				RecommendGames(); // Browse recommended games --> add to interestlist (Refreshes recommendedgameslist)
+				RecommendGames().Wait(); // Browse recommended games --> add to interestlist (Refreshes recommendedgameslist)
 				break;
 			case 3:
                 Environment.Exit(0);
@@ -50,9 +52,21 @@ public class LoginMenu {
 
     }
 
-    public void RecommendGames()
+    public async Task RecommendGames()
     {
+        var interestAnalyzer = new InterestAnalyzer(_context);
+        var gameRecommender = new GameRecommender(_context);
+        var recommendedGames = await gameRecommender.RecommendGames(interestAnalyzer);
 
+        foreach (var game in recommendedGames)
+        {
+            Console.WriteLine($"{game.Name}");
+        }
+
+        Console.WriteLine("\nPress any key to return to the menu...");
+        Console.ReadKey(true);
+        Func.Clear();
+        LoginOptions();
     }
 
     /*public void LoginScreen() {

@@ -12,6 +12,7 @@ public partial class Context : DbContext
     public DbSet<Genre> Genre => Set<Genre>();
     public DbSet<GameGenres> GameGenres => Set<GameGenres>();
 
+    public DbSet<Interest> Interest => Set<Interest>();
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
