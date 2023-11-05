@@ -23,10 +23,12 @@ namespace DigitalGameStore.Recommender
 
             score += matchingGenreCount * 10;
 
+
+            /* PUBLISHER SCORING 
             if (userInterest.InterestedPublisher(game.PublisherId))
             {
                 score += 10;
-            }
+            } */
 
             return score; 
         }
@@ -49,7 +51,7 @@ namespace DigitalGameStore.Recommender
                 }
             }
 
-            return recommendedGames;
+            return recommendedGames; // Show top 5. 
         }
        
     }

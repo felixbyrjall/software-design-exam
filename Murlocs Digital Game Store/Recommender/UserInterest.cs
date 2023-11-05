@@ -12,7 +12,7 @@ namespace DigitalGameStore.Recommender
 
         public async Task AddGameToIntList(int gameId)
         {
-            // Add gameId to Interest_List in the database
+            // Add gameId to Interest_List in the database, using down/up arrow + enter.
             // Return interest_list.
         }
 
