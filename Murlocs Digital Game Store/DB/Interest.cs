@@ -1,6 +1,6 @@
 namespace DigitalGameStore.DB; 
 
-public class InterestTable {
+public class Interest {
     public int Interest_Id { get; set; }
     
     public int GameID { get; set; }
