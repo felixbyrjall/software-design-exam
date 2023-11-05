@@ -2,6 +2,7 @@
 using System.Runtime.CompilerServices;
 using DB;
 using DigitalGameStore.Admin;
+using DigitalGameStore.DB;
 using DigitalGameStore.InterestList;
 using DigitalGameStore.RecommendGames;
 using DigitalGameStore.UI;
@@ -53,7 +54,7 @@ public class LoginMenu {
         DisplayList displayList = new DisplayList();
 
         string prompt = "(Use the arrows to select an option)";
-        string[] options = { "Display List", "Add Interest", "Delete Interest", "Exit" };
+        string[] options = { "Display List", "Add Interest", "Delete Interest", "Display All Games", "Exit" };
         Menu mainMenu = new Menu(prompt, options);
 
         int selectedIndex = mainMenu.Run();
@@ -67,19 +68,20 @@ public class LoginMenu {
                 break;
             case 1:
                 Console.WriteLine("What game would you like to add from your interest list?: ");
-                int addInput = Console.Read();
-                Console.ReadLine();
+                int addInput = int.Parse(Console.ReadLine());
                 addGame.Add(addInput);
                 InterestList();
                 break;
             case 2:
                 Console.WriteLine("What game would you like to delete from your interest list?: ");
-                int deleteInput = Console.Read();
-                Console.ReadLine();
+                int deleteInput = int.Parse(Console.ReadLine());
                 deleteGame.Delete(deleteInput);
                 InterestList();
                 break;
             case 3:
+                displayList.DisplayAllGames();
+                break;
+            case 4:
                 Environment.Exit(0);
                 break;
 
