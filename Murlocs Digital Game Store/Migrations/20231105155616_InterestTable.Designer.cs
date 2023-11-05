@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DigitalGameStore.Migrations
 {
     [DbContext(typeof(DigitalGameStoreContext))]
-    [Migration("20231105142438_Database")]
-    partial class Database
+    [Migration("20231105155616_InterestTable")]
+    partial class InterestTable
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -104,6 +104,22 @@ namespace DigitalGameStore.Migrations
                     b.ToTable("Genre");
                 });
 
+            modelBuilder.Entity("DigitalGameStore.DB.InterestTable", b =>
+                {
+                    b.Property<int>("Interest_ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("GameID")
+                        .HasColumnType("INTEGER");
+
+                    b.HasKey("Interest_ID");
+
+                    b.HasIndex("GameID");
+
+                    b.ToTable("InterestTable");
+                });
+
             modelBuilder.Entity("DigitalGameStore.DB.Game", b =>
                 {
                     b.HasOne("DB.Publisher", "Publisher")
@@ -130,9 +146,25 @@ namespace DigitalGameStore.Migrations
                     b.Navigation("Genres");
                 });
 
+            modelBuilder.Entity("DigitalGameStore.DB.InterestTable", b =>
+                {
+                    b.HasOne("DigitalGameStore.DB.Game", "Game")
+                        .WithMany("InterestTables")
+                        .HasForeignKey("GameID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Game");
+                });
+
             modelBuilder.Entity("DB.Publisher", b =>
                 {
                     b.Navigation("Games");
+                });
+
+            modelBuilder.Entity("DigitalGameStore.DB.Game", b =>
+                {
+                    b.Navigation("InterestTables");
                 });
 
             modelBuilder.Entity("DigitalGameStore.DB.Genre", b =>

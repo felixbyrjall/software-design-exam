@@ -21,6 +21,8 @@ public partial class DigitalGameStoreContext : DbContext {
         modelBuilder.Entity<Publisher>(entity => { entity.HasKey(e => e.Publisher_ID); });
         modelBuilder.Entity<Genre>(entity => { entity.HasKey(e => e.Genre_ID); });
         modelBuilder.Entity<GameGenres>(entity => { entity.HasKey(e => e.GameGenres_ID); });
+        modelBuilder.Entity<InterestTable>(entity => { entity.HasKey(e => e.Interest_ID); });
+
         /* entity.Property(e => e.Name);
          entity.Property(e => e.Price);
          entity.Property(e => e.Date);
