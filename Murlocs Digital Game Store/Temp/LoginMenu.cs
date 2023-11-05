@@ -24,15 +24,15 @@ public class LoginMenu {
         {
             case 0:
 				Func.Clear();
-				BrowseMenu();
+				BrowseMenu(); // On enter --> Add game to interest list or read more about game or back
 				break;
             case 1:
 				Func.Clear();
-				InterestList();
+				InterestList(); // Browse your games (edit/delete) --> add more games --> BrowseMenu()
                 break;
 			case 2:
 				Func.Clear();
-				RecommendGames();
+				RecommendGames(); // Browse recommended games --> add to interestlist (Refreshes recommendedgameslist)
 				break;
 			case 3:
                 Environment.Exit(0);
