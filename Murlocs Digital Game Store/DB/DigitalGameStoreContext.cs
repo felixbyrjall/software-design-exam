@@ -1,23 +1,30 @@
+using DigitalGameStore.DB;
+using DigitalGameStore.RecommendGames;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
-namespace DB; 
+namespace DB;
 
-public partial class DigitalGameStoreContext : DbContext {
-    public DbSet<Product> Product => Set<Product>();
+public partial class DigitalGameStoreContext : DbContext
+{
+    public DbSet<Game> Game => Set<Game>();
     public DbSet<Publisher> Publisher => Set<Publisher>();
-    public DbSet<Users> Users => Set<Users>();
-    
+    public DbSet<Genre> Genre => Set<Genre>();
+    public DbSet<GameGenres> GameGenres => Set<GameGenres>();
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
         optionsBuilder.UseSqlite($@"Data source = Resources/DigitalGameStore.db");
     }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder) {
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
 
-        modelBuilder.Entity<Product>(entity => { entity.HasKey(e => e.Product_Id); });
+        modelBuilder.Entity<Game>(entity => { entity.HasKey(e => e.Game_Id); });
         modelBuilder.Entity<Publisher>(entity => { entity.HasKey(e => e.Publisher_ID); });
-        modelBuilder.Entity<Users>(entity => { entity.HasKey(e => e.UserID); });
+        modelBuilder.Entity<Genre>(entity => { entity.HasKey(e => e.Genre_ID); });
+        modelBuilder.Entity<GameGenres>(entity => { entity.HasKey(e => e.GameGenres_ID); });
         /* entity.Property(e => e.Name);
          entity.Property(e => e.Price);
          entity.Property(e => e.Date);
