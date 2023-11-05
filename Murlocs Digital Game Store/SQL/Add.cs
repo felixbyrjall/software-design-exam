@@ -1,6 +1,7 @@
 using System.Data;
 using System.Xml.Linq;
 using DB;
+using DigitalGameStore.UI;
 using Microsoft.Data.Sqlite;
 
 namespace DigitalGameStore.Admin; 
@@ -13,23 +14,21 @@ public class Add{
 
 	public void AddProduct(string productName, int productPrice, string? releaseDate, int publisherId) {
         try {
-            SqliteConnection _sqliteConnection;
-            _sqliteConnection = new SqliteConnection("Data source = Resources/DigitalGameStore.db");
-            _sqliteConnection.Open();
+	        Func s = new();
+	        s.Connect();
             string query =
-                "INSERT INTO Product (Name, Price, Date, PublisherID) VALUES (@name, @price, @date, @publisherid)";
-            SqliteCommand insertCMD = new SqliteCommand(query, _sqliteConnection);
+                "INSERT INTO Game (Name, ReleaseDate, Score, PublisherID) VALUES (@name, @date, @publisherid)";
+            SqliteCommand insertCMD = new SqliteCommand(query, s.Connect());
             insertCMD.Connection.Open();
             insertCMD.Parameters.AddWithValue("@name", productName);
-            insertCMD.Parameters.AddWithValue("@price", productPrice);
             insertCMD.Parameters.AddWithValue("@date", releaseDate);
             insertCMD.Parameters.AddWithValue("@publisherid", publisherId);
             insertCMD.ExecuteNonQuery();
             insertCMD.Connection.Close();
 
             // Should be an independent method for the sake of SOLID
-            using (SqliteCommand selectCMD = _sqliteConnection.CreateCommand()) {
-                selectCMD.CommandText = "SELECT * FROM Product";
+            using (SqliteCommand selectCMD = s.Connect().CreateCommand()) {
+                selectCMD.CommandText = "SELECT * FROM Game";
                 selectCMD.CommandType = CommandType.Text;
                 selectCMD.Connection.Open();
                 SqliteDataReader myReader = selectCMD.ExecuteReader();

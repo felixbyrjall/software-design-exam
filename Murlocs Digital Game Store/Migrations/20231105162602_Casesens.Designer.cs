@@ -3,6 +3,7 @@ using System;
 using DB;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DigitalGameStore.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class DigitalGameStoreContextModelSnapshot : ModelSnapshot
+    [Migration("20231105162602_Casesens")]
+    partial class Casesens
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.13");
@@ -101,7 +104,7 @@ namespace DigitalGameStore.Migrations
                     b.ToTable("Genre");
                 });
 
-            modelBuilder.Entity("DigitalGameStore.DB.Interest", b =>
+            modelBuilder.Entity("DigitalGameStore.DB.InterestTable", b =>
                 {
                     b.Property<int>("Interest_Id")
                         .ValueGeneratedOnAdd()
@@ -114,7 +117,7 @@ namespace DigitalGameStore.Migrations
 
                     b.HasIndex("GameID");
 
-                    b.ToTable("Interest");
+                    b.ToTable("InterestTable");
                 });
 
             modelBuilder.Entity("DigitalGameStore.DB.Game", b =>
@@ -143,10 +146,10 @@ namespace DigitalGameStore.Migrations
                     b.Navigation("Genres");
                 });
 
-            modelBuilder.Entity("DigitalGameStore.DB.Interest", b =>
+            modelBuilder.Entity("DigitalGameStore.DB.InterestTable", b =>
                 {
                     b.HasOne("DigitalGameStore.DB.Game", "Game")
-                        .WithMany("Interests")
+                        .WithMany("InterestTables")
                         .HasForeignKey("GameID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -161,7 +164,7 @@ namespace DigitalGameStore.Migrations
 
             modelBuilder.Entity("DigitalGameStore.DB.Game", b =>
                 {
-                    b.Navigation("Interests");
+                    b.Navigation("InterestTables");
                 });
 
             modelBuilder.Entity("DigitalGameStore.DB.Genre", b =>

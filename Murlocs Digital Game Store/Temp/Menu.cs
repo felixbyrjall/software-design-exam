@@ -7,11 +7,9 @@ namespace DigitalGameStore.UI
 		private int SelectedIndex;
 		private string[] Options;
 		private string Prompt;
-		private string Title;
 			
-		public Menu(string title, string prompt, string[] options)
+		public Menu(string prompt, string[] options)
 		{
-			Title = title;
 			Prompt = prompt;
 			Options = options;
 			SelectedIndex = 0;
@@ -19,7 +17,7 @@ namespace DigitalGameStore.UI
 
 		private void RenderDisplay()
 		{
-			Console.WriteLine(Title, Prompt);
+			Console.WriteLine(Prompt);
 
 			for (int i = 0; i < Options.Length; i++)
 			{
