@@ -4,20 +4,20 @@ using Microsoft.Data.Sqlite;
 
 namespace DigitalGameStore.InterestList;
 
-public class DisplayList
-{
+public class DisplayList {
 
-    public void DisplayInterest()
-    {
+    public void DisplayInterest() {
+
+        List<String> gameSelections = new List<String>();
 
         SqliteConnection _sqliteConnection;
-        _sqliteConnection = new SqliteConnection($@"Data source = D:\Users\Jokubas\Documents\Kristiania\Year_2\Software Exam\Murlocs Digital Game Store\Resources\DigitalGameStore.db");
+        _sqliteConnection = new SqliteConnection($@"Data source = Resources/DigitalGameStore.db");
         _sqliteConnection.Open();
 
         SqliteCommand selectCMD = _sqliteConnection.CreateCommand();
 
         selectCMD.CommandText = """
-                                SELECT Game.Name AS GameName, Game.Game_Id AS GID, Interest.GameID AS InterestGID,  Interest.Interest_Id AS InterestID
+                                SELECT Game.Name AS GameName, Game.ID AS GID, Interest.GameID as InterestGID
                                 FROM Game
                                 JOIN Interest
                                 ON GID = InterestGID;
@@ -25,17 +25,17 @@ public class DisplayList
         selectCMD.CommandType = CommandType.Text;
         selectCMD.Connection.Open();
         SqliteDataReader myReader = selectCMD.ExecuteReader();
-        while (myReader.Read())
-        {
-
-
-            Console.WriteLine
-            ("Name: " + myReader.GetString("GameName") + " Game ID: "
-             + myReader.GetInt32("GID") + " Interest ID: " + myReader.GetInt32("InterestID"));
+        while (myReader.Read()) {
+            Console.WriteLine("Name: " + myReader["GameName"]);
         }
 
+
+
         selectCMD.Connection.Close();
+
     }
+
+
 
     public void DisplayAllGames()
     {
@@ -43,24 +43,23 @@ public class DisplayList
         List<String> gameSelections = new List<String>();
 
         SqliteConnection _sqliteConnection;
-        _sqliteConnection = new SqliteConnection($@"Data source = C:\Users\maihe\source\repos\software-design-exam\Murlocs Digital Game Store\Resources\DigitalGameStore.db");
+        _sqliteConnection = new SqliteConnection($@"Data source = Resources/DigitalGameStore.db");
         _sqliteConnection.Open();
 
         SqliteCommand selectCMD = _sqliteConnection.CreateCommand();
 
         selectCMD.CommandText = """
-                                SELECT Game.Name AS GameName, Game.Game_Id AS GID, Interest.GameID AS InterestGID,  Interest.Interest_Id AS InterestID
-                                FROM Game
-                                JOIN Interest
-                                ON GID = InterestGID;
+                                SELECT Name as GameName                               
+                                FROM Game;
                                 """;
         selectCMD.CommandType = CommandType.Text;
         selectCMD.Connection.Open();
         SqliteDataReader myReader = selectCMD.ExecuteReader();
         while (myReader.Read())
         {
-
             string tempString = myReader.GetString("GameName");
+            Console.WriteLine(tempString);
+
             gameSelections.Add(tempString);
         }
 

@@ -28,8 +28,8 @@ namespace DigitalGameStore.RecommendGames
         {
             var interestedGameIds = await GetIntGames();
             var interestedGenreIds = await _context.GameGenres
-                .Where(gg => interestedGameIds.Contains(gg.Game_Id))
-                .Select(gg => gg.Genre_Id)
+                .Where(gg => interestedGameIds.Contains(gg.GameID))
+                .Select(gg => gg.GenreID)
                 .ToListAsync();
             return interestedGenreIds;
         }

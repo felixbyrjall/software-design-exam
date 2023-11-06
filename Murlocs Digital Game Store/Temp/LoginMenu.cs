@@ -51,7 +51,7 @@ public class LoginMenu {
 
         AddGame addGame = new AddGame();
         DeleteGame deleteGame = new DeleteGame();
-        DisplayList displayList = new DisplayList();
+        DisplayList displayList = new();
 
         string prompt = "(Use the arrows to select an option)";
         string[] options = { "Display List", "Add Interest", "Delete Interest", "Display All Games", "Exit" };

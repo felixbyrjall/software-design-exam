@@ -15,7 +15,7 @@ namespace DigitalGameStore.InterestList
         {
 
             SqliteConnection _sqliteConnection;
-            _sqliteConnection = new SqliteConnection($@"Data source = C:\Users\maihe\source\repos\software-design-exam\Murlocs Digital Game Store\Resources\DigitalGameStore.db");
+            _sqliteConnection = new SqliteConnection($@"Data source = Resources/DigitalGameStore.db");
             _sqliteConnection.Open();
 
             string addSQL = """
