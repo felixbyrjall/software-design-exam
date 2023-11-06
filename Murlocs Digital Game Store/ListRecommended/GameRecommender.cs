@@ -11,7 +11,7 @@ namespace DigitalGameStore.RecommendGames
 {
     public class GameRecommender : IGameRecommender
     {
-        // Database connection
+        // Database connection tested.
         private readonly Context _context;
         public GameRecommender(Context context)
         {
