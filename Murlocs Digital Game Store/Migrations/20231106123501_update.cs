@@ -5,7 +5,7 @@
 namespace DigitalGameStore.Migrations
 {
     /// <inheritdoc />
-    public partial class InterestTable : Migration
+    public partial class update : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -14,33 +14,33 @@ namespace DigitalGameStore.Migrations
                 name: "Genre",
                 columns: table => new
                 {
-                    Genre_ID = table.Column<int>(type: "INTEGER", nullable: false)
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Genre", x => x.Genre_ID);
+                    table.PrimaryKey("PK_Genre", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Publisher",
                 columns: table => new
                 {
-                    Publisher_ID = table.Column<int>(type: "INTEGER", nullable: false)
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Publisher", x => x.Publisher_ID);
+                    table.PrimaryKey("PK_Publisher", x => x.ID);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Game",
                 columns: table => new
                 {
-                    Game_Id = table.Column<int>(type: "INTEGER", nullable: false)
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     ReleaseDate = table.Column<string>(type: "TEXT", nullable: false),
@@ -49,12 +49,12 @@ namespace DigitalGameStore.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Game", x => x.Game_Id);
+                    table.PrimaryKey("PK_Game", x => x.ID);
                     table.ForeignKey(
                         name: "FK_Game_Publisher_PublisherID",
                         column: x => x.PublisherID,
                         principalTable: "Publisher",
-                        principalColumn: "Publisher_ID",
+                        principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -62,44 +62,44 @@ namespace DigitalGameStore.Migrations
                 name: "GameGenres",
                 columns: table => new
                 {
-                    GameGenres_ID = table.Column<int>(type: "INTEGER", nullable: false)
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    Game_ID = table.Column<int>(type: "INTEGER", nullable: false),
-                    GamesGame_Id = table.Column<int>(type: "INTEGER", nullable: true),
-                    Genre_ID = table.Column<int>(type: "INTEGER", nullable: false),
-                    GenresGenre_ID = table.Column<int>(type: "INTEGER", nullable: true)
+                    GameID = table.Column<int>(type: "INTEGER", nullable: false),
+                    GenreID = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GameGenres", x => x.GameGenres_ID);
+                    table.PrimaryKey("PK_GameGenres", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_GameGenres_Game_GamesGame_Id",
-                        column: x => x.GamesGame_Id,
+                        name: "FK_GameGenres_Game_GameID",
+                        column: x => x.GameID,
                         principalTable: "Game",
-                        principalColumn: "Game_Id");
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_GameGenres_Genre_GenresGenre_ID",
-                        column: x => x.GenresGenre_ID,
+                        name: "FK_GameGenres_Genre_GenreID",
+                        column: x => x.GenreID,
                         principalTable: "Genre",
-                        principalColumn: "Genre_ID");
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "InterestTable",
+                name: "Interest",
                 columns: table => new
                 {
-                    Interest_ID = table.Column<int>(type: "INTEGER", nullable: false)
+                    ID = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     GameID = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_InterestTable", x => x.Interest_ID);
+                    table.PrimaryKey("PK_Interest", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_InterestTable_Game_GameID",
+                        name: "FK_Interest_Game_GameID",
                         column: x => x.GameID,
                         principalTable: "Game",
-                        principalColumn: "Game_Id",
+                        principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -109,18 +109,18 @@ namespace DigitalGameStore.Migrations
                 column: "PublisherID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GameGenres_GamesGame_Id",
+                name: "IX_GameGenres_GameID",
                 table: "GameGenres",
-                column: "GamesGame_Id");
+                column: "GameID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GameGenres_GenresGenre_ID",
+                name: "IX_GameGenres_GenreID",
                 table: "GameGenres",
-                column: "GenresGenre_ID");
+                column: "GenreID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_InterestTable_GameID",
-                table: "InterestTable",
+                name: "IX_Interest_GameID",
+                table: "Interest",
                 column: "GameID");
         }
 
@@ -131,7 +131,7 @@ namespace DigitalGameStore.Migrations
                 name: "GameGenres");
 
             migrationBuilder.DropTable(
-                name: "InterestTable");
+                name: "Interest");
 
             migrationBuilder.DropTable(
                 name: "Genre");

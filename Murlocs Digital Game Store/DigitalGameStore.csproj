@@ -11,7 +11,13 @@
   <ItemGroup>
     <None Remove="UI\" />
     <None Remove="Temp\" />
+<<<<<<< HEAD
     <None Remove="DBcaller\" />
+=======
+    <None Update="Resources\DigitalGameStore.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+>>>>>>> feature
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
