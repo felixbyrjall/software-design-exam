@@ -46,7 +46,7 @@ public class LoginMenu {
 
     }
 
-    public void InterestList()
+    public async void InterestList()
     {
 
         AddGame addGame = new AddGame();
@@ -54,7 +54,7 @@ public class LoginMenu {
         DisplayList displayList = new DisplayList();
 
         string prompt = "(Use the arrows to select an option)";
-        string[] options = { "Display List", "Add Interest", "Delete Interest", "Display All Games", "Exit" };
+        string[] options = { "Display List", "Add Interest", "Delete Interest", "Exit" };
         Menu mainMenu = new Menu(prompt, options);
 
         int selectedIndex = mainMenu.Run();
@@ -64,7 +64,8 @@ public class LoginMenu {
 
             case 0:
                 Console.WriteLine("Here is your Interest List: ");
-                displayList.DisplayInterest();
+                displayList.DisplayIntrests();
+                InterestList();
                 break;
             case 1:
                 Console.WriteLine("What game would you like to add from your interest list?: ");
@@ -79,10 +80,7 @@ public class LoginMenu {
                 InterestList();
                 break;
             case 3:
-                displayList.DisplayAllGames();
-                break;
-            case 4:
-                Environment.Exit(0);
+                LoginOptions();
                 break;
 
         }

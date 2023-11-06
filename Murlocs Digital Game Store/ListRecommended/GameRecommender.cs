@@ -32,9 +32,9 @@ namespace DigitalGameStore.RecommendGames
                                          .Where(gg => gg.Game_Id == game.Game_Id)
                                          .Select(gg => gg.Genre_Id)
                                          .ToListAsync();
-            int matchingGenreCount = await userInterest.CompareGenres(genreIds);
+            //int matchingGenreCount = await userInterest.CompareGenres(genreIds);
 
-            score += matchingGenreCount * 10;
+            //score += matchingGenreCount * 10;
 
             return score;
         }

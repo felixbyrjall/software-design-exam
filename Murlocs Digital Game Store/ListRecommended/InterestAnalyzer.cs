@@ -15,6 +15,14 @@ namespace DigitalGameStore.RecommendGames
         {
             _context = context;
         }
+        
+        public async Task<List<int>> DisplayWithLINQ() {
+        
+            var gameList = await _context.Game
+                .Select(g => g.Game_Id)
+                .ToListAsync();
+            return gameList;
+        }
 
         public async Task<List<int>> GetIntGames()
         {
@@ -41,9 +49,9 @@ namespace DigitalGameStore.RecommendGames
         }
     }
 
-    public interface IInterestAnalyzer
-    {
-        Task<int> CompareGenres(List<int> gameGenreIds);
-        /// Interface to ensure the implementation of genre comparison method.
-    }
+        public interface IInterestAnalyzer
+        {
+            Task<int> CompareGenres(List<int> gameGenreIds);
+            /// Interface to ensure the implementation of genre comparison method.
+        }
 }

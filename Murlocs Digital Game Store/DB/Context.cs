@@ -14,9 +14,9 @@ public partial class Context : DbContext
 
     public DbSet<Interest> Interest => Set<Interest>();
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseSqlite($@"Data source = C:\Users\maihe\source\repos\software-design-exam\Murlocs Digital Game Store\Resources\DigitalGameStore.db");
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
+        
+        optionsBuilder.UseSqlite($@"Data source = Resources\DigitalGameStore.db");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
