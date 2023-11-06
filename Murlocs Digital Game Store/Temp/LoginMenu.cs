@@ -2,9 +2,11 @@
 using System.Runtime.CompilerServices;
 using DB;
 using DigitalGameStore.Admin;
+
 using DigitalGameStore.DB;
 using DigitalGameStore.InterestList;
 using DigitalGameStore.RecommendGames;
+using DigitalGameStore.InterestList;
 using DigitalGameStore.UI;
 using DigitalGameStore.Users.Customer;
 using Microsoft.Data.Sqlite;
@@ -45,7 +47,6 @@ public class LoginMenu {
     {
 
     }
-
     public async void InterestList()
     {
 

@@ -1,4 +1,4 @@
-﻿using DB;
+using DB;
 using DigitalGameStore.DB;
 
 namespace DigitalGameStore.InterestList
@@ -18,20 +18,6 @@ namespace DigitalGameStore.InterestList
             using Context database = new Context();
             database.Interest.Add(newInterest);
             database.SaveChanges();
-
-            /*SqliteConnection _sqliteConnection;
-            _sqliteConnection = new SqliteConnection($@"Data source = Resources\DigitalGameStore.db");
-            _sqliteConnection.Open();
-
-            string addSQL = """
-                            INSERT INTO Interest (GameID)
-                            VALUES (@gameid);
-                            """;
-            SqliteCommand addCMD = new SqliteCommand(addSQL, _sqliteConnection);
-            addCMD.Connection.Open();
-            addCMD.Parameters.AddWithValue("@gameid", gameId);
-            addCMD.ExecuteNonQuery();
-            addCMD.Connection.Close();*/
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using DB;
-using DigitalGameStore.DB;
-using Microsoft.Data.Sqlite;
+using DB;
 
 namespace DigitalGameStore.InterestList;
 

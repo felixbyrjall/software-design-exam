@@ -1,4 +1,4 @@
-﻿using DB;
+using DB;
 using DigitalGameStore.DB;
 using DigitalGameStore.UI;
 
@@ -6,8 +6,7 @@ namespace DigitalGameStore.InterestList;
 
 public class DisplayList {
 
-    public void DisplayIntrests()
-    {
+    public void DisplayIntrests() {
 
         List<String> gameSelections = new List<String>();
         gameSelections.Add("Previous Menu");
@@ -25,7 +24,7 @@ public class DisplayList {
 
             gameSelections.Add("Game ID: " + item.GameID + " Game Name: " + item.GameName);
         }
-
+        
         string prompt = "(Use the arrows to select an option)";
         string[] options = gameSelections.ToArray();
         Menu mainMenu = new Menu(prompt, options);
