@@ -66,10 +66,10 @@ public class DisplayList
 
         selectCMD.Connection.Close();
 
-        string prompt = "(Use the arrows to select an option)";
-        string[] options = gameSelections.ToArray();
-        Menu mainMenu = new Menu(prompt, options);
+        string additionalText = "(Use the arrows to select an option)";
+        string[] menuOptions = gameSelections.ToArray();
+        MenuLogic menu = new MenuLogic(additionalText, menuOptions);
 
-        int selectedIndex = mainMenu.Run();
+        int selectedIndex = menu.Start();
     }
 }
