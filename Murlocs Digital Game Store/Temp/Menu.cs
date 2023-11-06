@@ -45,49 +45,47 @@ public class Menu {
 
     }
 
-    public void InterestList()
-    {
+	public async void InterestList()
+	{
 
-        AddGame addGame = new AddGame();
-        DeleteGame deleteGame = new DeleteGame();
-        DisplayList displayList = new DisplayList();
+		AddGame addGame = new AddGame();
+		DeleteGame deleteGame = new DeleteGame();
+		DisplayList displayList = new DisplayList();
 
-        string additionalText = "(Use the arrows to select an option)";
-        string[] menuOptions = { "Display List", "Add Interest", "Delete Interest", "Display All Games", "Exit" };
-        MenuLogic mainMenu = new MenuLogic(additionalText, menuOptions);
+		string prompt = "(Use the arrows to select an option)";
+		string[] options = { "Display List", "Add Interest", "Delete Interest", "Back to main menu" };
+		MenuLogic mainMenu = new MenuLogic(prompt, options);
 
-        int selectedIndex = mainMenu.Start();
+		int selectedIndex = mainMenu.Start();
 
-        switch (selectedIndex)
-        {
+		switch (selectedIndex)
+		{
 
-            case 0:
-				Func.WriteOutput("Here is your Interest List: ");
-                displayList.DisplayInterest();
-                break;
-            case 1:
-                Func.WriteOutput("What game would you like to add from your interest list?: ");
+			case 0:
+				Console.WriteLine("Here is your Interest List: ");
+				displayList.DisplayIntrests();
+				InterestList();
+				break;
+			case 1:
+				Console.WriteLine("What game would you like to add from your interest list?: ");
 				int addInput = int.Parse(Func.ReadInput());
-                addGame.Add(addInput);
-                InterestList();
-                break;
-            case 2:
-				Func.WriteOutput("What game would you like to delete from your interest list?: ");
-                int deleteInput = int.Parse(Func.ReadInput());
-                deleteGame.Delete(deleteInput);
-                InterestList();
-                break;
-            case 3:
-                displayList.DisplayAllGames();
-                break;
-            case 4:
-                Environment.Exit(0);
-                break;
+				addGame.Add(addInput);
+				InterestList();
+				break;
+			case 2:
+				Console.WriteLine("What game would you like to delete from your interest list?: ");
+				int deleteInput = int.Parse(Func.ReadInput());
+				deleteGame.Delete(deleteInput);
+				InterestList();
+				break;
+			case 3:
+				MainMenu();
+				break;
 
-        }
-    }
+		}
+	}
 
-    public async Task RecommendGamesAsync()
+	public async Task RecommendGamesAsync()
     {
         using (var context = new Context()) // Use the correct context class name
         {
