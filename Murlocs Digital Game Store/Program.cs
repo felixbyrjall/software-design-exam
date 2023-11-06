@@ -6,7 +6,7 @@ public class Program
 	{
 		//Console.SetWindowSize(40, 40);
 
-		Menu menu = new Menu();
-		menu.MainMenu();
+		LoginMenu loginMenu = new LoginMenu();
+		loginMenu.LoginOptions();
 	}
 }
