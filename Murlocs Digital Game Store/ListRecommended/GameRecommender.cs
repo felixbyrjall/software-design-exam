@@ -29,8 +29,8 @@ namespace DigitalGameStore.RecommendGames
         {
             int score = 0;
             var genreIds = await _context.GameGenres
-                                         .Where(gg => gg.Game_Id == game.Game_Id)
-                                         .Select(gg => gg.Genre_Id)
+                                         .Where(gg => gg.GameID == game.ID)
+                                         .Select(gg => gg.GenreID)
                                          .ToListAsync();
             int matchingGenreCount = await userInterest.CompareGenres(genreIds);
 

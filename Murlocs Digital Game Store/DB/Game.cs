@@ -9,7 +9,7 @@ namespace DigitalGameStore.DB
 {
     public class Game
     {
-        public int Game_Id { get; set; }
+        public int ID { get; set; }
         public string Name { get; set; } = string.Empty;
         public string ReleaseDate { get; set; } = string.Empty;
         public int Score { get; set; } // Hold the score for interestlist
