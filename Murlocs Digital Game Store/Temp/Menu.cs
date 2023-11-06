@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 using System.Runtime.CompilerServices;
 using DB;
 using DigitalGameStore.DB;
@@ -61,17 +62,17 @@ public class Menu {
         {
 
             case 0:
-                Console.WriteLine("Here is your Interest List: ");
+				Func.WriteOutput("Here is your Interest List: ");
                 displayList.DisplayInterest();
                 break;
             case 1:
-                Console.WriteLine("What game would you like to add from your interest list?: ");
+                Func.WriteOutput("What game would you like to add from your interest list?: ");
 				int addInput = int.Parse(Func.ReadInput());
                 addGame.Add(addInput);
                 InterestList();
                 break;
             case 2:
-                Console.WriteLine("What game would you like to delete from your interest list?: ");
+				Func.WriteOutput("What game would you like to delete from your interest list?: ");
                 int deleteInput = int.Parse(Func.ReadInput());
                 deleteGame.Delete(deleteInput);
                 InterestList();
@@ -100,7 +101,7 @@ public class Menu {
                 Console.WriteLine($"{game.Name} - Score: {game.Score}");
             }
 
-            Console.WriteLine("Press any key to return to the menu...");
+			Func.WriteOutput("Press any key to return to the menu...");
             Console.ReadKey();
         }
     }
