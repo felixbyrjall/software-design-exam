@@ -11,14 +11,19 @@
   <ItemGroup>
     <None Remove="UI\" />
     <None Remove="Temp\" />
+<<<<<<< HEAD
+    <None Remove="DBcaller\" />
+=======
     <None Update="Resources\DigitalGameStore.db">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+>>>>>>> feature
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
     <Folder Include="UI\" />
     <Folder Include="Temp\" />
+    <Folder Include="DBcaller\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.13">
