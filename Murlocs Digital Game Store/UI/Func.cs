@@ -5,18 +5,12 @@ namespace DigitalGameStore.UI
 {
 	public class Func
 	{
-		public SqliteConnection Connect() {
-			SqliteConnection _sqliteConnection;
-			_sqliteConnection = new SqliteConnection("Data source = Resources/DigitalGameStore.db");
-			 _sqliteConnection.Open();
-			 return Connect();
-		}
 		#region Console action
 		public static string? _userInput;
 
 		public static void Clear()
 		{
-			Clear();
+			Console.Clear();
 		}
 
 		public static string? ReadInput()
