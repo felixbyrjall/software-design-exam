@@ -1,74 +1,44 @@
-﻿using System.Data;
+﻿using DB;
+using DigitalGameStore.DB;
+using DigitalGameStore.Login;
 using DigitalGameStore.UI;
-using Microsoft.Data.Sqlite;
 
 namespace DigitalGameStore.InterestList;
 
-public class DisplayList {
+public class DisplayList
+{
 
-    public void DisplayInterest() {
+	public void DisplayIntrests()
+	{
 
-        List<String> gameSelections = new List<String>();
+		List<String> gameSelections = new List<String>();
+		gameSelections.Add("Previous Menu");
+		using Context database = new();
 
-        SqliteConnection _sqliteConnection;
-        _sqliteConnection = new SqliteConnection($@"Data source = Resources/DigitalGameStore.db");
-        _sqliteConnection.Open();
+		IList<Interest> interests = database.Interest.ToList();
+		IList<Game> games = database.Game.ToList();
 
-        SqliteCommand selectCMD = _sqliteConnection.CreateCommand();
+		var gamesInterest =
+			(from Game in games
+			 join Interest in interests on Game.ID equals Interest.GameID
+			 select new { GameName = Game.Name, GameID = Game.ID }).ToList();
+		foreach (var item in gamesInterest)
+		{
 
-        selectCMD.CommandText = """
-                                SELECT Game.Name AS GameName, Game.ID AS GID, Interest.GameID as InterestGID
-                                FROM Game
-                                JOIN Interest
-                                ON GID = InterestGID;
-                                """;
-        selectCMD.CommandType = CommandType.Text;
-        selectCMD.Connection.Open();
-        SqliteDataReader myReader = selectCMD.ExecuteReader();
-        while (myReader.Read()) {
-            Console.WriteLine("Name: " + myReader["GameName"]);
-        }
+			gameSelections.Add("Game ID: " + item.GameID + " Game Name: " + item.GameName);
+		}
 
+		string additionalText = "(Use the arrows to select an option)";
+		string[] menuOptions = gameSelections.ToArray();
+		MenuLogic mainMenu = new MenuLogic(additionalText, menuOptions);
 
+		int selectedIndex = mainMenu.Start();
 
-        selectCMD.Connection.Close();
+		switch (selectedIndex)
+		{
 
-    }
-
-
-
-    public void DisplayAllGames()
-    {
-
-        List<String> gameSelections = new List<String>();
-
-        SqliteConnection _sqliteConnection;
-        _sqliteConnection = new SqliteConnection($@"Data source = Resources/DigitalGameStore.db");
-        _sqliteConnection.Open();
-
-        SqliteCommand selectCMD = _sqliteConnection.CreateCommand();
-
-        selectCMD.CommandText = """
-                                SELECT Name as GameName                               
-                                FROM Game;
-                                """;
-        selectCMD.CommandType = CommandType.Text;
-        selectCMD.Connection.Open();
-        SqliteDataReader myReader = selectCMD.ExecuteReader();
-        while (myReader.Read())
-        {
-            string tempString = myReader.GetString("GameName");
-            Console.WriteLine(tempString);
-
-            gameSelections.Add(tempString);
-        }
-
-        selectCMD.Connection.Close();
-
-        string additionalText = "(Use the arrows to select an option)";
-        string[] menuOptions = gameSelections.ToArray();
-        MenuLogic menu = new MenuLogic(additionalText, menuOptions);
-
-        int selectedIndex = menu.Start();
-    }
+			case 0:
+				break;
+		}
+	}
 }

@@ -1,34 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.Data.Sqlite;
+﻿using DB;
+using DigitalGameStore.DB;
 
 namespace DigitalGameStore.InterestList
 {
 
-    internal class AddGame
-    {
+	internal class AddGame
+	{
 
-        public void Add(int gameId)
-        {
+		public void Add(int gameId)
+		{
 
-            SqliteConnection _sqliteConnection;
-            _sqliteConnection = new SqliteConnection($@"Data source = Resources/DigitalGameStore.db");
-            _sqliteConnection.Open();
+			Interest newInterest = new()
+			{
+				GameID = gameId
+			};
 
-            string addSQL = """
-                            INSERT INTO Interest (GameID)
-                            VALUES (@gameid);
-                            """;
-            SqliteCommand addCMD = new SqliteCommand(addSQL, _sqliteConnection);
-            addCMD.Connection.Open();
-            addCMD.Parameters.AddWithValue("@gameid", gameId);
-            addCMD.ExecuteNonQuery();
-            addCMD.Connection.Close();
-        }
-    }
+			using Context database = new Context();
+			database.Interest.Add(newInterest);
+			database.SaveChanges();
+		}
+	}
 }
 
 /* Functionalities:
