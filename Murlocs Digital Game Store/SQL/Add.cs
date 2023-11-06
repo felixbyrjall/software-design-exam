@@ -14,11 +14,12 @@ public class Add{
 
 	public void AddProduct(string productName, int productPrice, string? releaseDate, int publisherId) {
         try {
-	        Func s = new();
-	        s.Connect();
+	        SqliteConnection _sqliteConnection;
+	        _sqliteConnection = new SqliteConnection($@"Data source = Resources/DigitalGameStore.db");
+	        _sqliteConnection.Open();
             string query =
                 "INSERT INTO Game (Name, ReleaseDate, Score, PublisherID) VALUES (@name, @date, @publisherid)";
-            SqliteCommand insertCMD = new SqliteCommand(query, s.Connect());
+            SqliteCommand insertCMD = new SqliteCommand(query, _sqliteConnection);
             insertCMD.Connection.Open();
             insertCMD.Parameters.AddWithValue("@name", productName);
             insertCMD.Parameters.AddWithValue("@date", releaseDate);
@@ -27,7 +28,7 @@ public class Add{
             insertCMD.Connection.Close();
 
             // Should be an independent method for the sake of SOLID
-            using (SqliteCommand selectCMD = s.Connect().CreateCommand()) {
+            using (SqliteCommand selectCMD = _sqliteConnection.CreateCommand()) {
                 selectCMD.CommandText = "SELECT * FROM Game";
                 selectCMD.CommandType = CommandType.Text;
                 selectCMD.Connection.Open();
