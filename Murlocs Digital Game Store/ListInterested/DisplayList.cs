@@ -65,10 +65,10 @@ public class DisplayList {
 
         selectCMD.Connection.Close();
 
-        string additionalText = "(Use the arrows to select an option)";
-        string[] menuOptions = gameSelections.ToArray();
-        MenuLogic menu = new MenuLogic(additionalText, menuOptions);
+        string prompt = "(Use the arrows to select an option)";
+        string[] options = gameSelections.ToArray();
+        Menu mainMenu = new Menu(prompt, options);
 
-        int selectedIndex = menu.Start();
+        int selectedIndex = mainMenu.Run();
     }
 }
