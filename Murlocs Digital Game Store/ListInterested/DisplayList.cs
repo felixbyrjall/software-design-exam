@@ -6,7 +6,6 @@ namespace DigitalGameStore.InterestList;
 
 public class DisplayList
 {
-
 	public void DisplayIntrests()
 	{
 

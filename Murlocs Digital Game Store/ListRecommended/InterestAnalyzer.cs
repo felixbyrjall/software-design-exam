@@ -7,18 +7,12 @@ using DB;
 
 namespace DigitalGameStore.RecommendGames
 {
-    public class InterestAnalyzer : IInterestAnalyzer
+    public class InterestAnalyzer
     {
-        private readonly Context _context;
-
-        public InterestAnalyzer(Context context)
-        {
-            _context = context;
-        }
-
         public async Task<List<int>> GetIntGames()
         {
-            var interestedGameIds = await _context.Interest
+            using Context database = new();
+            var interestedGameIds = await database.Interest
                 .Select(il => il.GameID)
                 .ToListAsync();
             return interestedGameIds;
@@ -26,8 +20,9 @@ namespace DigitalGameStore.RecommendGames
 
         public async Task<List<int>> GetIntGenres()
         {
+            using Context database = new();
             var interestedGameIds = await GetIntGames();
-            var interestedGenreIds = await _context.GameGenres
+            var interestedGenreIds = await database.GameGenres
                 .Where(gg => interestedGameIds.Contains(gg.GameID))
                 .Select(gg => gg.GenreID)
                 .ToListAsync();
@@ -39,11 +34,5 @@ namespace DigitalGameStore.RecommendGames
             var interestedGenreIds = await GetIntGenres();
             return gameGenreIds.Count(genreId => interestedGenreIds.Contains(genreId));
         }
-    }
-
-    public interface IInterestAnalyzer
-    {
-        Task<int> CompareGenres(List<int> gameGenreIds);
-        /// Interface to ensure the implementation of genre comparison method.
     }
 }

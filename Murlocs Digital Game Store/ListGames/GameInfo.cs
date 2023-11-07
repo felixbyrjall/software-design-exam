@@ -41,7 +41,6 @@ public class GameInfo
         {
 
             case 0:
-
                 break;
             case 1:
                 addGame.Add(gameId);
