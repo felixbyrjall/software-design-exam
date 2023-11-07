@@ -113,10 +113,10 @@ public class Menu {
 
             foreach (var game in recommendedGames)
             {
-                Console.WriteLine($"{game.Name} - Score: {game.Score}");
+                Console.WriteLine(game);
             }
 
-			Func.WriteOutput("Press any key to return to the menu...");
+            Func.WriteOutput("Press any key to return to the menu...");
             Console.ReadKey();
         }
     }
