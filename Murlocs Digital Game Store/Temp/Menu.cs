@@ -28,7 +28,7 @@ public class Menu {
 				InterestList(); // Browse your games (edit/delete) --> add more games --> BrowseMenu()
                 break;
 			case 2:
-				RecommendGames(); // Browse recommended games --> add to interestlist (Refreshes recommendedgameslist)
+                RecommendGamesList(); // Browse recommended games --> add to interestlist (Refreshes recommendedgameslist)
 				break;
 			case 3:
                 Environment.Exit(0);
@@ -102,28 +102,30 @@ public class Menu {
 		}
 	}
 
-	public async Task RecommendGamesAsync()
+	public async void RecommendGamesList()
     {
-        using (var context = new Context()) // Use the correct context class name
+        InterestAnalyzer userInterest = new InterestAnalyzer();
+        GameRecommender gameRecommender = new GameRecommender();
+
+        string prompt = "(Use the arrows to select an option)";
+        string[] options = { "Display top 5 recommended list", "Back to main menu" };
+        MenuLogic mainMenu = new MenuLogic(prompt, options);
+
+        int selectedIndex = mainMenu.Start();
+
+        switch (selectedIndex)
         {
-            var interestAnalyzer = new InterestAnalyzer(context);
-            var gameRecommender = new GameRecommender(context);
 
-            var recommendedGames = await gameRecommender.RecommendGames(interestAnalyzer);
+            case 0:
+                Console.WriteLine("Here is your Interest List: ");
+                await gameRecommender.RecommendGames(userInterest);
+                RecommendGamesList();
+                break;
+            case 1:
+                MainMenu();
+                break;
 
-            foreach (var game in recommendedGames)
-            {
-                Console.WriteLine(game);
-            }
-
-            Func.WriteOutput("Press any key to return to the menu...");
-            Console.ReadKey();
         }
     }
 
-    // Make sure to call this method asynchronously from the menu option.
-    public void RecommendGames()
-    {
-        RecommendGamesAsync().GetAwaiter().GetResult(); // This will synchronously wait for the async operation.
-    }
 }
