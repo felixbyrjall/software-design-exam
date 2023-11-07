@@ -1,12 +1,8 @@
-﻿using System;
-using System.Data;
-using System.Runtime.CompilerServices;
-using DB;
-using DigitalGameStore.DB;
+﻿using DB;
+using DigitalGameStore.Browse;
 using DigitalGameStore.InterestList;
 using DigitalGameStore.RecommendGames;
 using DigitalGameStore.UI;
-using Microsoft.Data.Sqlite;
 
 namespace DigitalGameStore.Login;
 
@@ -42,6 +38,27 @@ public class Menu {
 
     public void BrowseMenu()
     {
+
+
+            BrowseAll listAll = new BrowseAll();
+
+            string prompt = "(Use the arrows to select an option)";
+            string[] options = { "All Games", "Previous Menu" };
+            MenuLogic mainMenu = new MenuLogic(prompt, options);
+
+            int selectedIndex = mainMenu.Start();
+
+            switch (selectedIndex)
+            {
+
+                case 0:
+                    Console.WriteLine("Here are all the games: ");
+                    listAll.AllGames();
+                    break;
+                case 1:
+                    MainMenu();
+                    break;
+        }
 
     }
 

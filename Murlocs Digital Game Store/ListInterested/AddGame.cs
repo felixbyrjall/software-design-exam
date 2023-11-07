@@ -4,22 +4,22 @@ using DigitalGameStore.DB;
 namespace DigitalGameStore.InterestList
 {
 
-	internal class AddGame
-	{
+    internal class AddGame
+    {
 
-		public void Add(int gameId)
-		{
+        public void Add(int gameId)
+        {
 
-			Interest newInterest = new()
-			{
-				GameID = gameId
-			};
+            Interest newInterest = new()
+            {
+                GameID = gameId
+            };
 
-			using Context database = new Context();
-			database.Interest.Add(newInterest);
-			database.SaveChanges();
-		}
-	}
+            using Context database = new Context();
+            database.Interest.Add(newInterest);
+            database.SaveChanges();
+        }
+    }
 }
 
 /* Functionalities:
