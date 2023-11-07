@@ -64,7 +64,6 @@ public class GameRecommender
 
         switch (selectedIndex)
         {
-
             case 0:
                 break;
         }
