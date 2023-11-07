@@ -17,14 +17,14 @@ public class GameInfo
 
         using Context database = new();
 
-        IList<Genre> genres = database.Genre.ToList();
+        IList<Publisher> publishers = database.Publisher.ToList();
         IList<Game> games = database.Game.ToList();
 
         var gamePublishers =
             (from Game in games
-             join Genre in genres
-                 on Game.PublisherID equals Genre.ID
-             select new { GameName = Game.Name, GameID = Game.ID, PublisherName = Genre.Name, GameRelease = Game.ReleaseDate }).ToList();
+             join Publisher in publishers
+                 on Game.PublisherID equals Publisher.ID
+             select new { GameName = Game.Name, GameID = Game.ID, PublisherName = Publisher.Name, GameRelease = Game.ReleaseDate }).ToList();
 
         var gameRow = gamePublishers.SingleOrDefault(g => g.GameID == gameId);
 
