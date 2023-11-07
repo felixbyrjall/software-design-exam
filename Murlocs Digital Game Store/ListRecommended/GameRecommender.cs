@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using DigitalGameStore.DB;
 using Microsoft.EntityFrameworkCore;
 using DB;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace DigitalGameStore.RecommendGames
 {
@@ -44,7 +45,7 @@ namespace DigitalGameStore.RecommendGames
         public async Task<List<String>> RecommendGames(InterestAnalyzer userInterest)
         {
             List<Game> allGames = await _context.Game.ToListAsync();
-            var recommendedGames = new List<String>();
+            var recommendedGames = new List<(Game game, int score)>();
 
             foreach (var game in allGames)
             {
@@ -53,10 +54,16 @@ namespace DigitalGameStore.RecommendGames
 
                 if (score > 0)
                 {
-                    recommendedGames.Add("Game ID: " + game.ID + " Game Name: " + game.Name + " Matching Score: " + game.Score);
+                    recommendedGames.Add((game, score));
                 }
             }
-            return recommendedGames.Take(5).ToList();
+
+            var MatchingGames = recommendedGames.OrderByDescending(g => g.score)
+                               .Take(5)
+                               .Select(g => $"Game ID: {g.game.ID} Game Name: {g.game.Name} Matching Score: {g.score}")
+                               .ToList();
+
+            return MatchingGames;
         }
 
     }
