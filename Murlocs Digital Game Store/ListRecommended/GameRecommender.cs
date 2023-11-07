@@ -11,7 +11,7 @@ namespace DigitalGameStore.RecommendGames
 {
     public class GameRecommender : IGameRecommender
     {
-        // Database connection
+        // Database connection tested.
         private readonly Context _context;
         public GameRecommender(Context context)
         {
@@ -41,34 +41,29 @@ namespace DigitalGameStore.RecommendGames
         
 
         // Creating the recommended list by iterating through all games and using the scoring system.
-        public async Task<List<Game>> RecommendGames(InterestAnalyzer userInterest)
+        public async Task<List<String>> RecommendGames(InterestAnalyzer userInterest)
         {
-            var allGames = await GetAllGames();
-            var recommendedGames = new List<Game>();
+            List<Game> allGames = await _context.Game.ToListAsync();
+            var recommendedGames = new List<String>();
 
             foreach (var game in allGames)
             {
-                var score = await ScoreGame(game, userInterest);
-
+                int score = await ScoreGame(game, userInterest);
                 game.Score = score;  //  'Score' property of Games table.
 
                 if (score > 0)
                 {
-                    recommendedGames.Add(game);
+                    recommendedGames.Add("Game ID: " + game.ID + " Game Name: " + game.Name + " Matching Score: " + game.Score);
                 }
             }
-
-            return recommendedGames
-                   .OrderByDescending(g => g.Score)
-                   .Take(5)  // Show top 5.
-                   .ToList();
+            return recommendedGames.Take(5).ToList();
         }
 
     }
 
     public interface IGameRecommender
     {
-        Task<List<Game>> RecommendGames(InterestAnalyzer userInterest);
+        Task<List<String>> RecommendGames(InterestAnalyzer userInterest);
         // Interface to ensure the implementation of game recommendation method.
     }
 }
