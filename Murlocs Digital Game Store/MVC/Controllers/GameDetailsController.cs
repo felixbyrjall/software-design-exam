@@ -1,12 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using DigitalGameStore.Models;
+using DigitalGameStore.MVC.Views;
 
 namespace DigitalGameStore.MVC.Controllers
 {
-    internal class GameDetailsController
+    public class GameDetailsController
     {
+        private readonly GameModel _gameModel;
+        private readonly GameInfoView _gameInfoView;
+
+        public GameDetailsController(GameModel gameModel, GameInfoView gameInfoView)
+        {
+            _gameModel = gameModel;
+            _gameInfoView = gameInfoView;
+        }
+
+        public void ShowGameDetails(int gameId)
+        {
+            var game = _gameModel.GetGameDetails(gameId);
+            if (game != null)
+            {
+                _gameInfoView.DisplayGameDetails(game);
+            }
+            else
+            {
+                _gameInfoView.DisplayError("Game not found.");
+            }
+        }
     }
 }
