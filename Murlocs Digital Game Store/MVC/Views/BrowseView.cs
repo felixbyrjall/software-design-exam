@@ -1,5 +1,6 @@
 ﻿using DigitalGameStore.Controller;
 using DigitalGameStore.DB;
+using DigitalGameStore.Model;
 using DigitalGameStore.Tools;
 using DigitalGameStore.Views;
 
@@ -44,6 +45,7 @@ namespace DigitalGameStore.MVC.Views
             {
                 case 0:
                     _gameName.Clear();
+                    listGamesController.SetCurrentPage0();
                     break;
                 case 1:
                     _gameName.Clear();
@@ -55,7 +57,29 @@ namespace DigitalGameStore.MVC.Views
                     listGamesController.PreviousPage();
                     BrowseMenu();
                     break;
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                case 8:
+                case 9:
+                case 10:
+                case 11:
+                case 12:
+                    listGamesController.GetGame((selectedIndex - 2) + listGamesController.GetCurrentPage() - 10);
+                    Console.ReadLine();
+                    _gameName.Clear();
+                    break;
             }
+        }
+
+        public void ShowGame(GameObject game)
+        {
+            Console.WriteLine("Name: " + game.Name + 
+                              "\n Publisher: " + game.Publisher +
+                              "\n Release: " + game.Release +
+                              "\n Genres: " +  game.Genres);
         }
     }
 }
