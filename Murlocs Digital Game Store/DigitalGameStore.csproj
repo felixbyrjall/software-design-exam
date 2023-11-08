@@ -18,10 +18,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
-    <Folder Include="MVC\" />
     <Folder Include="MVC\Model\" />
     <Folder Include="MVC\DB\" />
-    <Folder Include="MVC\Views\" />
     <Folder Include="MVC\Controller\" />
     <Folder Include="MVC\Tools\" />
   </ItemGroup>
