@@ -7,6 +7,8 @@ namespace DigitalGameStore.MVC.Views
 {
     public class BrowseView
     {
+        private static int currentIndex = 0;
+
         private readonly ListGamesController _listGamesController;
 
         public BrowseView(ListGamesController listGamesController)
@@ -29,10 +31,9 @@ namespace DigitalGameStore.MVC.Views
         }
 
         public void BrowseMenu() {
-            
             string additionalText = "(Use the arrows to select an option)";
             string[] menuOptions = _gameName.ToArray();
-            MenuLogic mainMenu = new MenuLogic(additionalText, menuOptions);
+            MenuLogic mainMenu = new MenuLogic(additionalText, menuOptions, currentIndex);
             
             var gameModel = new Model.GameModel();
             var browseView = new BrowseView(_listGamesController);
@@ -44,15 +45,18 @@ namespace DigitalGameStore.MVC.Views
             {
                 case 0:
                     _gameName.Clear();
-                    break;
+					currentIndex = 0;
+					break;
                 case 1:
                     _gameName.Clear();
                     listGamesController.NextPage();
-                    BrowseMenu();
+					currentIndex = 1;
+					BrowseMenu();
                     break;
                 case 2:
                     _gameName.Clear();
                     listGamesController.PreviousPage();
+                    currentIndex = 2;
                     BrowseMenu();
                     break;
             }

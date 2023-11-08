@@ -2,17 +2,32 @@
 namespace DigitalGameStore.Tools;
 
 	public class MenuLogic
-	 {
+	{
 		private int SelectedIndex;
 		private string[] MenuOptions;
 		private string AdditionalText;
 			
+		public MenuLogic(string additionalText, string[] menuOptions, int? currentIndex)
+		{
+			AdditionalText = additionalText;
+			MenuOptions = menuOptions;
+			if(currentIndex != null)
+			{
+				SelectedIndex = (int)currentIndex;
+			}
+			else
+			{
+				SelectedIndex = 0;
+			}
+		}
+
 		public MenuLogic(string additionalText, string[] menuOptions)
 		{
 			AdditionalText = additionalText;
 			MenuOptions = menuOptions;
 			SelectedIndex = 0;
 		}
+
 
 		private void ShowMenu()
 		{
