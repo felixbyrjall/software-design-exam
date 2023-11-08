@@ -1,8 +1,8 @@
 ﻿using DigitalGameStore.DB;
 using DigitalGameStore.Controller;
-using DigitalGameStore.UI;
+using DigitalGameStore.Tools;
 
-namespace DigitalGameStore.Menu;
+namespace DigitalGameStore.Views;
 
 public class Menu {
 
@@ -43,13 +43,13 @@ public class Menu {
         var gameModel = new Model.GameModel();
         var browseView = new Views.BrowseView();
         var listGamesController = new ListGamesController(gameModel, browseView);
+        listGamesController.ListGames();
 
         int selectedIndex = mainMenu.Start();
 
         switch (selectedIndex)
         {
             case 0:
-                listGamesController.ListGames();
                 break;
             case 1:
                 break;

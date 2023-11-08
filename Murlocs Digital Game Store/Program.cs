@@ -1,4 +1,4 @@
-using DigitalGameStore.Menu;
+using DigitalGameStore.Views;
 
 public class Program
 {

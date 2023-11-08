@@ -1,7 +1,6 @@
-﻿using DigitalGameStore;
-//using static System.Console;
-namespace DigitalGameStore.UI
-{
+﻿//using static System.Console;
+namespace DigitalGameStore.Tools;
+
 	public class MenuLogic
 	 {
 		private int SelectedIndex;
@@ -76,5 +75,4 @@ namespace DigitalGameStore.UI
 			return SelectedIndex;
 		}
 	}
-}
 
