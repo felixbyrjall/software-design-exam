@@ -1,12 +1,4 @@
-﻿using DB;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DigitalGameStore.DB
-{
+﻿namespace DigitalGameStore.DB;
     public class Game
     {
         public int ID { get; set; }
@@ -20,4 +12,3 @@ namespace DigitalGameStore.DB
         public ICollection<Interest>? Interests { get; set; }
 
     }
-}

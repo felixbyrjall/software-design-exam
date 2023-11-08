@@ -1,10 +1,8 @@
-using DigitalGameStore.DB;
-using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 
-namespace DB;
+namespace DigitalGameStore.DB;
 
-public partial class Context : DbContext
+    public partial class Context : DbContext
 {
     public DbSet<Game> Game => Set<Game>();
     public DbSet<Publisher> Publisher => Set<Publisher>();

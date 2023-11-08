@@ -11,11 +11,21 @@
   <ItemGroup>
     <None Remove="UI\" />
     <None Remove="Temp\" />
+    <None Remove="MVC\" />
+    <None Remove="MVC\Model\" />
+    <None Remove="MVC\DB\" />
+    <None Remove="MVC\Views\" />
+    <None Remove="MVC\Controller\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
     <Folder Include="UI\" />
     <Folder Include="Temp\" />
+    <Folder Include="MVC\" />
+    <Folder Include="MVC\Model\" />
+    <Folder Include="MVC\DB\" />
+    <Folder Include="MVC\Views\" />
+    <Folder Include="MVC\Controller\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.13">
