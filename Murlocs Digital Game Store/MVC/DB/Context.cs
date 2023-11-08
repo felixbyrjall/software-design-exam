@@ -18,12 +18,10 @@ namespace DigitalGameStore.DB;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-
         modelBuilder.Entity<Game>(entity => { entity.HasKey(e => e.ID); });
         modelBuilder.Entity<Publisher>(entity => { entity.HasKey(e => e.ID); });
         modelBuilder.Entity<Genre>(entity => { entity.HasKey(e => e.ID); });
         modelBuilder.Entity<GameGenres>(entity => { entity.HasKey(e => e.ID); });
         modelBuilder.Entity<Interest>(entity => { entity.HasKey(e => e.ID); });
     }
-
 }
