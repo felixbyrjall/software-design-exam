@@ -1,4 +1,4 @@
-using DB;
+using DigitalGameStore.DB;
 
 namespace DigitalGameStoreTest;
 

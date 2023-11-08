@@ -1,23 +1,61 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using DigitalGameStore.Controller;
 using DigitalGameStore.DB;
+using DigitalGameStore.Tools;
+using DigitalGameStore.Views;
 
-namespace DigitalGameStore.Views
+namespace DigitalGameStore.MVC.Views
 {
     public class BrowseView
     {
+        private readonly ListGamesController _listGamesController;
 
-        private int _index = 10;
-
-        public void DisplayGameList(IEnumerable<Game> games)
+        public BrowseView(ListGamesController listGamesController)
         {
-            Console.WriteLine("\nHere's all games:\n");
+            _listGamesController = listGamesController;
+        }
+        
+        private static List<String> _gameName = new();
 
-                foreach (var game in games.Take(_index))
-                {
-                    Console.WriteLine($"ID: {game.ID} - Name: {game.Name}");
-                }
+        public void DisplayGameList(IEnumerable<Game> games) 
+        {
+            _gameName.Add("Back to Main Menu");
+            _gameName.Add("Next 10 Games");
+            _gameName.Add("Previous 10 Games");
 
+            foreach (var game in games)
+            {
+                _gameName.Add("ID: " + game.ID+ " Name: " +game.Name);
+            }
+        }
+
+        public void BrowseMenu() {
+            
+            string additionalText = "(Use the arrows to select an option)";
+            string[] menuOptions = _gameName.ToArray();
+            MenuLogic mainMenu = new MenuLogic(additionalText, menuOptions);
+            
+            var gameModel = new Model.GameModel();
+            var browseView = new BrowseView(_listGamesController);
+            var listGamesController = new ListGamesController(gameModel, browseView);
+
+            int selectedIndex = mainMenu.Start();
+
+            switch (selectedIndex)
+            {
+                case 0:
+                    _gameName.Clear();
+                    break;
+                case 1:
+                    _gameName.Clear();
+                    listGamesController.NextPage();
+                    BrowseMenu();
+                    break;
+                case 2:
+                    _gameName.Clear();
+                    listGamesController.PreviousPage();
+                    BrowseMenu();
+                    break;
+            }
         }
     }
 }
