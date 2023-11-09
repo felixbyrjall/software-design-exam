@@ -5,10 +5,8 @@ using DigitalGameStore.Tools;
 
 namespace DigitalGameStore.Views;
 
-public class Menu {
+public class Menu {    
 
-    private Context? _context;
-    
     private readonly ListGamesController _listGamesController;
 
     public void MainMenu()
@@ -28,7 +26,6 @@ public class Menu {
             case 0:
                 listGamesController.StartPage();
                 browseView.BrowseMenu();
-                MainMenu();
 				break;
             case 1:
                 break;
@@ -38,5 +35,10 @@ public class Menu {
                 Environment.Exit(0);
                 break;
         }
+    }
+
+    public void ReturnToMainMenu()
+    {
+        MainMenu();
     }
 }

@@ -8,7 +8,7 @@ namespace DigitalGameStore.MVC.Views
     public class BrowseView
     {
         private static int currentIndex = 0;
-
+        private static List<String> _gameName = new();
         private readonly ListGamesController _listGamesController;
 
         public BrowseView(ListGamesController listGamesController)
@@ -16,8 +16,6 @@ namespace DigitalGameStore.MVC.Views
             _listGamesController = listGamesController;
         }
         
-        private static List<String> _gameName = new();
-
         public void DisplayGameList(IEnumerable<Game> games) 
         {
             _gameName.Add("Back to Main Menu");
@@ -35,6 +33,7 @@ namespace DigitalGameStore.MVC.Views
             string[] menuOptions = _gameName.ToArray();
             MenuLogic mainMenu = new MenuLogic(additionalText, menuOptions, currentIndex);
             
+            Menu menu = new Menu();
             var gameModel = new Model.GameModel();
             var browseView = new BrowseView(_listGamesController);
             var listGamesController = new ListGamesController(gameModel, browseView);
@@ -45,8 +44,8 @@ namespace DigitalGameStore.MVC.Views
             {
                 case 0:
                     _gameName.Clear();
-					currentIndex = 0;
-					break;
+                    menu.MainMenu();
+                    break;
                 case 1:
                     _gameName.Clear();
                     listGamesController.NextPage();
