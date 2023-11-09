@@ -1,7 +1,7 @@
-﻿using DigitalGameStore.DB;
-namespace DigitalGameStore.Model;
+﻿using DigitalGameStore.Model;
+namespace DigitalGameStore.Repo;
 
-public class GameModel
+public class GameRepo
     {
         public IList<Game> GetAllGames(int start, int end)
         {

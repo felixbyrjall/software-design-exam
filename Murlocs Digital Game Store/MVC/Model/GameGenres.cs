@@ -1,4 +1,4 @@
-namespace DigitalGameStore.DB; 
+namespace DigitalGameStore.Model;
 
 public class GameGenres {
     

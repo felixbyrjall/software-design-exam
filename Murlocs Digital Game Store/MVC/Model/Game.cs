@@ -1,5 +1,6 @@
-﻿namespace DigitalGameStore.DB;
-    public class Game
+﻿namespace DigitalGameStore.Model;
+
+public class Game
     {
         public int ID { get; set; }
         public string Name { get; set; } = string.Empty;

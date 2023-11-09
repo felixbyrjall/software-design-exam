@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace DigitalGameStore.DB;
+namespace DigitalGameStore.Model;
 
     public partial class Context : DbContext
 {

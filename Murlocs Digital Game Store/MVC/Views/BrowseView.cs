@@ -1,5 +1,5 @@
 ﻿using DigitalGameStore.Controller;
-using DigitalGameStore.DB;
+using DigitalGameStore.Model;
 using DigitalGameStore.Tools;
 using DigitalGameStore.Views;
 
@@ -34,9 +34,9 @@ namespace DigitalGameStore.MVC.Views
             MenuLogic mainMenu = new MenuLogic(additionalText, menuOptions, currentIndex);
             
             Menu menu = new Menu();
-            var gameModel = new Model.GameModel();
+            var gameRepo = new Repo.GameRepo();
             var browseView = new BrowseView(_listGamesController);
-            var listGamesController = new ListGamesController(gameModel, browseView);
+            var listGamesController = new ListGamesController(gameRepo, browseView);
 
             int selectedIndex = mainMenu.Start();
 
@@ -44,7 +44,7 @@ namespace DigitalGameStore.MVC.Views
             {
                 case 0:
                     _gameName.Clear();
-                    menu.MainMenu();
+                    menu.ReturnToMainMenu();
                     break;
                 case 1:
                     _gameName.Clear();

@@ -1,4 +1,4 @@
-﻿using DigitalGameStore.DB;
+﻿using DigitalGameStore.Model;
 using DigitalGameStore.Controller;
 using DigitalGameStore.MVC.Views;
 using DigitalGameStore.Tools;
@@ -7,13 +7,13 @@ namespace DigitalGameStore.Views;
 
 public class Menu {    
 
-    private readonly ListGamesController _listGamesController;
+    private readonly ListGamesController? _listGamesController;
 
     public void MainMenu()
     {
-        var gameModel = new Model.GameModel();
+        var gameRepo = new Repo.GameRepo();
         var browseView = new BrowseView(_listGamesController);
-        var listGamesController = new ListGamesController(gameModel, browseView);
+        var listGamesController = new ListGamesController(gameRepo, browseView);
 
         string additionalText = "(Use the arrows to select an option)";
         string[] menuOptions = { "Browse Games", "Interest list", "Recommendations", "Exit" };

@@ -1,8 +1,6 @@
-using DigitalGameStore.DB;
-
 namespace DigitalGameStore.Model;
 
-    public class Publisher {
+public class Publisher {
     public int ID { get; set; }
     public string Name { get; set; } = string.Empty;
     
