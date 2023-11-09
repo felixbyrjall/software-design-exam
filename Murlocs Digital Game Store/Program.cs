@@ -1,12 +1,23 @@
+using DigitalGameStore.Controller;
+using DigitalGameStore.Model;
+using DigitalGameStore.Repo;
+using DigitalGameStore.Tools;
 using DigitalGameStore.Views;
+
+namespace DigitalGameStore;
 
 public class Program
 {
-	public static void Main(string[] args)
-	{
-		//Console.SetWindowSize(40, 40);
-		
-		Menu menu = new Menu();
-		menu.MainMenu();
-	}
+    public static void Main(string[] args)
+    {
+        var context = new Context();
+        var gameRepo = new GameRepo(context);
+        var browseController = new BrowseController(gameRepo);
+        var browseView = new BrowseView(browseController);
+        var menuTools = new MenuLogic(); 
+        var menu = new Menu(browseView, menuTools);
+
+        // Run the main menu
+        menu.MainMenu();
+    }
 }

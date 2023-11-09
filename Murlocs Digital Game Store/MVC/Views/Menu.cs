@@ -7,22 +7,28 @@ namespace DigitalGameStore.Views;
 
 public class Menu {
 
-	BrowseView view = new();
-	MenuLogic menuTools = new();
+    private readonly BrowseView _view;
+    private readonly MenuLogic _menuTools;
 
-	private List<String> menuOptions = new List<string>{ "Browse Games", "Interest List", "Recommendations", "Exit" };
+    public Menu(BrowseView browseView, MenuLogic menuTools)
+    {
+        _view = browseView;
+        _menuTools = menuTools;
+    }
+
+    private List<String> menuOptions = new List<string>{ "Browse Games", "Interest List", "Recommendations", "Exit" };
 	private string _prompt = "(Use the arrows to select an option)";
 	public static int currentIndex = 0;
 
 	public void MainMenu()
     {
-		var selectedIndex = menuTools.CallMenu(_prompt, menuOptions, currentIndex);
+		var selectedIndex = _menuTools.CallMenu(_prompt, menuOptions, currentIndex);
 		currentIndex = selectedIndex;
 
 		switch (selectedIndex)
         {
             case 0:
-				view.DisplayGameList(selectedIndex);
+				_view.DisplayGameList(selectedIndex);
                 BrowseMenu();
 				break;
 			case 1:
@@ -37,7 +43,7 @@ public class Menu {
 
 	public void BrowseMenu()
 	{
-		var selectedIndex = menuTools.CallMenu(_prompt, BrowseView._allGames, currentIndex);
+		var selectedIndex = _menuTools.CallMenu(_prompt, BrowseView._allGames, currentIndex);
 		currentIndex = selectedIndex;
 		BrowseView._allGames.Clear();
 
@@ -48,7 +54,7 @@ public class Menu {
 				break;
 			case 1:
 			case 2:
-				view.DisplayGameList(selectedIndex);
+				_view.DisplayGameList(selectedIndex);
 				BrowseMenu();
 				break;
 		}

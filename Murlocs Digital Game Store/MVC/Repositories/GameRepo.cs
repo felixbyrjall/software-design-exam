@@ -1,7 +1,7 @@
 ﻿using DigitalGameStore.Model;
 namespace DigitalGameStore.Repo;
 
-public class GameRepo
+public class GameRepo : IGameRepo
 {
     private readonly Context _context;
 

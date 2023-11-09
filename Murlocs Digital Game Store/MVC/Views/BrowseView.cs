@@ -7,10 +7,15 @@ namespace DigitalGameStore.Views
 {
     public class BrowseView
     {
+
 		public static List<String> _allGames = new();
 
-		private BrowseController _browseController = new();
-        
+		private readonly BrowseController _browseController;
+
+        public BrowseView(BrowseController browseController)
+        {
+            _browseController = browseController;
+        }
         public void DisplayGameList(int i) 
         {
 			_allGames.Add("Back to Main Menu");
