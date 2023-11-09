@@ -6,7 +6,7 @@ namespace DigitalGameStore.Controller
 {
     public class BrowseController
     {
-		private readonly GameRepo _gameRepo = new();
+		private readonly GameRepo _gameRepo = new(new Context());
 		public static int _currentPage = 10;
 		private int _lastPage = 100;
 		private int _firstPage = 10;
