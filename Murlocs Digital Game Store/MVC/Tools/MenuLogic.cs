@@ -28,8 +28,21 @@ namespace DigitalGameStore.Tools;
 			SelectedIndex = 0;
 		}
 
+		public MenuLogic()
+		{
+		
+		}
 
-		private void ShowMenu()
+		public int CallMenu(string text, List<string> list, int? i)
+		{
+			MenuLogic mainMenu = new MenuLogic(text, list.ToArray(), i);
+			int selectedIndex = mainMenu.Start();
+
+			return selectedIndex;
+		}
+
+
+	private void ShowMenu()
 		{
 			Func.WriteOutput(AdditionalText);
 
