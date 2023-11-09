@@ -15,7 +15,7 @@ public class Program
         var browseController = new BrowseController(gameRepo);
         var browseView = new BrowseView(browseController);
         var menuTools = new MenuLogic(); 
-        var menu = new Menu(browseView, menuTools);
+        var menu = new Menu(browseView, menuTools, browseController);
 
         // Run the main menu
         menu.MainMenu();

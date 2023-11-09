@@ -6,7 +6,7 @@ namespace DigitalGameStore.Controller
 {
     public class BrowseController
     {
-
+        private List<String> _allGames = new();
         private readonly IGameRepo _gameRepo;
         public BrowseController(IGameRepo gameRepo)
         {
@@ -20,15 +20,24 @@ namespace DigitalGameStore.Controller
 
 		private void AddGames(IEnumerable<Game> games)
         {
-			foreach (var game in games)
+            foreach (var game in games)
 			{
-				BrowseView._allGames.Add("ID: " + game.ID + " Name: " + game.Name);
+				_allGames.Add("ID: " + game.ID + " Name: " + game.Name);
 			}
+        }
+
+        public List<string> GetAllGamesWithOptions()
+        {
+            List<string> options = new List<string>
+            {"Back to main menu", "Next page", "Previous page"};
+            options.AddRange(_allGames);
+            return options;
         }
 
         public void ListGames()
         {
-            var games = _gameRepo.GetAllGames((_currentPage - 9), _currentPage); // Henter spill fra GetAllGames metoden inne i GameRepo
+            var games = _gameRepo.GetAllGames((_currentPage - 9), _currentPage);
+            _allGames.Clear();
             AddGames(games); //Kaller på metoden AddGames for å legge til spill i _allGames feltet i view.
         }
 

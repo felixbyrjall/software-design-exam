@@ -9,11 +9,13 @@ public class Menu {
 
     private readonly BrowseView _view;
     private readonly MenuLogic _menuTools;
+	private readonly BrowseController _browseController;
 
-    public Menu(BrowseView browseView, MenuLogic menuTools)
+    public Menu(BrowseView browseView, MenuLogic menuTools, BrowseController browseController)
     {
         _view = browseView;
         _menuTools = menuTools;
+        _browseController = browseController;
     }
 
     private List<String> menuOptions = new List<string>{ "Browse Games", "Interest List", "Recommendations", "Exit" };
@@ -43,9 +45,10 @@ public class Menu {
 
 	public void BrowseMenu()
 	{
-		var selectedIndex = _menuTools.CallMenu(_prompt, BrowseView._allGames, currentIndex);
+        List<string> gamesWithOptions = _browseController.GetAllGamesWithOptions();
+
+        var selectedIndex = _menuTools.CallMenu(_prompt, gamesWithOptions, currentIndex);
 		currentIndex = selectedIndex;
-		BrowseView._allGames.Clear();
 
 		switch (selectedIndex)
 		{
