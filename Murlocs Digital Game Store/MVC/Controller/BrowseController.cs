@@ -16,9 +16,10 @@ namespace DigitalGameStore.Controller
 		private readonly IGameRepo _gameRepo;
 		private readonly BrowseView _browseView;
 
-		public BrowseController(IGameRepo gameRepo)
+		public BrowseController(IGameRepo gameRepo, BrowseView browseView)
         {
             _gameRepo = gameRepo;
+			_browseView = browseView;
         }
 
 		public List<string> GetAllGamesWithOptions()
@@ -33,6 +34,7 @@ namespace DigitalGameStore.Controller
             foreach (var game in games)
 			{
 				_allGames.Add("ID: " + game.ID + " Name: " + game.Name);
+
 			}
         }
 
@@ -40,6 +42,7 @@ namespace DigitalGameStore.Controller
         {
             var games = _gameRepo.GetAllGames((_currentPage - 9), _currentPage);
             _allGames.Clear();
+			GetAllGamesWithOptions();
             AddGames(games); //Kaller på metoden AddGames for å legge til spill i _allGames feltet i view.
         }
 

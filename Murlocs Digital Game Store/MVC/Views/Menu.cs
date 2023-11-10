@@ -7,13 +7,11 @@ namespace DigitalGameStore.Views;
 
 public class Menu {
 
-    private readonly BrowseView _view;
     private readonly MenuLogic _menuTools;
 	private readonly BrowseController _browseController;
 
-    public Menu(BrowseView browseView, MenuLogic menuTools, BrowseController browseController)
+    public Menu(MenuLogic menuTools, BrowseController browseController)
     {
-        _view = browseView;
         _menuTools = menuTools;
         _browseController = browseController;
     }
@@ -30,7 +28,8 @@ public class Menu {
 		switch (selectedIndex)
         {
             case 0:
-				_view.DisplayGameList(selectedIndex);
+				Func.Clear();
+				_browseController.Check(selectedIndex);
                 BrowseMenu();
 				break;
 			case 1:
@@ -57,7 +56,8 @@ public class Menu {
 				break;
 			case 1:
 			case 2:
-				_view.DisplayGameList(selectedIndex);
+				Func.Clear();
+				_browseController.Check(selectedIndex);
 				BrowseMenu();
 				break;
 			case 3:

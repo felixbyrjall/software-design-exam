@@ -13,10 +13,10 @@ public class Program
     {
         var context = new Context();
         var gameRepo = new GameRepo(context);
-        var browseController = new BrowseController(gameRepo);
-        var browseView = new BrowseView(browseController);
+        var browseView = new BrowseView();
+        var browseController = new BrowseController(gameRepo, browseView);
         var menuTools = new MenuLogic(); 
-        var menu = new Menu(browseView, menuTools, browseController);
+        var menu = new Menu(menuTools, browseController);
 
         // Run the main menu
         menu.MainMenu();
