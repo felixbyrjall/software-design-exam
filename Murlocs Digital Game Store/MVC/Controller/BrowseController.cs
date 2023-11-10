@@ -9,7 +9,7 @@ namespace DigitalGameStore.Controller
     {
         private List<String> _allGames = new();
 
-		public static int _currentPage = 10; 
+		private int _currentPage = 10;
 		private int _lastPage = 100;
 		private int _firstPage = 10;
 		private bool b = false;
@@ -22,6 +22,16 @@ namespace DigitalGameStore.Controller
             _gameRepo = gameRepo;
 			_browseView = browseView;
         }
+
+		public int GetCurrentPage()
+		{
+			return _currentPage;
+		}
+
+		private void SetCurrentPage(int currentPage)
+		{
+			_currentPage = currentPage;
+		}
 
 		public List<string> GetAllGamesWithOptions()
 		{
@@ -45,7 +55,7 @@ namespace DigitalGameStore.Controller
 				_browseView.LoadingScreen();
 				b = true;
 			}
-            var games = _gameRepo.GetAllGames((_currentPage - 9), _currentPage);
+            var games = _gameRepo.GetAllGames((GetCurrentPage() - 9), GetCurrentPage());
             _allGames.Clear();
 			GetAllGamesWithOptions();
             AddGames(games); //Kaller på metoden AddGames for å legge til spill i _allGames feltet i view.
@@ -53,13 +63,15 @@ namespace DigitalGameStore.Controller
 
 		public void Check(int i)
 		{
-			if(i == 1 && _currentPage != _lastPage)
+			if(i == 1 && GetCurrentPage() != _lastPage)
 			{
-				_currentPage += 10;
+				int j = GetCurrentPage();
+				SetCurrentPage(j += 10);
 			}
-			else if(i == 2 && _currentPage != _firstPage)
+			else if(i == 2 && GetCurrentPage() != _firstPage)
 			{
-				_currentPage -= 10;
+				int j = GetCurrentPage();
+				SetCurrentPage(j -= 10);
 			}
 			ListGames();
 		}

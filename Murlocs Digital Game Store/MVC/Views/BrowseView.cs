@@ -19,10 +19,10 @@ namespace DigitalGameStore.Views
 		public void LoadingScreen()
 		{
 			Func.WriteOutput("Loading.");
-			Thread.Sleep(500);
+			Thread.Sleep(350);
 			Func.Clear();
 			Func.WriteOutput("Loading..");
-			Thread.Sleep(500);
+			Thread.Sleep(350);
 			Func.Clear();
 			Func.WriteOutput("Loading...");
 		}

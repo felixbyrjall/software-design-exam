@@ -70,7 +70,7 @@ public class Menu {
 			case 10:
 			case 11:
 			case 12:
-				_browseController.GetSelectedGame((selectedIndex - 2) + BrowseController._currentPage - 10);
+				_browseController.GetSelectedGame((selectedIndex - 2) + _browseController.GetCurrentPage() - 10);
 				Console.ReadLine();
 				break;
 		}
