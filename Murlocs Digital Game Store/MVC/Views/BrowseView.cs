@@ -15,5 +15,16 @@ namespace DigitalGameStore.Views
 							  "\n Release: " + game.Release +
 							  "\n Genres: " + game.Genres);
 		}
+
+		public void LoadingScreen()
+		{
+			Func.WriteOutput("Loading.");
+			Thread.Sleep(500);
+			Func.Clear();
+			Func.WriteOutput("Loading..");
+			Thread.Sleep(500);
+			Func.Clear();
+			Func.WriteOutput("Loading...");
+		}
 	}
 }

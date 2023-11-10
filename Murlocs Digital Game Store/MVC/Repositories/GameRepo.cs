@@ -1,4 +1,6 @@
 ﻿using DigitalGameStore.Model;
+using DigitalGameStore.Controller;
+
 namespace DigitalGameStore.Interfaces;
 
 public class GameObject
@@ -13,13 +15,13 @@ public class GameRepo : IGameRepo
 {
     private readonly Context _context;
 
-    public GameRepo(Context context)
+	public GameRepo(Context context)
     {
         _context = context;
     }
     public IList<Game> GetAllGames(int start, int end)
     {
-        return _context.Game.Where(g => g.ID >= start && g.ID <= end).ToList();
+		return _context.Game.Where(g => g.ID >= start && g.ID <= end).ToList();
 	}
 
 	public GameObject GetGameInfo(int GameID)

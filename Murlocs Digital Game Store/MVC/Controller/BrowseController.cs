@@ -12,6 +12,7 @@ namespace DigitalGameStore.Controller
 		public static int _currentPage = 10; 
 		private int _lastPage = 100;
 		private int _firstPage = 10;
+		private bool b = false;
 
 		private readonly IGameRepo _gameRepo;
 		private readonly BrowseView _browseView;
@@ -40,6 +41,10 @@ namespace DigitalGameStore.Controller
 
         public void ListGames()
         {
+			if (b == false) {
+				_browseView.LoadingScreen();
+				b = true;
+			}
             var games = _gameRepo.GetAllGames((_currentPage - 9), _currentPage);
             _allGames.Clear();
 			GetAllGamesWithOptions();
@@ -63,6 +68,11 @@ namespace DigitalGameStore.Controller
 		{
 			var game = _gameRepo.GetGameInfo(GameID);
 			_browseView.ShowGame(game);
+		}
+
+		public void LoadingScreen()
+		{
+			_browseView.LoadingScreen();
 		}
 	}
 }
