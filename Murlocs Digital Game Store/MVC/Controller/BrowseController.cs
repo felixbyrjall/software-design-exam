@@ -1,6 +1,7 @@
 ﻿using DigitalGameStore.Views;
 using DigitalGameStore.Repo;
 using DigitalGameStore.Model;
+using DigitalGameStore.Interfaces;
 
 namespace DigitalGameStore.Controller
 {
@@ -8,16 +9,24 @@ namespace DigitalGameStore.Controller
     {
         private List<String> _allGames = new();
 
-        private readonly IGameRepo _gameRepo;
-        public BrowseController(IGameRepo gameRepo)
+		public static int _currentPage = 10; 
+		private int _lastPage = 100;
+		private int _firstPage = 10;
+
+		private readonly IGameRepo _gameRepo;
+		private readonly BrowseView _browseView;
+
+		public BrowseController(IGameRepo gameRepo)
         {
             _gameRepo = gameRepo;
         }
 
-        public static int _currentPage = 10;
-		private int _lastPage = 100;
-		private int _firstPage = 10;
-
+		public List<string> GetAllGamesWithOptions()
+		{
+			List<string> options = new List<string> {"Back to main menu", "Next page", "Previous page"};
+			options.AddRange(_allGames);
+			return options;
+		}
 
 		private void AddGames(IEnumerable<Game> games)
         {
@@ -25,14 +34,6 @@ namespace DigitalGameStore.Controller
 			{
 				_allGames.Add("ID: " + game.ID + " Name: " + game.Name);
 			}
-        }
-
-        public List<string> GetAllGamesWithOptions()
-        {
-            List<string> options = new List<string>
-            {"Back to main menu", "Next page", "Previous page"};
-            options.AddRange(_allGames);
-            return options;
         }
 
         public void ListGames()
@@ -53,6 +54,12 @@ namespace DigitalGameStore.Controller
 				_currentPage -= 10;
 			}
 			ListGames();
+		}
+
+		public void GetSelectedGame(int GameID)
+		{
+			var game = _gameRepo.GetGameInfo(GameID);
+			_browseView.ShowGame(game);
 		}
 	}
 }

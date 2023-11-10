@@ -3,6 +3,7 @@ using DigitalGameStore.Model;
 using DigitalGameStore.Repo;
 using DigitalGameStore.Tools;
 using DigitalGameStore.Views;
+using DigitalGameStore.Interfaces;
 
 namespace DigitalGameStore;
 
