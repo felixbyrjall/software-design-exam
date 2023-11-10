@@ -5,9 +5,28 @@ using DigitalGameStore.Interfaces;
 
 namespace DigitalGameStore.Controller
 {
+	public class GameItem
+	{
+		public int ID;
+		public string Name;
+		/*public string Publisher;
+		public string ReleaseDate;
+		public string Genre;*/
+
+		public GameItem(int id, string name) //, string publisher, string releaseDate, string genre 
+		{
+			ID = id;
+			Name = name;
+			/*Publisher = publisher;
+			ReleaseDate = releaseDate;
+			Genre = genre;*/
+		}
+	}
+
     public class BrowseController
     {
         private List<String> _gamesOnPage = new();
+		private List<GameItem> _allGames = new();
 
 		private int _currentPage = 10;
 		private int _lastPage = 100;
@@ -72,7 +91,8 @@ namespace DigitalGameStore.Controller
         {
             foreach (var game in games)
 			{
-				_gamesOnPage.Add("ID: " + game.ID + " Name: " + game.Name);
+				GameItem gameitem = new GameItem(game.ID, game.Name);
+				_allGames.Add(gameitem.Name);
 			}
         }
 
