@@ -7,6 +7,7 @@ namespace DigitalGameStore.Controller
     public class BrowseController
     {
         private List<String> _allGames = new();
+
         private readonly IGameRepo _gameRepo;
         public BrowseController(IGameRepo gameRepo)
         {
