@@ -12,7 +12,7 @@ namespace DigitalGameStore.Views
 		{
 			Console.WriteLine("Name: " + game.Name +
 							  "\n Publisher: " + game.Publisher +
-							  "\n Release: " + game.Release +
+							  "\n Release: " + game.ReleaseDate +
 							  "\n Genres: " + game.Genres);
 		}
 

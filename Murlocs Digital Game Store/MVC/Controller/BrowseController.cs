@@ -101,5 +101,7 @@ namespace DigitalGameStore.Controller
 			int totalLoadingTime = _countGames;
 			return totalLoadingTime;
 		}
+
+
 	}
 }

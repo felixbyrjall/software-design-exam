@@ -3,14 +3,6 @@ using DigitalGameStore.Controller;
 
 namespace DigitalGameStore.Interfaces;
 
-public class GameObject
-{
-	public string Name;
-	public string Publisher;
-	public string Release;
-	public string Genres;
-}
-
 public class GameRepo : IGameRepo
 {
     private readonly Context _context;
@@ -58,7 +50,7 @@ public class GameRepo : IGameRepo
 		GameObject gameObjects = new GameObject();
 		gameObjects.Name = getGame.GameName;
 		gameObjects.Publisher = getGame.PublisherName;
-		gameObjects.Release = getGame.GameRelease;
+		gameObjects.ReleaseDate = getGame.GameRelease;
 		gameObjects.Genres = genresString;
 
 		return gameObjects;
