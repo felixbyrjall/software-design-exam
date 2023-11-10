@@ -18,7 +18,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
-    <Folder Include="MVC\Controller\" />
     <Folder Include="MVC\Tools\" />
     <Folder Include="MVC\Repositories\" />
     <Folder Include="MVC\Model\" />

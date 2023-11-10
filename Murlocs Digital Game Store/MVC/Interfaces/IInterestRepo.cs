@@ -1,11 +1,12 @@
-﻿using System;
+﻿using DigitalGameStore.Model;
+using DigitalGameStore.Repo;
+
 namespace DigitalGameStore.Interfaces
 {
-	public class IInterestRepo
-	{
-		public IInterestRepo()
-		{
-		}
+	public interface IInterestRepo {
+		public IList<Interest> GetAllInterest();
+		public InterestObject GetInterestInfo(int GameID);
+
 	}
 }
 
