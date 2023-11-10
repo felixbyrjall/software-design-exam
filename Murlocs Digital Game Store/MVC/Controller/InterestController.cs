@@ -7,8 +7,8 @@ namespace DigitalGameStore.Controller;
 public class InterestController {
 
     private int _currentPage = 10;
-    private int _lastPage = 100;
-    private int _firstPage = 10;
+    private const int _lastPage = 100;
+    private const int _firstPage = 10;
     private readonly IInterestRepo _interestRepo;
     private readonly InterestView _interestView;
     private readonly GameObject _gameObject;

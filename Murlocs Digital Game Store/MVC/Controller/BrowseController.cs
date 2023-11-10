@@ -11,8 +11,8 @@ namespace DigitalGameStore.Controller
         private List<String> _gamesOnPage = new();
 		private int _countGames;
         private int _currentPage = 10;
-		private int _lastPage = 100;
-		private int _firstPage = 10;
+		private const int _lastPage = 100;
+		private const int _firstPage = 10;
 		private bool gamesLoaded = false;
 
 		private readonly IGameRepo _gameRepo;

@@ -9,6 +9,8 @@ public class InterestRepo : IInterestRepo {
     private readonly Context _context;
     private readonly GameObject _gameObject;
 
+    private const int _numberOfGamesOnPage = 10;
+
     public InterestRepo(Context context, GameObject gameObject) {
         _context = context;
         _gameObject = gameObject;
@@ -24,7 +26,7 @@ public class InterestRepo : IInterestRepo {
         List<GameObject> list = new List<GameObject>();
 
 
-        foreach (var item in notInterestedList.Take(10))
+        foreach (var item in notInterestedList.Take(_numberOfGamesOnPage))
         {
             GameObject gameObject = new GameObject(item.GameID, item.GameName);
             list.Add(gameObject);
