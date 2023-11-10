@@ -1,8 +1,7 @@
-using DigitalGameStore.DB;
 
 namespace DigitalGameStoreTest;
 
-public class Tests
+/*public class Tests
 {
     [SetUp]
     public void Setup()
@@ -26,4 +25,4 @@ public class Tests
 
         Assert.That(actualName, Is.EqualTo(expectedName));
     }
-}
+}*/

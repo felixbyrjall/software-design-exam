@@ -1,12 +1,27 @@
-﻿using DigitalGameStore.Model;
+﻿using System.Collections;
+using DigitalGameStore.Model;
 namespace DigitalGameStore.Interfaces;
 
 public class GameObject
 {
+	public int ID;
 	public string Name;
 	public string Publisher;
 	public string Release;
 	public string Genres;
+	
+}
+
+public class InterestObject
+{
+	public int ID;
+	public string Name;
+
+	public InterestObject(int id, string name)
+	{
+		ID = id;
+		Name = name;
+	}
 }
 
 public class GameRepo : IGameRepo
@@ -22,7 +37,26 @@ public class GameRepo : IGameRepo
         return _context.Game.Where(g => g.ID >= start && g.ID <= end).ToList();
 	}
 
-	public GameObject GetGameInfo(int GameID)
+    public List<InterestObject> GetNotInterestedGames(int start, int end)
+    {
+	    var notInterestedList =
+		    (from Game in _context.Game
+			    from Interest in _context.Interest.Where(mapping => mapping.GameID == Game.ID).DefaultIfEmpty()
+				    where Interest.ID == null && Game.ID >= start && Game.ID <= end
+			    select new { GameName = Game.Name, GameID = Game.ID });
+	    List<InterestObject> list = new List<InterestObject>();
+	    
+	    
+	    foreach (var item in notInterestedList)
+	    {
+		    InterestObject interestObject = new InterestObject(item.GameID, item.GameName);
+		    list.Add(interestObject);
+	    }
+
+	    return list;
+    }
+
+	public GameObject GetGameInfo(int gameId)
 	{
 		using var context = new Context();
 		var gamePublishers =
@@ -37,14 +71,14 @@ public class GameRepo : IGameRepo
 					 on GameGenres.GameID equals Game.ID
 			 join Genre in context.Genre
 					 on GameGenres.GenreID equals Genre.ID
-			 select new { GenreName = Genre.Name, GameID = Game.ID });
+			 select new { GenreName = Genre.Name, GameID = Game.ID});
 		List<String> genreInfo = new List<string>();
 
-		var getGame = gamePublishers.SingleOrDefault(g => g.GameID == GameID);
+		var getGame = gamePublishers.SingleOrDefault(g => g.GameID == gameId);
 		foreach (var genre in genresList)
 		{
 
-			if (genre.GameID == GameID)
+			if (genre.GameID == gameId)
 			{
 				genreInfo.Add(genre.GenreName);
 			}
@@ -60,6 +94,28 @@ public class GameRepo : IGameRepo
 		gameObjects.Genres = genresString;
 
 		return gameObjects;
+	}
+
+	public void AddGameToInterest(int gameId)
+	{
+		Interest newInterest = new()
+		{
+			GameID = gameId
+		};
+
+		_context.Interest.Add(newInterest);
+		_context.SaveChanges();
+	}
+
+	public void RemoveGameFromInterest(int gameId)
+	{
+		Interest removeInterest = new()
+		{
+			GameID = gameId
+		};
+		
+		_context.Interest.Remove(removeInterest);
+		_context.SaveChanges();
 	}
 }
 

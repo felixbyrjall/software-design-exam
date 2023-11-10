@@ -6,14 +6,11 @@ using DigitalGameStore.Tools;
 namespace DigitalGameStore.Views;
 
 public class Menu {
-
-    private readonly BrowseView _view;
     private readonly MenuLogic _menuTools;
 	private readonly BrowseController _browseController;
 
-    public Menu(BrowseView browseView, MenuLogic menuTools, BrowseController browseController)
+    public Menu( MenuLogic menuTools, BrowseController browseController)
     {
-        _view = browseView;
         _menuTools = menuTools;
         _browseController = browseController;
     }
@@ -30,12 +27,18 @@ public class Menu {
 		switch (selectedIndex)
         {
             case 0:
-				_view.DisplayGameList(selectedIndex);
+	            _browseController.GetAllGamesWithOptions();
+	            _browseController.Check(selectedIndex);
                 BrowseMenu();
 				break;
 			case 1:
+				_browseController.GetAllGamesWithOptions();
+				_browseController.NotInterestedGames(selectedIndex - 1);
+				InterestMenu();
                 break;
 			case 2:
+				_browseController.AddInterest(5);
+				ReturnToMainMenu();
 				break;
 			case 3:
                 Environment.Exit(0);
@@ -57,7 +60,7 @@ public class Menu {
 				break;
 			case 1:
 			case 2:
-				_view.DisplayGameList(selectedIndex);
+				_browseController.Check(selectedIndex);
 				BrowseMenu();
 				break;
 			case 3:
@@ -70,8 +73,45 @@ public class Menu {
 			case 10:
 			case 11:
 			case 12:
-				_browseController.GetSelectedGame((selectedIndex - 2) + BrowseController._currentPage - 10);
+				_browseController.GetSelectedGame((selectedIndex - 3));
 				Console.ReadLine();
+				BrowseMenu();
+				break;
+		}
+	}
+	
+	public void InterestMenu()
+	{
+		List<string> gamesWithOptions = _browseController.GetAllGamesWithOptions();
+
+		var selectedIndex = _menuTools.CallMenu(_prompt, gamesWithOptions, currentIndex);
+		currentIndex = selectedIndex;
+
+		switch (selectedIndex)
+		{
+			case 0:
+				ReturnToMainMenu();
+				break;
+			case 1:
+			case 2:
+				_browseController.NotInterestedGames(selectedIndex);
+				InterestMenu();
+				break;
+			case 3:
+			case 4:
+			case 5:
+			case 6:
+			case 7:
+			case 8:
+			case 9:
+			case 10:
+			case 11:
+			case 12:
+				_browseController.AddInterest((selectedIndex - 3));
+				_browseController.GetSelectedGame((selectedIndex - 3));
+				_browseController.NotInterestedGames(selectedIndex);
+				Console.ReadLine();
+				InterestMenu();
 				break;
 		}
 	}
