@@ -5,33 +5,15 @@ using DigitalGameStore.Interfaces;
 
 namespace DigitalGameStore.Controller
 {
-	public class GameItem
-	{
-		public int ID;
-		public string Name;
-		/*public string Publisher;
-		public string ReleaseDate;
-		public string Genre;*/
-
-		public GameItem(int id, string name) //, string publisher, string releaseDate, string genre 
-		{
-			ID = id;
-			Name = name;
-			/*Publisher = publisher;
-			ReleaseDate = releaseDate;
-			Genre = genre;*/
-		}
-	}
 
     public class BrowseController
     {
         private List<String> _gamesOnPage = new();
-		private List<GameItem> _allGames = new();
-
-		private int _currentPage = 10;
+		private int _countGames;
+        private int _currentPage = 10;
 		private int _lastPage = 100;
 		private int _firstPage = 10;
-		private bool b = false;
+		private bool gamesLoaded = false;
 
 		private readonly IGameRepo _gameRepo;
 		private readonly BrowseView _browseView;
@@ -69,11 +51,15 @@ namespace DigitalGameStore.Controller
 
 		public void ListGames()
 		{
-			if (b == false)
+            var totalGames = _gameRepo.GetGamesOnPage(0, 100);
+			CountGames(totalGames);
+            var totalTime = LoadingTime();
+            if (gamesLoaded == false)
 			{
-				LoadingScreen();
-				b = true;
+				_browseView.LoadingScreen(totalTime);
+                gamesLoaded = true;
 			}
+
 			var games = _gameRepo.GetGamesOnPage((GetCurrentPage() - 9), GetCurrentPage());
 			_gamesOnPage.Clear();
 			GetGamesOnPageWithOptions();
@@ -89,22 +75,31 @@ namespace DigitalGameStore.Controller
 
 		private void AddGamesToMenu(IEnumerable<Game> games)
         {
-            foreach (var game in games)
+            foreach (Game game in games)
 			{
-				GameItem gameitem = new GameItem(game.ID, game.Name);
-				_allGames.Add(gameitem.Name);
-			}
+                _gamesOnPage.Add("ID: " + game.ID + " Name: " + game.Name);
+
+            }
         }
 
-		public void GetSelectedGame(int GameID)
+        private void CountGames(IEnumerable<Game> games)
+        {
+            for (int i = 0; i<games.Count(); i++)
+            {
+				_countGames += 5;
+            }
+        }
+
+        public void GetSelectedGame(int GameID)
 		{
 			var game = _gameRepo.GetGameInfo(GameID);
 			_browseView.ShowGame(game);
 		}
 
-		public void LoadingScreen()
+		public int LoadingTime()
 		{
-			_browseView.LoadingScreen();
+			int totalLoadingTime = _countGames;
+			return totalLoadingTime;
 		}
 	}
 }
