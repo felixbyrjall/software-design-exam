@@ -4,7 +4,7 @@ namespace DigitalGameStore.Interfaces
 {
     public interface IGameRepo
     {
-        IList<Game> GetAllGames(int start, int end);
+        IList<Game> GetGamesOnPage(int start, int end);
 
         public GameObject GetGameInfo(int GameID);
 

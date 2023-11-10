@@ -19,7 +19,7 @@ public class GameRepo : IGameRepo
     {
         _context = context;
     }
-    public IList<Game> GetAllGames(int start, int end)
+    public IList<Game> GetGamesOnPage(int start, int end)
     {
 		return _context.Game.Where(g => g.ID >= start && g.ID <= end).ToList();
 	}

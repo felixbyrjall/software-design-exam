@@ -44,7 +44,7 @@ public class Menu {
 
 	public void BrowseMenu()
 	{
-        List<string> gamesWithOptions = _browseController.GetAllGamesWithOptions();
+        List<string> gamesWithOptions = _browseController.GetGamesOnPageWithOptions();
 
         var selectedIndex = _menuTools.CallMenu(_prompt, gamesWithOptions, currentIndex);
 		currentIndex = selectedIndex;
