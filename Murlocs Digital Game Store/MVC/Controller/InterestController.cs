@@ -48,7 +48,11 @@ public class InterestController {
         {
             int j = GetCurrentPage();
             SetCurrentPage(j -= 10);
-        }
+        }else if (i == 1 && GetCurrentPage() > _lastPage)
+        {
+			int j = GetCurrentPage();
+			SetCurrentPage(j -= 10);
+		}
         ListNotInterested();
     }
 
@@ -87,15 +91,7 @@ public class InterestController {
     {
         var game = _interestRepo.GetGameInfo(_gamesNotAdded[gameId].ID);
 
-        string name = game.Name;
-        string publisher = game.Publisher;
-        string releaseDate = game.ReleaseDate;
-        string genre1 = game.Genres[0];
-		string genre2 = game.Genres[1];
-		string genre3 = game.Genres[2];
-		string genre4 = game.Genres[3];
-		string genre5 = game.Genres[4];
-		_interestView.ShowGame(name, publisher, releaseDate, genre1, genre2, genre3, genre4, genre5);
+        _interestView.ShowGame(game);
     }
 
 }
