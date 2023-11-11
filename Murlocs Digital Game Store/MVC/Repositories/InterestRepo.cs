@@ -16,17 +16,17 @@ public class InterestRepo : IInterestRepo {
         _gameObject = gameObject;
     }
 
-    public List<GameObject> GetNotInterestedGames(int start, int end)
+    public List<GameObject> GetNotInterestedGames(int page)
     {
         var notInterestedList =
             (from Game in _context.Game
              from Interest in _context.Interest.Where(mapping => mapping.GameID == Game.ID).DefaultIfEmpty()
-             where Interest.ID == null && Game.ID >= start
-             select new { GameName = Game.Name, GameID = Game.ID });
+             where Interest.ID == null
+             select new { GameName = Game.Name, GameID = Game.ID }).Skip(page - 10).Take(10);
         List<GameObject> list = new List<GameObject>();
 
 
-        foreach (var item in notInterestedList.Take(_numberOfGamesOnPage))
+        foreach (var item in notInterestedList)
         {
             GameObject gameObject = new GameObject(item.GameID, item.GameName);
             list.Add(gameObject);

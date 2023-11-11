@@ -32,7 +32,7 @@ public class InterestController {
 
     public void ListNotInterested()
     {
-        var gamesInterested = _interestRepo.GetNotInterestedGames((_currentPage - 9), _currentPage);
+        var gamesInterested = _interestRepo.GetNotInterestedGames(_currentPage);
         _gamesNotAdded.Clear();
         GamesNotAddedToList(gamesInterested); // Kaller på metoden AddGames for å legge til spill i _allGames feltet i view.
     }

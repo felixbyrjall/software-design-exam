@@ -5,7 +5,7 @@ namespace DigitalGameStore.Interfaces
 {
 	public interface IInterestRepo {
 
-        public List<GameObject> GetNotInterestedGames(int start, int end);
+        public List<GameObject> GetNotInterestedGames(int page);
 
         public GameObject GetGameInfo(int gameId);
 
