@@ -14,6 +14,6 @@ namespace DigitalGameStore.Interfaces
 
         public int CountGamesNotInInterestList();
 
-
-    }
+        public List<GameObject> GetGamesOnInterestList(int page);
+	}
 }

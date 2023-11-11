@@ -23,6 +23,8 @@ public class InterestController
 
     private List<GameObject> _gamesNotAdded = new();
 
+    
+
     private void GamesNotAddedToList(List<GameObject> games)
     {
         foreach (var game in games)
@@ -90,10 +92,7 @@ public class InterestController
         }
     }
 
-    public void RemoveInterest(int gameId)
-    {
-        _interestRepo.RemoveGameFromInterest(gameId);
-    }
+
 
 
     public void GetSelectedGame(int gameId)
@@ -102,5 +101,60 @@ public class InterestController
 
         _interestView.ShowGame(game);
     }
+
+
+	//
+	//
+	//
+	//
+
+	private List<GameObject> _gamesInInterestList = new();
+
+	public List<string> GetGamesOnInterestListWithOptions()
+	{
+        int numberOfGamesInList = 2;
+		List<string> o = new List<string> { "Back to main menu", "Add games to interest list", "Look for recommendations", "---- Games on list: " + numberOfGamesInList + " -----" };
+		foreach (var game in _gamesInInterestList)
+		{
+			o.Add("ID: " + game.ID + " Name: " + game.Name);
+		}
+		return o;
+	}
+
+	public void ListInterested()
+	{
+		var gamesInterested = _interestRepo.GetGamesOnInterestList(_currentPage);
+		_gamesInInterestList.Clear();
+		GamesAddedToList(gamesInterested);
+	}
+
+	private void GamesAddedToList(List<GameObject> games)
+	{
+		foreach (var game in games)
+		{
+			GameObject gameObject = new GameObject(game.ID, game.Name);
+			_gamesInInterestList.Add(gameObject);
+		}
+	}
+
+	public void Check2(int i)
+	{
+		if (i == 1 && GetCurrentPage() < _lastPage)
+		{
+			int j = GetCurrentPage();
+			SetCurrentPage(j += 10);
+		}
+		else if (i == 2 && GetCurrentPage() != _firstPage)
+		{
+			int j = GetCurrentPage();
+			SetCurrentPage(j -= 10);
+		}
+		ListInterested();
+	}
+
+	public void RemoveInterest(int gameId)
+	{
+		_interestRepo.RemoveGameFromInterest(gameId);
+	}
 
 }

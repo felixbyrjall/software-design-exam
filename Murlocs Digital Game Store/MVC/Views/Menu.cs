@@ -35,9 +35,9 @@ public class Menu {
                 BrowseMenu();
 				break;
 			case 1: // See list of interested games
-                _interestController.GetGamesOnPageWithOptions();
-                _interestController.Check(selectedIndex - 1);
-                InterestMenu();
+                _interestController.GetGamesOnInterestListWithOptions();
+                _interestController.Check2(selectedIndex);
+                ShowInterestList();
 				break;
             case 2: // See list of recommended games based on interested games
 				break;
@@ -73,6 +73,40 @@ public class Menu {
 				Console.ReadLine();
 				break;
 		}
+	}
+
+    public void ShowInterestList()
+    {
+        List<string> interestListWithOptions = _interestController.GetGamesOnInterestListWithOptions();
+
+		var selectedIndex = _menuTools.CallMenu(_prompt, interestListWithOptions, currentIndex);
+        currentIndex = selectedIndex;
+
+        switch (selectedIndex)
+        {
+            case 0:
+				ReturnToMainMenu(); // Return to main menu
+				break;
+            case 1:
+                _interestController.GetGamesOnPageWithOptions();
+				_interestController.Check(selectedIndex - 1);
+				InterestMenu();
+				break;
+            case 2:
+                ShowInterestList(); // placeholder for recommendations
+				break;
+            case 3:
+                ShowInterestList(); // Line
+                break;
+			default:
+				_interestController.RemoveInterest((selectedIndex - 4));
+				_interestController.GetSelectedGame((selectedIndex - 4));
+				_interestController.Check(selectedIndex);
+				Console.ReadLine();
+				InterestMenu();
+				break;
+		}
+
 	}
 
     public void InterestMenu()

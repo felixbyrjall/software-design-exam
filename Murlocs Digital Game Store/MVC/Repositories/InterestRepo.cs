@@ -59,4 +59,22 @@ public class InterestRepo : IInterestRepo {
         _context.SaveChanges();
     }
 
+
+	public List<GameObject> GetGamesOnInterestList(int page)
+	{
+        var interestList =
+            (from Game in _context.Game
+             from Interest in _context.Interest.Where(mapping => mapping.GameID == Game.ID).DefaultIfEmpty()
+             where Interest.ID != null
+             select new { GameName = Game.Name, GameID = Game.ID });      //ADD .Skip(page - 10).Take(10); WITH NEXT/PREVIOUS PAGE
+		List<GameObject> list = new List<GameObject>();
+
+		foreach (var item in interestList)
+		{
+			GameObject gameObject = new GameObject(item.GameID, item.GameName);
+			list.Add(gameObject);
+		}
+
+		return list;
+	}
 }
