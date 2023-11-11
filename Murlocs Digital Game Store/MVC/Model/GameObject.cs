@@ -6,10 +6,12 @@ public class GameObject
     public string Name;
     public string Publisher;
     public string ReleaseDate;
-    public string Genres;
+    public List<string> Genres;
 
 
-    public GameObject(int id, string name, string publisher, string releasedate, string genres)
+
+
+    public GameObject(int id, string name, string publisher, string releasedate, List<string> genres)
     {
         ID = id;
         Name = name;

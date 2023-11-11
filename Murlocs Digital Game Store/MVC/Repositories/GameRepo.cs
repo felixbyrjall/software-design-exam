@@ -32,26 +32,22 @@ public class GameRepo : IGameRepo
 			 join Genre in context.Genre
 					 on GameGenres.GenreID equals Genre.ID
 			 select new { GenreName = Genre.Name, GameID = Game.ID });
-		List<String> genreInfo = new List<string>();
+		List<String> genres = new List<string>();
 
 		var getGame = gamePublishers.SingleOrDefault(g => g.GameID == GameID);
 		foreach (var genre in genresList)
 		{
-
 			if (genre.GameID == GameID)
 			{
-				genreInfo.Add(genre.GenreName);
+				genres.Add(genre.GenreName);
 			}
 		}
-
-		string genresString = genreInfo[0] + ", " + genreInfo[1] + ", " + genreInfo[2] + ", " + genreInfo[3] +
-							  ", " + genreInfo[4];
 
 		GameObject gameObjects = new GameObject();
 		gameObjects.Name = getGame.GameName;
 		gameObjects.Publisher = getGame.PublisherName;
 		gameObjects.ReleaseDate = getGame.GameRelease;
-		gameObjects.Genres = genresString;
+		gameObjects.Genres = genres;
 
 		return gameObjects;
 	}

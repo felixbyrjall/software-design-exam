@@ -86,7 +86,16 @@ public class InterestController {
     public void GetSelectedGame(int gameId)
     {
         var game = _interestRepo.GetGameInfo(_gamesNotAdded[gameId].ID);
-        _interestView.ShowGame(game);
+
+        string name = game.Name;
+        string publisher = game.Publisher;
+        string releaseDate = game.ReleaseDate;
+        string genre1 = game.Genres[0];
+		string genre2 = game.Genres[1];
+		string genre3 = game.Genres[2];
+		string genre4 = game.Genres[3];
+		string genre5 = game.Genres[4];
+		_interestView.ShowGame(name, publisher, releaseDate, genre1, genre2, genre3, genre4, genre5);
     }
 
 }
