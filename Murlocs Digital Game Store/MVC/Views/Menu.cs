@@ -9,11 +9,13 @@ public class Menu {
 
     private readonly MenuLogic _menuTools;
 	private readonly BrowseController _browseController;
+	private readonly InterestController _interestController;
 
-    public Menu(MenuLogic menuTools, BrowseController browseController)
+    public Menu(MenuLogic menuTools, BrowseController browseController, InterestController interestController)
     {
         _menuTools = menuTools;
         _browseController = browseController;
+		_interestController = interestController;
     }
 
     private List<String> menuOptions = new List<string>{ "Browse Games", "Interest List", "Recommendations", "Exit" };
@@ -33,8 +35,11 @@ public class Menu {
                 BrowseMenu();
 				break;
 			case 1:
-                break;
-			case 2:
+                _interestController.GetGamesOnPageWithOptions();
+                _interestController.Check(selectedIndex - 1);
+                InterestMenu();
+				break;
+            case 2:
 				break;
 			case 3:
                 Environment.Exit(0);
@@ -67,7 +72,34 @@ public class Menu {
 		}
 	}
 
-	public void ReturnToMainMenu()
+    public void InterestMenu()
+    {
+        List<string> gamesWithOptions = _interestController.GetGamesOnPageWithOptions();
+
+        var selectedIndex = _menuTools.CallMenu(_prompt, gamesWithOptions, currentIndex);
+        currentIndex = selectedIndex;
+
+        switch (selectedIndex)
+        {
+            case 0:
+                ReturnToMainMenu();
+                break;
+            case 1:
+            case 2:
+                _interestController.Check(selectedIndex);
+                InterestMenu();
+                break;
+            default:
+                _interestController.AddInterest((selectedIndex - 3));
+                _interestController.GetSelectedGame((selectedIndex - 3));
+                _interestController.Check(selectedIndex);
+                Console.ReadLine();
+                InterestMenu();
+                break;
+        }
+    }
+
+    public void ReturnToMainMenu()
     {
         MainMenu();
     }

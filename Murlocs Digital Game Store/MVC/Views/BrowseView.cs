@@ -12,17 +12,17 @@ namespace DigitalGameStore.Views
 		{
 			Console.WriteLine("Name: " + game.Name +
 							  "\n Publisher: " + game.Publisher +
-							  "\n Release: " + game.Release +
+							  "\n Release: " + game.ReleaseDate +
 							  "\n Genres: " + game.Genres);
 		}
 
-		public void LoadingScreen()
+		public void LoadingScreen(int time)
 		{
 			Func.WriteOutput("Loading.");
-			Thread.Sleep(350);
+			Thread.Sleep(time);
 			Func.Clear();
 			Func.WriteOutput("Loading..");
-			Thread.Sleep(350);
+			Thread.Sleep(time);
 			Func.Clear();
 			Func.WriteOutput("Loading...");
 		}
