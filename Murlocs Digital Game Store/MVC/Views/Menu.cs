@@ -29,19 +29,19 @@ public class Menu {
 
 		switch (selectedIndex)
         {
-            case 0:
+            case 0: // Browse games
 				Func.Clear();
 				_browseController.Check(selectedIndex);
                 BrowseMenu();
 				break;
-			case 1:
+			case 1: // See list of interested games
                 _interestController.GetGamesOnPageWithOptions();
                 _interestController.Check(selectedIndex - 1);
                 InterestMenu();
 				break;
-            case 2:
+            case 2: // See list of recommended games based on interested games
 				break;
-			case 3:
+			case 3: // Exit the application
                 Environment.Exit(0);
                 break;
         }
@@ -60,7 +60,7 @@ public class Menu {
 				ReturnToMainMenu();
 				break;
 			case 1: // Next Page
-            case 2: // Previopus Page
+            case 2: // Previous Page
 				Func.Clear();
 				_browseController.Check(selectedIndex);
 				BrowseMenu();
@@ -84,18 +84,18 @@ public class Menu {
 
         switch (selectedIndex)
         {
-            case 0:
+            case 0: // Return to main menu
                 ReturnToMainMenu();
                 break;
-            case 1:
-            case 2:
+            case 1: // Next Page
+            case 2: // Previous Page
                 _interestController.Check(selectedIndex);
                 InterestMenu();
                 break;
             case 3: // Divider between menu options and interactive objects.
                 InterestMenu();
                 break;
-            default:
+            default: // Displayed objects
                 _interestController.AddInterest((selectedIndex - 4));
                 _interestController.GetSelectedGame((selectedIndex - 4));
                 _interestController.Check(selectedIndex);
