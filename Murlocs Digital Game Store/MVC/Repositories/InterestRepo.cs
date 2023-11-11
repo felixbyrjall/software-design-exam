@@ -1,5 +1,6 @@
 using DigitalGameStore.Interfaces;
 using DigitalGameStore.Model;
+using Microsoft.EntityFrameworkCore;
 
 namespace DigitalGameStore.Repo;
 
@@ -35,6 +36,16 @@ public class InterestRepo : IInterestRepo {
         return list;
     }
 
+    public List<int> GetIntGames() {
+        var interestedGameIds = (
+            from interest in _context.Interest
+            select new {interest.GameID });
+        List<int> list = new List<int>();
+        foreach (var item in interestedGameIds) {
+            list.Add(item.GameID);
+        }
+        return list;
+    }
 
     public void AddGameToInterest(int gameId)
     {
