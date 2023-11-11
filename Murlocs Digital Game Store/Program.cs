@@ -18,8 +18,8 @@ public class Program
 
         var interestView = new InterestView();
         var gameObject = new GameObject();
-        var interestRepo = new InterestRepo(context, gameObject);
-        var interestController = new InterestController(interestRepo, interestView, gameObject);
+        var interestRepo = new InterestRepo(context);
+        var interestController = new InterestController(interestRepo, interestView, gameRepo);
 
         var menuTools = new MenuLogic(); 
         var menu = new Menu(menuTools, browseController, interestController);

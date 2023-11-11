@@ -8,5 +8,7 @@ namespace DigitalGameStore.Interfaces
 
         public GameObject GetGameInfo(int GameID);
 
-	}
+        public int CountAllGames();
+
+    }
 }
