@@ -38,25 +38,21 @@ public class Tests
             var publisher = new Publisher { ID = expectedPublisher, Name = "Valve" };
             db.Publisher.Add(publisher);
             db.SaveChanges();
-        }
-        
-        using (var db = new Context()) {
+            
             //Act
             var addedGame = new Game
             { ID = expectedId, Name = expectedName, ReleaseDate = expectedRelease, Score = expectedScore, PublisherID = expectedPublisher };
             db.Game.Add(addedGame);
             db.SaveChanges();
-        }
         
-        using (var db = new Context()) {
             //Assert
-            var retrivedGame = db.Game.Single();
+            var retrievedGame = db.Game.Single();
         
-            Assert.AreEqual(expectedId, retrivedGame.ID);
-            Assert.AreEqual(expectedName, retrivedGame.Name);
-            Assert.AreEqual(expectedRelease, retrivedGame.ReleaseDate);
-            Assert.AreEqual(expectedScore, retrivedGame.Score);
-            Assert.AreEqual(expectedPublisher, retrivedGame.PublisherID);
+            Assert.AreEqual(expectedId, retrievedGame.ID);
+            Assert.AreEqual(expectedName, retrievedGame.Name);
+            Assert.AreEqual(expectedRelease, retrievedGame.ReleaseDate);
+            Assert.AreEqual(expectedScore, retrievedGame.Score);
+            Assert.AreEqual(expectedPublisher, retrievedGame.PublisherID);
         }
     }
 
@@ -72,20 +68,16 @@ public class Tests
             var game = new Game { ID = 1, Name = "Counter Strike 2", ReleaseDate = "21.08.2012", Score = 0, PublisherID = 1 };
             db.Game.Add(game);
             db.SaveChanges();
-        }
-        
-        using (var db = new Context()) {
+            
             //Act
-            var interest = new Interest { ID = expectedId, GameID = expectedGame };
-            db.Interest.Add(interest);
+            var addedInterest = new Interest { ID = expectedId, GameID = expectedGame };
+            db.Interest.Add(addedInterest);
             db.SaveChanges();
-        }
-        
-        using (var db = new Context()) {
+            
             //Assert
-            var addedInterest = db.Interest.Single();
-            Assert.AreEqual(expectedId, addedInterest.ID);
-            Assert.AreEqual(expectedGame, addedInterest.GameID);
+            var retrievedInterest = db.Interest.Single();
+            Assert.AreEqual(expectedId, retrievedInterest.ID);
+            Assert.AreEqual(expectedGame, retrievedInterest.GameID);
         }
     }
 
@@ -96,7 +88,7 @@ public class Tests
         using (var db = new Context()) {
             //Arrange
             var publisher = new Publisher { ID = 1, Name = "Valve" };
-            db.Publisher.Add(publisher); //Adding a publisher so the foregin key works
+            db.Publisher.Add(publisher); //Adding a publisher so the foreign key works
 
             var game1 = new Game { ID = 1, Name = "Counter Strike 2", ReleaseDate = "21.08.2012", Score = 0, PublisherID = 1 };
             var game2 = new Game { ID = 2, Name = "Dota 2", ReleaseDate = "09.07.2013", Score = 0, PublisherID = 1 };
@@ -111,17 +103,14 @@ public class Tests
             };
             db.Interest.AddRange(interest);
             db.SaveChanges();
-        }
-        using (var db = new Context()) {
+   
             //Act
-            var removeInterest = db.Interest.FirstOrDefault(i => i.GameID == deleteId);
-            if (removeInterest!=null) {
-                db.Interest.Remove(removeInterest);
+            var removedInterest = db.Interest.FirstOrDefault(i => i.GameID == deleteId);
+            if (removedInterest!=null) {
+                db.Interest.Remove(removedInterest);
                 db.SaveChanges();
             }
-        }
-
-        using (var db = new Context()) {
+   
             //Assert
             int actualCount = db.Interest.Count();
             Assert.AreNotEqual(interests.Count(), actualCount);
