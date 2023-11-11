@@ -8,7 +8,6 @@ namespace DigitalGameStore.Controller
     public class BrowseController
     {
         private List<String> _gamesOnPage = new();
-        private int _countGames;
         private int _currentPage = 10;
         private int _lastPage;
         private const int _firstPage = 10;
