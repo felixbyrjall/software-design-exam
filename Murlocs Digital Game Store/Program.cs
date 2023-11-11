@@ -1,10 +1,30 @@
-﻿namespace InventoryManager;
+using DigitalGameStore.Controller;
+using DigitalGameStore.Model;
+using DigitalGameStore.Repo;
+using DigitalGameStore.Tools;
+using DigitalGameStore.Views;
+using DigitalGameStore.Interfaces;
 
-class Program
+namespace DigitalGameStore;
+
+public class Program
 {
-    static void Main(string[] args)
+    public static void Main(string[] args)
     {
-        Console.WriteLine("Hello, World!");
+        var context = new Context();
+        var gameRepo = new GameRepo(context);
+        var browseView = new BrowseView();
+        var browseController = new BrowseController(gameRepo, browseView);
+
+        var interestView = new InterestView();
+        var gameObject = new GameObject();
+        var interestRepo = new InterestRepo(context, gameObject);
+        var interestController = new InterestController(interestRepo, interestView, gameObject);
+
+        var menuTools = new MenuLogic(); 
+        var menu = new Menu(menuTools, browseController, interestController);
+
+        // Run the main menu
+        menu.MainMenu();
     }
 }
-
