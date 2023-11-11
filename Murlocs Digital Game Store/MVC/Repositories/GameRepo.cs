@@ -1,17 +1,18 @@
 ﻿using DigitalGameStore.Model;
+using DigitalGameStore.Repo;
 
 namespace DigitalGameStore.Interfaces;
 
 public class GameRepo : IGameRepo
 {
-    private readonly Context _context;
+	private readonly Context _context;
 
-    public GameRepo(Context context)
-    {
-        _context = context;
-    }
+	public GameRepo(Context context)
+	{
+		_context = context;
+	}
 
-    public IList<Game> GetGamesOnPage(int start, int end)
+	public IList<Game> GetGamesOnPage(int start, int end)
     {
         return _context.Game.Where(g => g.ID >= start && g.ID <= end).ToList();
     }
@@ -25,21 +26,21 @@ public class GameRepo : IGameRepo
 
     public GameObject GetGameInfo(int GameID)
     {
-        using var context = new Context();
         var gamePublishers =
-            (from Game in context.Game
-             join Publisher in context.Publisher
+            (from Game in _context.Game
+             join Publisher in _context.Publisher
                      on Game.PublisherID equals Publisher.ID
              select new { GameName = Game.Name, GameID = Game.ID, PublisherName = Publisher.Name, GameRelease = Game.ReleaseDate }).ToList();
 
         var genresList =
-            (from GameGenres in context.GameGenres
-             join Game in context.Game
+            (from GameGenres in _context.GameGenres
+             join Game in _context.Game
                      on GameGenres.GameID equals Game.ID
-             join Genre in context.Genre
+             join Genre in _context.Genre
                      on GameGenres.GenreID equals Genre.ID
              select new { GenreName = Genre.Name, GameID = Game.ID });
-        List<String> genres = new List<string>();
+
+        List<string> genres = new List<string>();
 
         var getGame = gamePublishers.SingleOrDefault(g => g.GameID == GameID);
         foreach (var genre in genresList)
