@@ -7,6 +7,7 @@ public class GameObject
     public string Publisher;
     public string ReleaseDate;
     public string Genres;
+    public int Score;
 
 
     public GameObject(int id, string name, string publisher, string releasedate, string genres)
@@ -24,11 +25,20 @@ public class GameObject
         Name = name;
     }
 
-    public GameObject()
+    public GameObject() {
+        
+    }
+    public GameObject(int id, string name, string publisher, string releasedate, string genres, int Score)
     {
-
+        ID = id;
+        Name = name;
+        Publisher = publisher;
+        ReleaseDate = releasedate;
+        Genres = genres;
+        Score = Score;
     }
 
 
+    
 }
 

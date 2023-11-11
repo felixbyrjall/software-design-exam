@@ -23,7 +23,7 @@ public class GameRepo : IGameRepo
 			(from Game in context.Game
 			 join Publisher in context.Publisher
 					 on Game.PublisherID equals Publisher.ID
-			 select new { GameName = Game.Name, GameID = Game.ID, PublisherName = Publisher.Name, GameRelease = Game.ReleaseDate }).ToList();
+			 select new { GameName = Game.Name, GameID = Game.ID, PublisherName = Publisher.Name, GameRelease = Game.ReleaseDate, Score = Game.Score }).ToList();
 
 		var genresList =
 			(from GameGenres in context.GameGenres

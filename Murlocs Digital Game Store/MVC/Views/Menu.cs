@@ -10,12 +10,15 @@ public class Menu {
     private readonly MenuLogic _menuTools;
 	private readonly BrowseController _browseController;
 	private readonly InterestController _interestController;
+	private readonly RecommendController _recommendController;
 
-    public Menu(MenuLogic menuTools, BrowseController browseController, InterestController interestController)
+    public Menu(MenuLogic menuTools, BrowseController browseController, InterestController interestController, RecommendController recommendController)
     {
         _menuTools = menuTools;
         _browseController = browseController;
 		_interestController = interestController;
+		_recommendController = recommendController;
+
     }
 
     private List<String> menuOptions = new List<string>{ "Browse Games", "Interest List", "Recommendations", "Exit" };
@@ -40,6 +43,8 @@ public class Menu {
                 InterestMenu();
 				break;
             case 2:
+	            _recommendController.GetRecommendedGameWithOptions();
+	            RecommendMenu();
 				break;
 			case 3:
                 Environment.Exit(0);
@@ -99,6 +104,23 @@ public class Menu {
         }
     }
 
+    public void RecommendMenu() {
+	    List<string> gamesWithOptions = _recommendController.GetRecommendedGameWithOptions();
+	    var selectedIndex = _menuTools.CallMenu(_prompt, gamesWithOptions, currentIndex);	    
+	    switch (selectedIndex)
+	    {
+		    case 0:
+			    ReturnToMainMenu();
+			    break;
+		    default:   
+			    _recommendController.GetSelectedGame(selectedIndex);
+			    Console.ReadLine();
+			    RecommendMenu();
+			    break;
+		    
+	    }
+
+    }
     public void ReturnToMainMenu()
     {
         MainMenu();
