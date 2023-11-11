@@ -16,7 +16,8 @@ public class InterestRepo : IInterestRepo {
         var notInterestedList =
             (from Game in _context.Game
              from Interest in _context.Interest.Where(mapping => mapping.GameID == Game.ID).DefaultIfEmpty()
-             select new { GameName = Game.Name, GameID = Game.ID }).Skip(page - 10).Take(10);
+			 where Interest.ID == null
+			 select new { GameName = Game.Name, GameID = Game.ID }).Skip(page - 10).Take(10);
         List<GameObject> list = new List<GameObject>();
 
         foreach (var item in notInterestedList)
