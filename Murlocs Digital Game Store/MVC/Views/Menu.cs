@@ -56,17 +56,20 @@ public class Menu {
 
 		switch (selectedIndex)
 		{
-			case 0:
+			case 0: // Return to Main Menu
 				ReturnToMainMenu();
 				break;
-			case 1:
-			case 2:
+			case 1: // Next Page
+            case 2: // Previopus Page
 				Func.Clear();
 				_browseController.Check(selectedIndex);
 				BrowseMenu();
 				break;
-			default:
-				_browseController.GetSelectedGame((selectedIndex - 2) + _browseController.GetCurrentPage() - 10);
+            case 3: // Divider between menu options and interactive objects.
+                BrowseMenu();
+                break;
+            default: // Displayed objects
+				_browseController.GetSelectedGame((selectedIndex - 3) + _browseController.GetCurrentPage() - 10);
 				Console.ReadLine();
 				break;
 		}
@@ -89,9 +92,12 @@ public class Menu {
                 _interestController.Check(selectedIndex);
                 InterestMenu();
                 break;
+            case 3: // Divider between menu options and interactive objects.
+                InterestMenu();
+                break;
             default:
-                _interestController.AddInterest((selectedIndex - 3));
-                _interestController.GetSelectedGame((selectedIndex - 3));
+                _interestController.AddInterest((selectedIndex - 4));
+                _interestController.GetSelectedGame((selectedIndex - 4));
                 _interestController.Check(selectedIndex);
                 Console.ReadLine();
                 InterestMenu();

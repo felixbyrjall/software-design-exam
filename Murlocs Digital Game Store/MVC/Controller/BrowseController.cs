@@ -68,7 +68,7 @@ namespace DigitalGameStore.Controller
 
 		public List<string> GetGamesOnPageWithOptions()
 		{
-			List<string> options = new List<string> {"Back to main menu", "Next page", "Previous page"};
+			List<string> options = new List<string> {"Back to main menu", "Next page", "Previous page", "---------"};
 			options.AddRange(_gamesOnPage);
 			return options;
 		}

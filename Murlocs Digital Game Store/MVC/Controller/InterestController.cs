@@ -54,7 +54,7 @@ public class InterestController {
 
     public List<string> GetGamesOnPageWithOptions()
     {
-        List<string> options = new List<string> { "Back to main menu", "Next page", "Previous page" };
+        List<string> options = new List<string> { "Back to main menu", "Next page", "Previous page", "---------" };
         foreach (var game in _gamesNotAdded)
         {
             options.Add("ID: " + game.ID + " Name: " + game.Name);
