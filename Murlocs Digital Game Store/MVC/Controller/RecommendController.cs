@@ -1,28 +1,26 @@
 using DigitalGameStore.Interfaces;
-using DigitalGameStore.Model;
-using DigitalGameStore.MVC.Repositories;
-using DigitalGameStore.Tools;
 using DigitalGameStore.Views;
-using Microsoft.EntityFrameworkCore;
 
 namespace DigitalGameStore.Controller; 
 
 public class RecommendController {
-    private List<string> _gamesOnPage;
-    private readonly GameGenresRepo _gameGenresRepo;
-    private readonly GameRepo _gameRepo;
+    private List<string> _gamesOnPage = new();
+    
+    
+    private readonly IGameGenreRepo _gameGenreRepo;
+    private readonly IGameRepo _gameRepo;
     private readonly RecommendView _recommendView;
-
-    public RecommendController(GameGenresRepo gameGenresRepo, GameRepo gameRepo, RecommendView recommendView) {
-        _gameGenresRepo = gameGenresRepo;
+        public RecommendController(IGameGenreRepo gameGenreRepo, IGameRepo gameRepo, RecommendView recommendView){
+        _gameGenreRepo = gameGenreRepo;
         _gameRepo = gameRepo;
         _recommendView = recommendView;
     }
     
 
+
     public List<string> GetRecommendedGameWithOptions() {
         
-        List<string> options = new List<string>(_gameGenresRepo.RecommendGames());
+        List<string> options = new List<string>(_gameGenreRepo.RecommendGames());
         _gamesOnPage = options;
         return options;
     }

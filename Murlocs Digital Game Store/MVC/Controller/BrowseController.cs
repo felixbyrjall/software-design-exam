@@ -1,7 +1,6 @@
-﻿using DigitalGameStore.Views;
+﻿using DigitalGameStore.Interfaces;
+using DigitalGameStore.Views;
 using DigitalGameStore.Model;
-using DigitalGameStore.Interfaces;
-
 namespace DigitalGameStore.Controller
 {
 

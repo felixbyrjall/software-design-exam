@@ -1,5 +1,6 @@
 using DigitalGameStore.Interfaces;
 using DigitalGameStore.Model;
+using DigitalGameStore.Repo;
 using DigitalGameStore.Views;
 
 namespace DigitalGameStore.Controller;

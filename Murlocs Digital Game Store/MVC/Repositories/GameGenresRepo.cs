@@ -1,20 +1,16 @@
-using DigitalGameStore.Model;
 using DigitalGameStore.Interfaces;
-using DigitalGameStore.Repo;
-using Microsoft.EntityFrameworkCore;
+using DigitalGameStore.Model;
 
-namespace DigitalGameStore.MVC.Repositories;
+namespace DigitalGameStore.Repo;
 
-public class GameGenresRepo {
+public class GameGenresRepo : IGameGenreRepo {
 
     private readonly Context _context;
 
     public GameGenresRepo(Context context) {
         _context = context;
     }
-
-
-
+    
     public List<int> GetIntGenres() {
         InterestRepo s = new InterestRepo(_context);
         var interestedGameIds = s.GetIntGames();
@@ -33,7 +29,7 @@ public class GameGenresRepo {
         return gameGenresIds.Count(genreId => interestedGenreIds.Contains(genreId));
     }
 
-    private int ScoreGame(Game game) {
+    public int ScoreGame(Game game) {
         int score = 0;
         var genreIds = _context.GameGenres
             .Where(gameGenres => gameGenres.GameID == game.ID)

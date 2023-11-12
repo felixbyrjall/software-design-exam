@@ -1,9 +1,8 @@
 using DigitalGameStore.Model;
-using DigitalGameStore.MVC.Repositories;
 
 namespace DigitalGameStore.Interfaces; 
 
-public interface IGameGenresRepo {
-
+public interface IGameGenreRepo {
+    public List<string> RecommendGames();
 
 }

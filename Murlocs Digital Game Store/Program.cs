@@ -1,10 +1,8 @@
 using DigitalGameStore.Controller;
 using DigitalGameStore.Model;
-using DigitalGameStore.Repo;
 using DigitalGameStore.Tools;
 using DigitalGameStore.Views;
-using DigitalGameStore.Interfaces;
-using DigitalGameStore.MVC.Repositories;
+using DigitalGameStore.Repo;
 
 namespace DigitalGameStore;
 

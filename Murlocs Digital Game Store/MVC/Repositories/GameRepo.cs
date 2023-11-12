@@ -1,7 +1,7 @@
-﻿using DigitalGameStore.Model;
-using DigitalGameStore.Repo;
+﻿using DigitalGameStore.Interfaces;
+using DigitalGameStore.Model;
 
-namespace DigitalGameStore.Interfaces;
+namespace DigitalGameStore.Repo;
 
 public class GameRepo : IGameRepo
 {

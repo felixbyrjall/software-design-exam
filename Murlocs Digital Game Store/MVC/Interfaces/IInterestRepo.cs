@@ -1,9 +1,6 @@
 ﻿using DigitalGameStore.Model;
-using DigitalGameStore.Repo;
-using Microsoft.EntityFrameworkCore;
 
-namespace DigitalGameStore.Interfaces
-{
+namespace DigitalGameStore.Interfaces {
     public interface IInterestRepo
     {
         public List<GameObject> GetNotInterestedGames(int page);
@@ -15,7 +12,5 @@ namespace DigitalGameStore.Interfaces
         public int CountGamesNotInInterestList();
 
         public List<GameObject> GetGamesOnInterestList(int page);
-
-        public List<int> GetIntGames();
     }
 }
