@@ -1,6 +1,7 @@
 using DigitalGameStore.Interfaces;
 using DigitalGameStore.Model;
 using DigitalGameStore.Repo;
+using DigitalGameStore.Tools;
 using DigitalGameStore.Views;
 
 namespace DigitalGameStore.Controller;
@@ -13,12 +14,18 @@ public class InterestController
     private readonly IInterestRepo _interestRepo;
     private readonly InterestView _interestView;
     private readonly GameRepo _gameRepo;
+	private readonly BrowseController _browseController;
+	private readonly MenuLogic _menuLogic;
 
-    public InterestController(IInterestRepo interestRepo, InterestView interestView, GameRepo gameRepo)
+	public static int currentIndex = 0;
+
+	public InterestController(IInterestRepo interestRepo, InterestView interestView, GameRepo gameRepo, BrowseController browseController, MenuLogic menuLogic)
     {
         _interestRepo = interestRepo;
         _interestView = interestView;
         _gameRepo = gameRepo;
+		_browseController = browseController;
+		_menuLogic = menuLogic;
     }
 
     private List<GameObject> _gamesNotAdded = new();
@@ -93,14 +100,45 @@ public class InterestController
 
 
 
-    public void GetSelectedGame(int gameId)
-    {
-        var game = _gameRepo.GetGameInfo(_gamesNotAdded[gameId].ID);
+	public void GetSelectedGame(int gameId)
+	{
+		var game = _gameRepo.GetGameInfo(gameId);
 
-        _interestView.ShowGame(game);
+		_interestView.ShowGame(game);
+		if (_browseController.CheckInterestState(gameId) == false)
+		{
+			List<string> options = new List<string> { "Add to interest list", "Return to previous menu" };
+			var selectedIndex = _menuLogic.CallMenu("Here's your options", options, currentIndex);
+			currentIndex = selectedIndex;
 
+			switch (selectedIndex)
+			{
+				case 0:
+					_interestRepo.AddGameToInterest(gameId);
+					break;
+				case 1:
+					break;
 
-    }
+			}
+		}
+		else
+		{
+			List<string> options = new List<string> { "Remove from interest list", "Return to previous menu" };
+			var selectedIndex = _menuLogic.CallMenu("Here's your options", options, currentIndex);
+			currentIndex = selectedIndex;
+
+			switch (selectedIndex)
+			{
+				case 0:
+					_interestRepo.RemoveGameFromInterest(gameId);
+					break;
+				case 1:
+					break;
+
+			}
+		}
+
+	}
 
 
 	//

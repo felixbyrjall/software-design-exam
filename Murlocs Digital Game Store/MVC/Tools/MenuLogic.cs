@@ -55,13 +55,13 @@ namespace DigitalGameStore.Tools;
 
 				if(i == SelectedIndex)
 				{
-					prefix = ">";
+					prefix = "> ";
 					Func.TextColor("black");
 					Func.BgColor("white");
 				}
 				else
 				{
-					prefix = " ";
+					prefix = "  ";
 					Func.TextColor("white");
 					Func.BgColor("black");
 				}

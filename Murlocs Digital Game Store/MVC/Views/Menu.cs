@@ -33,6 +33,7 @@ public class Menu {
         {
             case 0: // Browse games
 				Func.Clear();
+
 				_browseController.ListGames();
 				BrowseMenu();
 				break;
@@ -112,8 +113,7 @@ public class Menu {
                 ShowInterestList(); // Line
                 break;
 			default:
-				_interestController.RemoveInterest((selectedIndex - 6));
-				_interestController.GetSelectedGame((selectedIndex - 6));
+				_browseController.GetSelectedGame((selectedIndex - 6));
 				_interestController.Check(selectedIndex);
 				InterestMenu();
 				break;
@@ -174,6 +174,8 @@ public class Menu {
 
     public void ReturnToMainMenu()
     {
+		_browseController.SetCurrentPage(10);
+        _interestController.SetCurrentPage(10);
 		MainMenu();
     }
 }

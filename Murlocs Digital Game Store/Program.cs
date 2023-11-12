@@ -19,11 +19,8 @@ public class Program
 
 		var recommendView = new RecommendView();
 		var gameGenresRepo = new GameGenresRepo(context);
-
-		var interestController = new InterestController(interestRepo, interestView, gameRepo);
-
-		var browseController = new BrowseController(gameRepo, browseView, interestRepo, menuLogic, interestController);
-
+		var browseController = new BrowseController(gameRepo, browseView, interestRepo, menuLogic);
+		var interestController = new InterestController(interestRepo, interestView, gameRepo, browseController, menuLogic);
 
         var recommendController = new RecommendController(gameGenresRepo, gameRepo, recommendView, interestController);
 

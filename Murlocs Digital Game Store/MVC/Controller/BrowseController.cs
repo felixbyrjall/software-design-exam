@@ -17,15 +17,13 @@ namespace DigitalGameStore.Controller
         private readonly BrowseView _browseView;
         private readonly IInterestRepo _interestRepo;
         private readonly MenuLogic _menuLogic;
-        private readonly InterestController _interestController;
 
-        public BrowseController(IGameRepo gameRepo, BrowseView browseView, IInterestRepo interestRepo, MenuLogic menuLogic, InterestController interestController)
+        public BrowseController(IGameRepo gameRepo, BrowseView browseView, IInterestRepo interestRepo, MenuLogic menuLogic)
         {
             _gameRepo = gameRepo;
             _browseView = browseView;
             _interestRepo = interestRepo;
             _menuLogic = menuLogic;
-            _interestController = interestController;
         }
 
 		public static int currentIndex = 0;
@@ -55,7 +53,7 @@ namespace DigitalGameStore.Controller
             ListGames();
         }
 
-        public bool checkInterestState(int gameID)
+        public bool CheckInterestState(int gameID)
         {
             var list = _interestRepo.GetGamesOnInterestList(_currentPage);
             foreach(var game in list)
@@ -101,16 +99,13 @@ namespace DigitalGameStore.Controller
 
         public void GetSelectedGame(int gameId)
         {
-           
-
 			var game = _gameRepo.GetGameInfo(gameId);
 			
-
 			_browseView.ShowGame(game);
-            if (checkInterestState(gameId) == false)
+            if (CheckInterestState(gameId) == false)
             {
-				List<string> options = new List<string> { "Add to interest list", "Back to menu" };
-				var selectedIndex = _menuLogic.CallMenu("pls choose", options , currentIndex);
+				List<string> options = new List<string> { "Add to interest list", "Return to previous menu" };
+				var selectedIndex = _menuLogic.CallMenu("Here's your options", options , currentIndex);
 				currentIndex = selectedIndex;
 
 				switch (selectedIndex)
@@ -125,8 +120,8 @@ namespace DigitalGameStore.Controller
             }
             else
             {
-				List<string> options = new List<string> { "Remove from interest list", "Back to menu" };
-				var selectedIndex = _menuLogic.CallMenu("pls choose", options, currentIndex);
+				List<string> options = new List<string> { "Remove from interest list", "Return to previous menu" };
+				var selectedIndex = _menuLogic.CallMenu("Here's your options", options, currentIndex);
 				currentIndex = selectedIndex;
 
 				switch (selectedIndex)
@@ -141,8 +136,6 @@ namespace DigitalGameStore.Controller
 			}
 
         }
-
-
 
         public int LoadingTime()
         {
