@@ -14,39 +14,38 @@ public class GameGenresRepo : IGameGenreRepo {
     public List<int> GetIntGames() {
         var interestedGameIds = (
             from interest in _context.Interest
-            select new {interest.GameID });
-        List<int> list = new List<int>();
-        foreach (var item in interestedGameIds) {
-            list.Add(item.GameID);
-        }
-        return list;
+            select interest.GameID).ToList();
+        return interestedGameIds;
     }
     
     public List<int> GetIntGenres() {
         var interestedGameIds = GetIntGames();
         var interestedGenreIds = (from gameGenres in _context.GameGenres
             where interestedGameIds.Contains(gameGenres.GameID)
-            select new { gameGenres.GenreID });
-        List<int> list = new List<int>();
-        foreach (var item in interestedGenreIds) {
-            list.Add(item.GenreID);
-        }
-        return list;
+                   select gameGenres.GenreID).ToList();
+
+        return interestedGenreIds;
     }
 
     public int CompareGenres(List<int> gameGenresIds) {
         var interestedGenreIds = GetIntGenres();
-        return gameGenresIds.Count(interestedGenreIds.Contains);
+        return gameGenresIds.Count(genreId => interestedGenreIds.Contains(genreId));
     }
 
+
     public int ScoreGame(Game game) {
-        int score = 0;
-        var genreIds = _context.GameGenres
+        var interestedGenreIds = GetIntGenres();
+        var gameGenreIds = _context.GameGenres
             .Where(gameGenres => gameGenres.GameID == game.ID)
             .Select(gameGenres => gameGenres.GenreID)
             .ToList();
-        int matchingGenreCount = CompareGenres(genreIds);
-        score += matchingGenreCount * 10;
+        int matchingGenreCount = CompareGenres(gameGenreIds);
+
+        int score = 0;
+        foreach (var genreId in gameGenreIds)
+        {
+            score += interestedGenreIds.Count(id => id == genreId) * 100;
+        }
         return score;
     }
 
@@ -60,20 +59,12 @@ public class GameGenresRepo : IGameGenreRepo {
                 .Where(g => !interestedGameIds.Contains(g.ID))
                 .ToList();
 
-            var recommendedGames = new List<GameObject>();
-
-            foreach (var game in allGames) {
-                int score = ScoreGame(game);
-                game.Score = score;
-                GameObject gameObject = new GameObject(game.ID, game.Name, game.Score);
-                if (score > 0) {
-                    recommendedGames.Add(gameObject);
-                }
-            }
-            
-            var sortedRecommendedGames = recommendedGames.OrderByDescending(game => game.Score).Take(5).ToList();
-
-            return sortedRecommendedGames;
+            var recommendedGames = allGames.Select(game => new GameObject(game.ID, game.Name, ScoreGame(game)))
+                                           .Where(gameObject => gameObject.Score > 0)
+                                           .OrderByDescending(gameObject => gameObject.Score)
+                                           .Take(5)
+                                           .ToList();
+            return recommendedGames;
         }
     }
 }

@@ -21,9 +21,10 @@ public class RecommendController {
     public List<string> GetRecommendedGameWithOptions() {
         
         List<string> options = new List<string> { "Back to main menu", "Next page", "Previous page", "------------"};
+        var totalGenresInInterstList = _gameGenreRepo.GetIntGenres().Count();
         foreach (var game in _gamesOnPage)
         {
-            options.Add("ID: " + game.ID + " Name: " + game.Name + " Match: " + game.Score * 2+ "%");
+            options.Add("ID: " + game.ID + " Name: " + game.Name + " Match: " + (game.Score / totalGenresInInterstList).ToString() + "%");
         }
         return options;
     }
