@@ -7,7 +7,6 @@ namespace DigitalGameStore.Controller;
 
 public class InterestController
 {
-
     private int _currentPage = 10;
     private int _lastPage;
     private const int _firstPage = 10;
@@ -35,7 +34,7 @@ public class InterestController
 
     public void ListNotInterested()
     {
-        var gamesInterested = _interestRepo.GetNotInterestedGames(_currentPage);
+        var gamesInterested = _interestRepo.GetNotInterestedGames(GetCurrentPage());
         _gamesNotAdded.Clear();
         GamesNotAddedToList(gamesInterested);
     }
@@ -71,7 +70,7 @@ public class InterestController
         return _currentPage;
     }
 
-    private void SetCurrentPage(int currentPage)
+    public void SetCurrentPage(int currentPage)
     {
         _currentPage = currentPage;
     }
@@ -99,6 +98,8 @@ public class InterestController
         var game = _gameRepo.GetGameInfo(_gamesNotAdded[gameId].ID);
 
         _interestView.ShowGame(game);
+
+
     }
 
 
@@ -111,8 +112,10 @@ public class InterestController
 
 	public List<string> GetGamesOnInterestListWithOptions()
 	{
-        int numberOfGamesInList = 2;
-		List<string> o = new List<string> { "Back to main menu", "Add games to interest list", "Look for recommendations", "---- Games on list: " + numberOfGamesInList + " -----" };
+		_lastPage = _interestRepo.CountGamesInInterestList();
+
+		int numberOfGamesInList = 2;
+		List<string> o = new List<string> { "Back to main menu", "Next page", "Previous page", "Add games to interest list", "Look for recommendations","---- Games on list: " + numberOfGamesInList + " -----" };
 		foreach (var game in _gamesInInterestList)
 		{
 			o.Add("ID: " + game.ID + " Name: " + game.Name);
@@ -122,7 +125,7 @@ public class InterestController
 
 	public void ListInterested()
 	{
-		var gamesInterested = _interestRepo.GetGamesOnInterestList(_currentPage);
+		var gamesInterested = _interestRepo.GetGamesOnInterestList(GetCurrentPage());
 		_gamesInInterestList.Clear();
 		GamesAddedToList(gamesInterested);
 	}

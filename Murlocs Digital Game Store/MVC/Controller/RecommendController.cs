@@ -5,15 +5,22 @@ using DigitalGameStore.Views;
 
 namespace DigitalGameStore.Controller; 
 
-public class RecommendController {    
-   
-    private readonly IGameGenreRepo _gameGenreRepo;
+public class RecommendController {
+
+	private int _currentPage = 10;
+	private int _lastPage;
+	private const int _firstPage = 10;
+
+	private readonly IGameGenreRepo _gameGenreRepo;
     private readonly IGameRepo _gameRepo;
     private readonly RecommendView _recommendView;
-        public RecommendController(IGameGenreRepo gameGenreRepo, IGameRepo gameRepo, RecommendView recommendView){
+    private readonly InterestController _interestController;
+
+    public RecommendController(IGameGenreRepo gameGenreRepo, IGameRepo gameRepo, RecommendView recommendView, InterestController interestController){
         _gameGenreRepo = gameGenreRepo;
         _gameRepo = gameRepo;
         _recommendView = recommendView;
+        _interestController = interestController;
     }
 
     private List<GameObject> _gamesOnPage = new();
@@ -49,4 +56,17 @@ public class RecommendController {
         var game = _gameRepo.GetGameInfo(gameId);
         _recommendView.ShowGame(game);
     }
+
+	public void Check(int i)
+	{
+		if (i == 1 && _currentPage != _lastPage)
+		{
+			_currentPage += 10;
+		}
+		else if (i == 2 && _currentPage != _firstPage)
+		{
+			_currentPage -= 10;
+		}
+        _interestController.ListNotInterested();
+	}
 }

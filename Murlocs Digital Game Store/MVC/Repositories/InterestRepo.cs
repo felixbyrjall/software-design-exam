@@ -37,7 +37,14 @@ public class InterestRepo : IInterestRepo {
         return allGames - interestList;
     }
 
-    public void AddGameToInterest(int gameId)
+	public int CountGamesInInterestList() // Count all games in catalogue
+	{
+		var interestList = _context.Interest.Count();
+
+		return interestList;
+	}
+
+	public void AddGameToInterest(int gameId)
     {
         Interest newInterest = new()
         {
@@ -50,13 +57,12 @@ public class InterestRepo : IInterestRepo {
 
     public void RemoveGameFromInterest(int gameId)
     {
-        Interest removeInterest = new()
+        var findInterest = _context.Interest.FirstOrDefault(g => g.GameID == gameId);
+        if (findInterest != null)
         {
-            GameID = gameId
-        };
-
-        _context.Interest.Remove(removeInterest);
-        _context.SaveChanges();
+			_context.Interest.Remove(findInterest);
+			_context.SaveChanges();
+		}
     }
 
 	public List<GameObject> GetGamesOnInterestList(int page)
@@ -65,7 +71,7 @@ public class InterestRepo : IInterestRepo {
             (from Game in _context.Game
              from Interest in _context.Interest.Where(mapping => mapping.GameID == Game.ID).DefaultIfEmpty()
              where Interest.ID != null
-             select new { GameName = Game.Name, GameID = Game.ID });      //ADD .Skip(page - 10).Take(10); WITH NEXT/PREVIOUS PAGE
+             select new { GameName = Game.Name, GameID = Game.ID }).Skip(page - 10).Take(10);
 		
         List<GameObject> list = new List<GameObject>();
 

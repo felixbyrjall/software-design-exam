@@ -7,14 +7,14 @@ namespace DigitalGameStore.Views;
 
 public class Menu {
 
-    private readonly MenuLogic _menuTools;
+    private readonly MenuLogic _menuLogic;
 	private readonly BrowseController _browseController;
 	private readonly InterestController _interestController;
 	private readonly RecommendController _recommendController;
 
     public Menu(MenuLogic menuTools, BrowseController browseController, InterestController interestController, RecommendController recommendController)
     {
-        _menuTools = menuTools;
+        _menuLogic = menuTools;
         _browseController = browseController;
 		_interestController = interestController;
 		_recommendController = recommendController;
@@ -26,20 +26,20 @@ public class Menu {
 
 	public void MainMenu()
     {
-		var selectedIndex = _menuTools.CallMenu(_prompt, menuOptions, currentIndex);
+		var selectedIndex = _menuLogic.CallMenu(_prompt, menuOptions, currentIndex);
 		currentIndex = selectedIndex;
 
 		switch (selectedIndex)
         {
             case 0: // Browse games
 				Func.Clear();
-				_browseController.Check(selectedIndex);
-                BrowseMenu();
+				_browseController.ListGames();
+				BrowseMenu();
 				break;
 			case 1: // See list of interested games
                 _interestController.GetGamesOnInterestListWithOptions();
-                _interestController.Check2(selectedIndex);
-                ShowInterestList();
+                _interestController.ListInterested();
+				ShowInterestList();
 				break;
             case 2:
 	            _recommendController.GetRecommendedGameWithOptions();
@@ -56,7 +56,7 @@ public class Menu {
 	{
         List<string> gamesWithOptions = _browseController.GetGamesOnPageWithOptions();
 
-        var selectedIndex = _menuTools.CallMenu(_prompt, gamesWithOptions, currentIndex);
+        var selectedIndex = _menuLogic.CallMenu(_prompt, gamesWithOptions, currentIndex);
 		currentIndex = selectedIndex;
 
 		switch (selectedIndex)
@@ -84,7 +84,7 @@ public class Menu {
     {
         List<string> interestListWithOptions = _interestController.GetGamesOnInterestListWithOptions();
 
-		var selectedIndex = _menuTools.CallMenu(_prompt, interestListWithOptions, currentIndex);
+		var selectedIndex = _menuLogic.CallMenu(_prompt, interestListWithOptions, currentIndex);
         currentIndex = selectedIndex;
 
         switch (selectedIndex)
@@ -93,21 +93,27 @@ public class Menu {
 				ReturnToMainMenu(); // Return to main menu
 				break;
             case 1:
-                _interestController.GetGamesOnPageWithOptions();
-				_interestController.Check(selectedIndex - 1);
-				InterestMenu();
-				break;
             case 2:
-				_recommendController.GetRecommendedGameWithOptions();
-				_recommendController.ListRecommendedGames();
-				RecommendMenu(); // placeholder for recommendations
+				Func.Clear(); // NEXT AND PREVIOUS PAGE
+				_interestController.Check2(selectedIndex);
+				ShowInterestList();
 				break;
             case 3:
+				_interestController.GetGamesOnPageWithOptions(); //ADD GAMES TO INTEREST LIST
+				_interestController.Check(selectedIndex - 1);
+				InterestMenu();
+                break;
+			case 4:
+				_recommendController.GetRecommendedGameWithOptions(); // LOOK FOR RECOMMENDATIONS
+				_recommendController.ListRecommendedGames();
+				RecommendMenu();
+				break;
+			case 5:
                 ShowInterestList(); // Line
                 break;
 			default:
-				_interestController.RemoveInterest((selectedIndex - 4));
-				_interestController.GetSelectedGame((selectedIndex - 4));
+				_interestController.RemoveInterest((selectedIndex - 6));
+				_interestController.GetSelectedGame((selectedIndex - 6));
 				_interestController.Check(selectedIndex);
 				InterestMenu();
 				break;
@@ -119,7 +125,7 @@ public class Menu {
     {
         List<string> gamesWithOptions = _interestController.GetGamesOnPageWithOptions();
 
-        var selectedIndex = _menuTools.CallMenu(_prompt, gamesWithOptions, currentIndex);
+        var selectedIndex = _menuLogic.CallMenu(_prompt, gamesWithOptions, currentIndex);
         currentIndex = selectedIndex;
 
         switch (selectedIndex)
@@ -145,7 +151,7 @@ public class Menu {
     }
     public void RecommendMenu() {
 	    List<string> gamesWithOptions = _recommendController.GetRecommendedGameWithOptions();
-	    var selectedIndex = _menuTools.CallMenu(_prompt, gamesWithOptions, currentIndex);	    
+	    var selectedIndex = _menuLogic.CallMenu(_prompt, gamesWithOptions, currentIndex);	    
 	    switch (selectedIndex)
 	    {
             case 0: // Return to main menu
@@ -168,6 +174,6 @@ public class Menu {
 
     public void ReturnToMainMenu()
     {
-        MainMenu();
+		MainMenu();
     }
 }

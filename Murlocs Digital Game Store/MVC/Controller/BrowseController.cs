@@ -1,6 +1,7 @@
 ﻿using DigitalGameStore.Interfaces;
 using DigitalGameStore.Views;
 using DigitalGameStore.Model;
+using DigitalGameStore.Tools;
 namespace DigitalGameStore.Controller
 {
 
@@ -14,19 +15,27 @@ namespace DigitalGameStore.Controller
 
         private readonly IGameRepo _gameRepo;
         private readonly BrowseView _browseView;
+        private readonly IInterestRepo _interestRepo;
+        private readonly MenuLogic _menuLogic;
+        private readonly InterestController _interestController;
 
-        public BrowseController(IGameRepo gameRepo, BrowseView browseView)
+        public BrowseController(IGameRepo gameRepo, BrowseView browseView, IInterestRepo interestRepo, MenuLogic menuLogic, InterestController interestController)
         {
             _gameRepo = gameRepo;
             _browseView = browseView;
+            _interestRepo = interestRepo;
+            _menuLogic = menuLogic;
+            _interestController = interestController;
         }
 
-        public int GetCurrentPage()
+		public static int currentIndex = 0;
+
+		public int GetCurrentPage()
         {
             return _currentPage;
         }
 
-        private void SetCurrentPage(int currentPage)
+        public void SetCurrentPage(int currentPage)
         {
             _currentPage = currentPage;
         }
@@ -45,6 +54,19 @@ namespace DigitalGameStore.Controller
             }
             ListGames();
         }
+
+        public bool checkInterestState(int gameID)
+        {
+            var list = _interestRepo.GetGamesOnInterestList(_currentPage);
+            foreach(var game in list)
+            {
+				if (gameID == game.ID)
+                {
+                    return true;
+                }
+			}
+            return false;
+		}
 
         public void ListGames()
         {
@@ -79,10 +101,48 @@ namespace DigitalGameStore.Controller
 
         public void GetSelectedGame(int gameId)
         {
-            var game = _gameRepo.GetGameInfo(gameId);
+           
 
-            _browseView.ShowGame(game);
+			var game = _gameRepo.GetGameInfo(gameId);
+			
+
+			_browseView.ShowGame(game);
+            if (checkInterestState(gameId) == false)
+            {
+				List<string> options = new List<string> { "Add to interest list", "Back to menu" };
+				var selectedIndex = _menuLogic.CallMenu("pls choose", options , currentIndex);
+				currentIndex = selectedIndex;
+
+				switch (selectedIndex)
+                {
+                    case 0:
+						_interestRepo.AddGameToInterest(gameId);
+						break;
+                    case 1:
+                        break;
+                        
+                }
+            }
+            else
+            {
+				List<string> options = new List<string> { "Remove from interest list", "Back to menu" };
+				var selectedIndex = _menuLogic.CallMenu("pls choose", options, currentIndex);
+				currentIndex = selectedIndex;
+
+				switch (selectedIndex)
+				{
+					case 0:
+						_interestRepo.RemoveGameFromInterest(gameId);
+						break;
+					case 1:
+						break;
+
+				}
+			}
+
         }
+
+
 
         public int LoadingTime()
         {
