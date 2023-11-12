@@ -42,9 +42,10 @@ public class GameGenresRepo : IGameGenreRepo {
         int matchingGenreCount = CompareGenres(gameGenreIds);
 
         int score = 0;
+        const int matchingScore = 100;
         foreach (var genreId in gameGenreIds)
         {
-            score += interestedGenreIds.Count(id => id == genreId) * 100;
+            score += interestedGenreIds.Count(id => id == genreId) * matchingScore;
         }
         return score;
     }
