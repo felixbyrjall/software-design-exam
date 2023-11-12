@@ -20,10 +20,10 @@ public class RecommendController {
 
     public List<string> GetRecommendedGameWithOptions() {
         
-        List<string> options = new List<string> { "Back to main menu", "Next page", "Previous page", "---- Games: ----"};
+        List<string> options = new List<string> { "Back to main menu", "Next page", "Previous page", "------------"};
         foreach (var game in _gamesOnPage)
         {
-            options.Add("ID: " + game.ID + " Name: " + game.Name + " Matching score: " + game.Score);
+            options.Add("ID: " + game.ID + " Name: " + game.Name + " Match: " + game.Score * 2+ "%");
         }
         return options;
     }
@@ -48,5 +48,4 @@ public class RecommendController {
         var game = _gameRepo.GetGameInfo(gameId);
         _recommendView.ShowGame(game);
     }
-    
 }
