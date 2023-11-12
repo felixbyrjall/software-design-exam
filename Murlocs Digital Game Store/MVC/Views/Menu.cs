@@ -113,7 +113,7 @@ public class Menu {
                 ShowInterestList(); // Line
                 break;
 			default:
-				_browseController.GetSelectedGame((selectedIndex - 6));
+				_interestController.GetSelectedGame((selectedIndex - 6));
 				_interestController.Check(selectedIndex);
 				InterestMenu();
 				break;

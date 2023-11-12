@@ -97,15 +97,25 @@ public class InterestController
         }
     }
 
+    public bool CheckInterestState(int gameID)
+    {
+        var list = _interestRepo.GetGamesOnInterestList(_currentPage);
+        foreach (var game in list)
+        {
+            if (gameID == game.ID)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 
-
-
-	public void GetSelectedGame(int gameId)
+    public void GetSelectedGame(int gameId)
 	{
 		var game = _gameRepo.GetGameInfo(gameId);
 
 		_interestView.ShowGame(game);
-		if (_browseController.CheckInterestState(gameId) == false)
+		if (CheckInterestState(gameId) == false)
 		{
 			List<string> options = new List<string> { "Add to interest list", "Return to previous menu" };
 			var selectedIndex = _menuLogic.CallMenu("Here's your options", options, currentIndex);
