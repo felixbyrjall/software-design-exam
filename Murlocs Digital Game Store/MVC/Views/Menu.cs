@@ -75,7 +75,7 @@ public class Menu {
                 break;
             default: // Displayed objects
 				_browseController.GetSelectedGame((selectedIndex - 3) + _browseController.GetCurrentPage() - 10);
-				Console.ReadLine();
+				BrowseMenu();
 				break;
 		}
 	}
@@ -98,7 +98,9 @@ public class Menu {
 				InterestMenu();
 				break;
             case 2:
-                ShowInterestList(); // placeholder for recommendations
+				_recommendController.GetRecommendedGameWithOptions();
+				_recommendController.ListRecommendedGames();
+				RecommendMenu(); // placeholder for recommendations
 				break;
             case 3:
                 ShowInterestList(); // Line
@@ -107,7 +109,6 @@ public class Menu {
 				_interestController.RemoveInterest((selectedIndex - 4));
 				_interestController.GetSelectedGame((selectedIndex - 4));
 				_interestController.Check(selectedIndex);
-				Console.ReadLine();
 				InterestMenu();
 				break;
 		}
@@ -138,7 +139,6 @@ public class Menu {
                 _interestController.AddInterest((selectedIndex - 4));
                 _interestController.GetSelectedGame((selectedIndex - 4));
                 _interestController.Check(selectedIndex);
-                Console.ReadLine();
                 InterestMenu();
                 break;
         }
@@ -158,9 +158,8 @@ public class Menu {
             case 3: // Divider between menu options and interactive objects.
                 RecommendMenu();
                 break;
-            default:   
-			    _recommendController.GetSelectedGame(selectedIndex);
-			    Console.ReadLine();
+            default:
+                _recommendController.GetSelectedGame(selectedIndex);
 			    RecommendMenu();
 			    break;
 	    }

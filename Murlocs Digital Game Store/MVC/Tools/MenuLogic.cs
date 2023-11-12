@@ -44,7 +44,9 @@ namespace DigitalGameStore.Tools;
 
 	private void ShowMenu()
 		{
-			Func.WriteOutput(AdditionalText);
+		Func.TextColor("blue");
+		Func.WriteOutput(AdditionalText);
+		Console.ResetColor();
 
 			for (int i = 0; i < MenuOptions.Length; i++)
 			{

@@ -3,8 +3,10 @@ using DigitalGameStore.Tools;
 
 namespace DigitalGameStore.Views; 
 
-public class RecommendView {
-    public void ShowGame(GameObject game) {
+public class RecommendView
+{
+    public void ShowGame(GameObject game)
+    {
         GameDisplay.ShowGameDetails(game);
     }
 }

@@ -8,10 +8,16 @@ namespace DigitalGameStore.Tools
 		public static void ShowGameDetails(GameObject game)
 		{
 			Console.Clear();
-			Console.WriteLine("Name: " + game.Name +
-						  "\n Publisher: " + game.Publisher +
-						  "\n Release: " + game.ReleaseDate +
-						  "\n Genres: " + game.Genres[0] + ", " + game.Genres[1] + ", " + game.Genres[2] + ", " + game.Genres[3] + ", " + game.Genres[4]);
+			Console.WriteLine(game.Name +
+						  "\n\nPublisher:    " + game.Publisher +
+						  "\nRelease date: " + game.ReleaseDate + " (YMD)" + 
+						  "\nGenres/tags:  " + game.Genres[0] + ", " + game.Genres[1] + ", " + game.Genres[2] + ", " + game.Genres[3] + ", " + game.Genres[4]);
+
+			Func.TextColor("blue");
+			Console.WriteLine("\nPress ENTER to continue");
+			Console.ResetColor();
+
+			Console.ReadLine();
 		}
 	}
 }
