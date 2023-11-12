@@ -10,10 +10,19 @@ public class GameGenresRepo : IGameGenreRepo {
     public GameGenresRepo(Context context) {
         _context = context;
     }
+    public List<int> GetIntGames() {
+        var interestedGameIds = (
+            from interest in _context.Interest
+            select new {interest.GameID });
+        List<int> list = new List<int>();
+        foreach (var item in interestedGameIds) {
+            list.Add(item.GameID);
+        }
+        return list;
+    }
     
     public List<int> GetIntGenres() {
-        InterestRepo s = new InterestRepo(_context);
-        var interestedGameIds = s.GetIntGames();
+        var interestedGameIds = GetIntGames();
         var interestedGenreIds = (from gameGenres in _context.GameGenres
             where interestedGameIds.Contains(gameGenres.GameID)
             select new { gameGenres.GenreID });
