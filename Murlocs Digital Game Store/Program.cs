@@ -4,6 +4,7 @@ using DigitalGameStore.Repo;
 using DigitalGameStore.Tools;
 using DigitalGameStore.Views;
 using DigitalGameStore.Interfaces;
+using DigitalGameStore.MVC.Repositories;
 
 namespace DigitalGameStore;
 
@@ -20,9 +21,13 @@ public class Program
         var gameObject = new GameObject();
         var interestRepo = new InterestRepo(context);
         var interestController = new InterestController(interestRepo, interestView, gameRepo);
+        
+        var recommendView = new RecommendView();
+        var gameGenresRepo = new GameGenresRepo(context);
+        var recommendController = new RecommendController(gameGenresRepo, gameRepo, recommendView);
 
         var menuTools = new MenuLogic(); 
-        var menu = new Menu(menuTools, browseController, interestController);
+        var menu = new Menu(menuTools, browseController, interestController, recommendController);
 
         // Run the main menu
         menu.MainMenu();
