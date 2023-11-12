@@ -1,12 +1,12 @@
 using DigitalGameStore.Interfaces;
+using DigitalGameStore.Model;
+using DigitalGameStore.Repo;
 using DigitalGameStore.Views;
 
 namespace DigitalGameStore.Controller; 
 
-public class RecommendController {
-    private List<string> _gamesOnPage = new();
-    
-    
+public class RecommendController {    
+   
     private readonly IGameGenreRepo _gameGenreRepo;
     private readonly IGameRepo _gameRepo;
     private readonly RecommendView _recommendView;
@@ -15,15 +15,34 @@ public class RecommendController {
         _gameRepo = gameRepo;
         _recommendView = recommendView;
     }
-    
 
+    private List<GameObject> _gamesOnPage = new();
 
     public List<string> GetRecommendedGameWithOptions() {
         
-        List<string> options = new List<string>(_gameGenreRepo.RecommendGames());
-        _gamesOnPage = options;
+        List<string> options = new List<string> { "Back to main menu", "Next page", "Previous page", "---- Games: ----"};
+        foreach (var game in _gamesOnPage)
+        {
+            options.Add("ID: " + game.ID + " Name: " + game.Name + " Matching score: " + game.Score);
+        }
         return options;
     }
+    public void ListRecommendedGames()
+    {
+        var recommendedGames = _gameGenreRepo.RecommendGames();
+        _gamesOnPage.Clear();
+        addRecommendedGamesList(recommendedGames);
+    }
+
+    private void addRecommendedGamesList(List<GameObject> games)
+    {
+        foreach (var game in games)
+        {
+            GameObject gameObject = new GameObject(game.ID, game.Name, game.Score);
+            _gamesOnPage.Add(gameObject);
+        }
+    }
+
     public void GetSelectedGame(int gameId)
     {
         var game = _gameRepo.GetGameInfo(gameId);

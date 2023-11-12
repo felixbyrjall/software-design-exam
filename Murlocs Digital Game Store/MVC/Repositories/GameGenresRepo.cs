@@ -1,5 +1,6 @@
 using DigitalGameStore.Interfaces;
 using DigitalGameStore.Model;
+using System.Collections.Generic;
 
 namespace DigitalGameStore.Repo;
 
@@ -35,7 +36,7 @@ public class GameGenresRepo : IGameGenreRepo {
 
     public int CompareGenres(List<int> gameGenresIds) {
         var interestedGenreIds = GetIntGenres();
-        return gameGenresIds.Count(genreId => interestedGenreIds.Contains(genreId));
+        return gameGenresIds.Count(interestedGenreIds.Contains);
     }
 
     public int ScoreGame(Game game) {
@@ -49,32 +50,30 @@ public class GameGenresRepo : IGameGenreRepo {
         return score;
     }
 
-    public List<string> RecommendGames() {
+    public List<GameObject> RecommendGames() {
         {
-            List<int> interestedGameIds = _context.Interest
+            var interestedGameIds = _context.Interest
                 .Select(i => i.GameID)
                 .ToList();
-            List<Game> allGames = _context.Game
+
+            var allGames = _context.Game
                 .Where(g => !interestedGameIds.Contains(g.ID))
                 .ToList();
-            var recommendedGames = new List<(Game game, int score)>();
+
+            var recommendedGames = new List<GameObject>();
 
             foreach (var game in allGames) {
                 int score = ScoreGame(game);
                 game.Score = score;
+                GameObject gameObject = new GameObject(game.ID, game.Name, game.Score);
                 if (score > 0) {
-                    recommendedGames.Add((game, score));
+                    recommendedGames.Add(gameObject);
                 }
             }
-        
-            List<string> matchingGames = recommendedGames.OrderByDescending(g => g.score)
-                .Take(5)
-                .Select(g => $"Game ID: {g.game.ID} Game Name: {g.game.Name} Matching Score: {g.score}")
-                .ToList();
-            Console.WriteLine(matchingGames);
-            return matchingGames;
+            
+            var sortedRecommendedGames = recommendedGames.OrderByDescending(game => game.Score).Take(5).ToList();
 
+            return sortedRecommendedGames;
         }
-        
     }
 }

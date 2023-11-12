@@ -43,7 +43,8 @@ public class Menu {
 				break;
             case 2:
 	            _recommendController.GetRecommendedGameWithOptions();
-	            RecommendMenu();
+                _recommendController.ListRecommendedGames();
+                RecommendMenu();
 				break;
 			case 3: // Exit the application
                 Environment.Exit(0);
@@ -147,15 +148,21 @@ public class Menu {
 	    var selectedIndex = _menuTools.CallMenu(_prompt, gamesWithOptions, currentIndex);	    
 	    switch (selectedIndex)
 	    {
-		    case 0:
-			    ReturnToMainMenu();
-			    break;
-		    default:   
+            case 0: // Return to main menu
+                ReturnToMainMenu();
+                break;
+            case 1: // Next Page
+            case 2: // Previous Page
+                RecommendMenu();
+                break;
+            case 3: // Divider between menu options and interactive objects.
+                RecommendMenu();
+                break;
+            default:   
 			    _recommendController.GetSelectedGame(selectedIndex);
 			    Console.ReadLine();
 			    RecommendMenu();
 			    break;
-		    
 	    }
 
     }

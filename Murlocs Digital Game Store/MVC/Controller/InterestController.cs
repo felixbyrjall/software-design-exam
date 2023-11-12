@@ -24,8 +24,6 @@ public class InterestController
 
     private List<GameObject> _gamesNotAdded = new();
 
-    
-
     private void GamesNotAddedToList(List<GameObject> games)
     {
         foreach (var game in games)

@@ -27,6 +27,13 @@ public class GameObject
         Name = name;
     }
 
+    public GameObject(int id, string name, int score)
+    {
+        ID = id;
+        Name = name;
+        Score = score;
+    }
+
     public GameObject()
     {
 
