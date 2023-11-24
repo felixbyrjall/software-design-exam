@@ -24,9 +24,21 @@ public class Menu {
 		_interestRepo = interestRepo;
 	}
 
-    private List<String> menuOptions = new List<string>{ "Browse Games", "Interest List", "Recommendations", "Exit", "Remove game"};
+    private List<String> menuOptions = new List<string>{ "Browse Games", "Interest List", "Recommendations", "Exit", "Reset interest list"};
 	private string _prompt = "(Use the arrows to select an option)";
 	public static int currentIndex = 0;
+
+    public void ResetInteretList()
+    {
+        Console.Clear();
+        for (int i = 0; i < 100; i++)
+        {
+			_interestRepo.RemoveGameFromInterest(i);
+		}
+        Console.WriteLine("Interest list cleared");
+        Console.ReadLine();
+    }
+
 
 	public void MainMenu()
     {
@@ -55,7 +67,7 @@ public class Menu {
                 Environment.Exit(0);
                 break;
             case 4:
-                _interestRepo.RemoveGameFromInterest(12);
+                ResetInteretList();
                 MainMenu();
                 break;
         }
@@ -151,7 +163,6 @@ public class Menu {
                 break;
             default: // Displayed objects
 				_interestController.GetSelectedGame((selectedIndex - 4));
-				_interestController.AddInterest((selectedIndex - 4));
                 _interestController.Check(selectedIndex);
                 InterestMenu();
                 break;
