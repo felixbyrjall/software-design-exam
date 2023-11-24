@@ -16,13 +16,13 @@ public class Program
 		var interestRepo = new InterestRepo(context);
 		var menuLogic = new MenuLogic();
 		var interestView = new InterestView();
+        var gameDisplay = new GameDisplay();
 
-		var recommendView = new RecommendView();
+		var recommendView = new RecommendView(gameDisplay);
 		var gameGenresRepo = new GameGenresRepo(context);
-		var browseController = new BrowseController(gameRepo, browseView, interestRepo, menuLogic);
-		var interestController = new InterestController(interestRepo, interestView, gameRepo, browseController, menuLogic);
-
-        var recommendController = new RecommendController(gameGenresRepo, gameRepo, recommendView, interestController);
+		var browseController = new BrowseController(gameRepo, browseView, interestRepo, menuLogic, gameDisplay);
+		var interestController = new InterestController(interestRepo, interestView, gameRepo, browseController, menuLogic, gameDisplay);
+        var recommendController = new RecommendController(gameGenresRepo, gameRepo, recommendView, interestController, gameDisplay);
 
         
         var menu = new Menu(menuLogic, browseController, interestController, recommendController, interestRepo);
