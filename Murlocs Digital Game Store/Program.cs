@@ -25,7 +25,7 @@ public class Program
         var recommendController = new RecommendController(gameGenresRepo, gameRepo, recommendView, interestController);
 
         
-        var menu = new Menu(menuLogic, browseController, interestController, recommendController);
+        var menu = new Menu(menuLogic, browseController, interestController, recommendController, interestRepo);
 
         // Run the main menu
         menu.MainMenu();
