@@ -123,7 +123,7 @@ public class Menu {
 			default:
 				_interestController.GetSelectedGame((selectedIndex - 6));
 				_interestController.Check(selectedIndex);
-				InterestMenu();
+                ShowInterestList();
 				break;
 		}
 
@@ -150,8 +150,8 @@ public class Menu {
                 InterestMenu();
                 break;
             default: // Displayed objects
-                _interestController.AddInterest((selectedIndex - 4));
-                _interestController.GetSelectedGame((selectedIndex - 4));
+				_interestController.GetSelectedGame((selectedIndex - 4));
+				_interestController.AddInterest((selectedIndex - 4));
                 _interestController.Check(selectedIndex);
                 InterestMenu();
                 break;
