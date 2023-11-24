@@ -17,13 +17,15 @@ namespace DigitalGameStore.Controller
         private readonly BrowseView _browseView;
         private readonly IInterestRepo _interestRepo;
         private readonly MenuLogic _menuLogic;
+        private readonly GameDisplay _gameDisplay;
 
-        public BrowseController(IGameRepo gameRepo, BrowseView browseView, IInterestRepo interestRepo, MenuLogic menuLogic)
+        public BrowseController(IGameRepo gameRepo, BrowseView browseView, IInterestRepo interestRepo, MenuLogic menuLogic, GameDisplay gameDisplay)
         {
             _gameRepo = gameRepo;
             _browseView = browseView;
             _interestRepo = interestRepo;
             _menuLogic = menuLogic;
+            _gameDisplay = gameDisplay;
         }
 
 		public static int currentIndex = 0;
@@ -101,12 +103,11 @@ namespace DigitalGameStore.Controller
         {
 			var game = _gameRepo.GetGameInfo(gameId);
 			
-            GameDisplay gameDisplay = new GameDisplay();
 
             if (CheckInterestState(gameId) == false)
             {
 				List<string> options = new List<string> { "Add to interest list", "Return to previous menu" };
-				var selectedIndex = _menuLogic.CallMenu(gameDisplay.ShowGameDetails2(game), options , currentIndex);
+				var selectedIndex = _menuLogic.CallMenu(_gameDisplay.ShowGameDetails2(game), options , currentIndex);
 				currentIndex = selectedIndex;
 
 				switch (selectedIndex)
@@ -115,14 +116,13 @@ namespace DigitalGameStore.Controller
 						_interestRepo.AddGameToInterest(gameId);
 						break;
                     case 1:
-                        break;
-                        
+                        break; 
                 }
             }
             else
             {
 				List<string> options = new List<string> { "Remove from interest list", "Return to previous menu" };
-				var selectedIndex = _menuLogic.CallMenu(gameDisplay.ShowGameDetails2(game), options, currentIndex);
+				var selectedIndex = _menuLogic.CallMenu(_gameDisplay.ShowGameDetails2(game), options, currentIndex);
 				currentIndex = selectedIndex;
 
 				switch (selectedIndex)

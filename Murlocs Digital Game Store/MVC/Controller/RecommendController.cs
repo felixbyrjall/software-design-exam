@@ -1,6 +1,7 @@
 using DigitalGameStore.Interfaces;
 using DigitalGameStore.Model;
 using DigitalGameStore.Repo;
+using DigitalGameStore.Tools;
 using DigitalGameStore.Views;
 
 namespace DigitalGameStore.Controller; 
@@ -15,12 +16,14 @@ public class RecommendController {
     private readonly IGameRepo _gameRepo;
     private readonly RecommendView _recommendView;
     private readonly InterestController _interestController;
+	private readonly GameDisplay _gameDisplay;
 
-    public RecommendController(IGameGenreRepo gameGenreRepo, IGameRepo gameRepo, RecommendView recommendView, InterestController interestController){
+	public RecommendController(IGameGenreRepo gameGenreRepo, IGameRepo gameRepo, RecommendView recommendView, InterestController interestController, GameDisplay gameDisplay){
         _gameGenreRepo = gameGenreRepo;
         _gameRepo = gameRepo;
         _recommendView = recommendView;
         _interestController = interestController;
+        _gameDisplay = gameDisplay;
     }
 
     private List<GameObject> _gamesOnPage = new();
@@ -32,7 +35,6 @@ public class RecommendController {
         foreach (var game in _gamesOnPage)
         {
             options.Add("ID: " + game.ID + " Name: " + game.Name + " Match: " + (game.Score / totalGenresInInterstList).ToString() + "%");
-            
         }
         return options;
     }
