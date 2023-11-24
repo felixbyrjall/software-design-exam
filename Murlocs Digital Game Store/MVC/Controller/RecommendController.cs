@@ -32,6 +32,7 @@ public class RecommendController {
         foreach (var game in _gamesOnPage)
         {
             options.Add("ID: " + game.ID + " Name: " + game.Name + " Match: " + (game.Score / totalGenresInInterstList).ToString() + "%");
+            
         }
         return options;
     }
@@ -53,7 +54,8 @@ public class RecommendController {
 
     public void GetSelectedGame(int gameId)
     {
-        var game = _gameRepo.GetGameInfo(gameId);
+        int currentGameId = _gamesOnPage[gameId].ID;
+        var game = _gameRepo.GetGameInfo(currentGameId);
         _recommendView.ShowGame(game);
     }
 
