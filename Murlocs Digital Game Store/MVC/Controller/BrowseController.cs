@@ -122,7 +122,7 @@ namespace DigitalGameStore.Controller
             else
             {
 				List<string> options = new List<string> { "Remove from interest list", "Return to previous menu" };
-				var selectedIndex = _menuLogic.CallMenu("Here's your options", options, currentIndex);
+				var selectedIndex = _menuLogic.CallMenu(gameDisplay.ShowGameDetails2(game), options, currentIndex);
 				currentIndex = selectedIndex;
 
 				switch (selectedIndex)
