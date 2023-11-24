@@ -95,7 +95,6 @@ public class InterestController
         else
         {
             _interestRepo.AddGameToInterest(_gamesNotAdded[gameId].ID);
-            GetSelectedGame(gameId);
         }
     }
 
