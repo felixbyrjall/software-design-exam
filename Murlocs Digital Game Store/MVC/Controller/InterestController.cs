@@ -16,16 +16,18 @@ public class InterestController
     private readonly GameRepo _gameRepo;
 	private readonly BrowseController _browseController;
 	private readonly MenuLogic _menuLogic;
+	private readonly GameDisplay _gameDisplay;
 
 	public static int currentIndex = 0;
 
-	public InterestController(IInterestRepo interestRepo, InterestView interestView, GameRepo gameRepo, BrowseController browseController, MenuLogic menuLogic)
+	public InterestController(IInterestRepo interestRepo, InterestView interestView, GameRepo gameRepo, BrowseController browseController, MenuLogic menuLogic, GameDisplay gameDisplay)
     {
         _interestRepo = interestRepo;
         _interestView = interestView;
         _gameRepo = gameRepo;
 		_browseController = browseController;
 		_menuLogic = menuLogic;
+		_gameDisplay = gameDisplay;
     }
 
     private List<GameObject> _gamesNotAdded = new();
@@ -112,13 +114,13 @@ public class InterestController
 
     public void GetSelectedGame(int gameId)
 	{
-		var game = _gameRepo.GetGameInfo(gameId);
+		int currentGameId = _gamesNotAdded[gameId].ID;
+		var game = _gameRepo.GetGameInfo(currentGameId);
 
-		_interestView.ShowGame(game);
 		if (CheckInterestState(gameId) == false)
 		{
 			List<string> options = new List<string> { "Add to interest list", "Return to previous menu" };
-			var selectedIndex = _menuLogic.CallMenu("Here's your options", options, currentIndex);
+			var selectedIndex = _menuLogic.CallMenu(_gameDisplay.ShowGameDetails2(game), options, currentIndex);
 			currentIndex = selectedIndex;
 
 			switch (selectedIndex)
@@ -134,7 +136,7 @@ public class InterestController
 		else
 		{
 			List<string> options = new List<string> { "Remove from interest list", "Return to previous menu" };
-			var selectedIndex = _menuLogic.CallMenu("Here's your options", options, currentIndex);
+			var selectedIndex = _menuLogic.CallMenu(_gameDisplay.ShowGameDetails2(game), options, currentIndex);
 			currentIndex = selectedIndex;
 
 			switch (selectedIndex)
