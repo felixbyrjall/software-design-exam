@@ -2,6 +2,8 @@
 using DigitalGameStore.Controller;
 using DigitalGameStore.Views;
 using DigitalGameStore.Tools;
+using DigitalGameStore.Interfaces;
+using DigitalGameStore.Repo;
 
 namespace DigitalGameStore.Views;
 
@@ -11,16 +13,18 @@ public class Menu {
 	private readonly BrowseController _browseController;
 	private readonly InterestController _interestController;
 	private readonly RecommendController _recommendController;
+	private readonly IInterestRepo _interestRepo;
 
-    public Menu(MenuLogic menuTools, BrowseController browseController, InterestController interestController, RecommendController recommendController)
+	public Menu(MenuLogic menuTools, BrowseController browseController, InterestController interestController, RecommendController recommendController, IInterestRepo interestRepo)
     {
         _menuLogic = menuTools;
         _browseController = browseController;
 		_interestController = interestController;
 		_recommendController = recommendController;
-    }
+		_interestRepo = interestRepo;
+	}
 
-    private List<String> menuOptions = new List<string>{ "Browse Games", "Interest List", "Recommendations", "Exit" };
+    private List<String> menuOptions = new List<string>{ "Browse Games", "Interest List", "Recommendations", "Exit", "Remove game"};
 	private string _prompt = "(Use the arrows to select an option)";
 	public static int currentIndex = 0;
 
@@ -49,6 +53,10 @@ public class Menu {
 				break;
 			case 3: // Exit the application
                 Environment.Exit(0);
+                break;
+            case 4:
+                _interestRepo.RemoveGameFromInterest(12);
+                MainMenu();
                 break;
         }
     }
@@ -151,8 +159,9 @@ public class Menu {
     }
     public void RecommendMenu() {
 	    List<string> gamesWithOptions = _recommendController.GetRecommendedGameWithOptions();
-	    var selectedIndex = _menuLogic.CallMenu(_prompt, gamesWithOptions, currentIndex);	    
-	    switch (selectedIndex)
+        var selectedIndex = _menuLogic.CallMenu(_prompt, gamesWithOptions, currentIndex);
+		currentIndex = selectedIndex;
+		switch (selectedIndex)
 	    {
             case 0: // Return to main menu
                 ReturnToMainMenu();
@@ -165,7 +174,7 @@ public class Menu {
                 RecommendMenu();
                 break;
             default:
-                _recommendController.GetSelectedGame(selectedIndex);
+                _recommendController.GetSelectedGame(selectedIndex-4);
 			    RecommendMenu();
 			    break;
 	    }
