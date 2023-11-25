@@ -44,7 +44,9 @@ namespace DigitalGameStore.Tools;
 
 	private void ShowMenu()
 		{
-			Func.WriteOutput(AdditionalText);
+		Func.TextColor("blue");
+		Func.WriteOutput(AdditionalText);
+		Console.ResetColor();
 
 			for (int i = 0; i < MenuOptions.Length; i++)
 			{
@@ -53,13 +55,13 @@ namespace DigitalGameStore.Tools;
 
 				if(i == SelectedIndex)
 				{
-					prefix = ">";
+					prefix = "> ";
 					Func.TextColor("black");
 					Func.BgColor("white");
 				}
 				else
 				{
-					prefix = " ";
+					prefix = "  ";
 					Func.TextColor("white");
 					Func.BgColor("black");
 				}

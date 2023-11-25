@@ -5,28 +5,22 @@ namespace DigitalGameStore.Repo;
 
 public class InterestRepo : IInterestRepo {
 
-
     private readonly Context _context;
-    private readonly GameObject _gameObject;
 
-    private const int _numberOfGamesOnPage = 10;
-
-    public InterestRepo(Context context, GameObject gameObject) {
+    public InterestRepo(Context context) {
         _context = context;
-        _gameObject = gameObject;
     }
 
-    public List<GameObject> GetNotInterestedGames(int start, int end)
+    public List<GameObject> GetNotInterestedGames(int page)
     {
         var notInterestedList =
             (from Game in _context.Game
              from Interest in _context.Interest.Where(mapping => mapping.GameID == Game.ID).DefaultIfEmpty()
-             where Interest.ID == null && Game.ID >= start
-             select new { GameName = Game.Name, GameID = Game.ID });
+			 where Interest.ID == null
+			 select new { GameName = Game.Name, GameID = Game.ID }).Skip(page - 10).Take(10);
         List<GameObject> list = new List<GameObject>();
 
-
-        foreach (var item in notInterestedList.Take(_numberOfGamesOnPage))
+        foreach (var item in notInterestedList)
         {
             GameObject gameObject = new GameObject(item.GameID, item.GameName);
             list.Add(gameObject);
@@ -35,8 +29,22 @@ public class InterestRepo : IInterestRepo {
         return list;
     }
 
+    public int CountGamesNotInInterestList() // Count all games in catalogue
+    {
+        var allGames = _context.Game.Count();
+        var interestList = _context.Interest.Count();
 
-    public void AddGameToInterest(int gameId)
+        return allGames - interestList;
+    }
+
+	public int CountGamesInInterestList() // Count all games in catalogue
+	{
+		var interestList = _context.Interest.Count();
+
+		return interestList;
+	}
+
+	public void AddGameToInterest(int gameId)
     {
         Interest newInterest = new()
         {
@@ -49,49 +57,30 @@ public class InterestRepo : IInterestRepo {
 
     public void RemoveGameFromInterest(int gameId)
     {
-        Interest removeInterest = new()
+        var findInterest = _context.Interest.FirstOrDefault(g => g.GameID == gameId);
+        if (findInterest != null)
         {
-            GameID = gameId
-        };
-
-        _context.Interest.Remove(removeInterest);
-        _context.SaveChanges();
+			_context.Interest.Remove(findInterest);
+			_context.SaveChanges();
+		}
     }
 
-    public GameObject GetGameInfo(int gameId)
-    {
-        using var context = new Context();
-        var gamePublishers =
-            (from Game in context.Game
-             join Publisher in context.Publisher
-                     on Game.PublisherID equals Publisher.ID
-             select new { GameName = Game.Name, GameID = Game.ID, PublisherName = Publisher.Name, GameRelease = Game.ReleaseDate }).ToList();
+	public List<GameObject> GetGamesOnInterestList(int page)
+	{
+        var interestList =
+            (from Game in _context.Game
+             from Interest in _context.Interest.Where(mapping => mapping.GameID == Game.ID).DefaultIfEmpty()
+             where Interest.ID != null
+             select new { GameName = Game.Name, GameID = Game.ID }).Skip(page - 10).Take(10);
+		
+        List<GameObject> list = new List<GameObject>();
 
-        var genresList =
-            (from GameGenres in context.GameGenres
-             join Game in context.Game
-                     on GameGenres.GameID equals Game.ID
-             join Genre in context.Genre
-                     on GameGenres.GenreID equals Genre.ID
-             select new { GenreName = Genre.Name, GameID = Game.ID });
-        List<String> genreInfo = new List<string>();
+		foreach (var item in interestList)
+		{
+			GameObject gameObject = new GameObject(item.GameID, item.GameName);
+			list.Add(gameObject);
+		}
 
-        var getGame = gamePublishers.SingleOrDefault(g => g.GameID == gameId);
-        foreach (var genre in genresList)
-        {
-
-            if (genre.GameID == gameId)
-            {
-                genreInfo.Add(genre.GenreName);
-            }
-        }
-
-        string genresString = genreInfo[0] + ", " + genreInfo[1] + ", " + genreInfo[2] + ", " + genreInfo[3] +
-                              ", " + genreInfo[4];
-
-        GameObject gameObjects = new GameObject(getGame.GameID, getGame.GameName, getGame.PublisherName, getGame.GameRelease, genresString);
-
-        return gameObjects;
-    }
-
+		return list;
+	}
 }

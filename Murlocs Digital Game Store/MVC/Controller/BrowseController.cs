@@ -1,107 +1,148 @@
-﻿using DigitalGameStore.Views;
-using DigitalGameStore.Repo;
+﻿using DigitalGameStore.Interfaces;
+using DigitalGameStore.Views;
 using DigitalGameStore.Model;
-using DigitalGameStore.Interfaces;
-
+using DigitalGameStore.Tools;
 namespace DigitalGameStore.Controller
 {
 
     public class BrowseController
     {
         private List<String> _gamesOnPage = new();
-		private int _countGames;
         private int _currentPage = 10;
-		private const int _lastPage = 100;
-		private const int _firstPage = 10;
-		private bool gamesLoaded = false;
+        private int _lastPage;
+        private const int _firstPage = 10;
+        private bool gamesLoaded = false;
 
-		private readonly IGameRepo _gameRepo;
-		private readonly BrowseView _browseView;
+        private readonly IGameRepo _gameRepo;
+        private readonly BrowseView _browseView;
+        private readonly IInterestRepo _interestRepo;
+        private readonly MenuLogic _menuLogic;
+        private readonly GameDisplay _gameDisplay;
 
-		public BrowseController(IGameRepo gameRepo, BrowseView browseView)
+        public BrowseController(IGameRepo gameRepo, BrowseView browseView, IInterestRepo interestRepo, MenuLogic menuLogic, GameDisplay gameDisplay)
         {
             _gameRepo = gameRepo;
-			_browseView = browseView;
+            _browseView = browseView;
+            _interestRepo = interestRepo;
+            _menuLogic = menuLogic;
+            _gameDisplay = gameDisplay;
         }
+
+		public static int currentIndex = 0;
 
 		public int GetCurrentPage()
-		{
-			return _currentPage;
-		}
+        {
+            return _currentPage;
+        }
 
-		private void SetCurrentPage(int currentPage)
-		{
-			_currentPage = currentPage;
-		}
+        public void SetCurrentPage(int currentPage)
+        {
+            _currentPage = currentPage;
+        }
 
-		public void Check(int i)
-		{
-			if (i == 1 && GetCurrentPage() != _lastPage)
-			{
-				int j = GetCurrentPage();
-				SetCurrentPage(j += 10);
+        public void Check(int i)
+        {
+            if (i == 1 && GetCurrentPage() != _lastPage)
+            {
+                int j = GetCurrentPage();
+                SetCurrentPage(j += 10);
+            }
+            else if (i == 2 && GetCurrentPage() != _firstPage)
+            {
+                int j = GetCurrentPage();
+                SetCurrentPage(j -= 10);
+            }
+            ListGames();
+        }
+
+        public bool CheckInterestState(int gameID)
+        {
+            var list = _interestRepo.GetGamesOnInterestList(_currentPage);
+            foreach(var game in list)
+            {
+				if (gameID == game.ID)
+                {
+                    return true;
+                }
 			}
-			else if (i == 2 && GetCurrentPage() != _firstPage)
-			{
-				int j = GetCurrentPage();
-				SetCurrentPage(j -= 10);
-			}
-			ListGames();
+            return false;
 		}
 
-		public void ListGames()
-		{
-            var totalGames = _gameRepo.GetGamesOnPage(0, 100);
-			CountGames(totalGames);
+        public void ListGames()
+        {
             var totalTime = LoadingTime();
             if (gamesLoaded == false)
-			{
-				_browseView.LoadingScreen(totalTime);
+            {
+                _browseView.LoadingScreen(totalTime);
                 gamesLoaded = true;
-			}
+            }
 
-			var games = _gameRepo.GetGamesOnPage((GetCurrentPage() - 9), GetCurrentPage());
-			_gamesOnPage.Clear();
-			GetGamesOnPageWithOptions();
-			AddGamesToMenu(games); //Kaller på metoden AddGames for å legge til spill i _allGames feltet i view.
-		}
+            var games = _gameRepo.GetGamesOnPage((GetCurrentPage() - 9), GetCurrentPage());
+            _gamesOnPage.Clear();
+            GetGamesOnPageWithOptions();
+            AddGamesToMenu(games); // Kaller på metoden AddGames for å legge til spill i _allGames feltet i view.
+        }
 
-		public List<string> GetGamesOnPageWithOptions()
-		{
-			List<string> options = new List<string> {"Back to main menu", "Next page", "Previous page"};
-			options.AddRange(_gamesOnPage);
-			return options;
-		}
+        public List<string> GetGamesOnPageWithOptions()
+        {
+            _lastPage = _gameRepo.CountAllGames();
+            List<string> options = new List<string> { "Back to main menu", "Next page", "Previous page", "---------" };
+            options.AddRange(_gamesOnPage);
+            return options;
+        }
 
-		private void AddGamesToMenu(IEnumerable<Game> games)
+        private void AddGamesToMenu(IEnumerable<Game> games)
         {
             foreach (Game game in games)
-			{
-                _gamesOnPage.Add("ID: " + game.ID + " Name: " + game.Name);
-
-            }
-        }
-
-        private void CountGames(IEnumerable<Game> games)
-        {
-            for (int i = 0; i<games.Count(); i++)
             {
-				_countGames += 5;
+                _gamesOnPage.Add("ID: " + game.ID + " Name: " + game.Name);
             }
         }
 
-        public void GetSelectedGame(int GameID)
-		{
-			var game = _gameRepo.GetGameInfo(GameID);
-			_browseView.ShowGame(game);
-		}
+        public void GetSelectedGame(int gameId)
+        {
+			var game = _gameRepo.GetGameInfo(gameId);
+			
 
-		public int LoadingTime()
-		{
-			int totalLoadingTime = _countGames;
-			return totalLoadingTime;
-		}
+            if (CheckInterestState(gameId) == false)
+            {
+				List<string> options = new List<string> { "Add to interest list", "Return to previous menu" };
+				var selectedIndex = _menuLogic.CallMenu(_gameDisplay.ShowGameDetails2(game), options , currentIndex);
+				currentIndex = selectedIndex;
 
+				switch (selectedIndex)
+                {
+                    case 0:
+						_interestRepo.AddGameToInterest(gameId);
+						break;
+                    case 1:
+                        break; 
+                }
+            }
+            else
+            {
+				List<string> options = new List<string> { "Remove from interest list", "Return to previous menu" };
+				var selectedIndex = _menuLogic.CallMenu(_gameDisplay.ShowGameDetails2(game), options, currentIndex);
+				currentIndex = selectedIndex;
 
-	}
+				switch (selectedIndex)
+				{
+					case 0:
+						_interestRepo.RemoveGameFromInterest(gameId);
+						break;
+					case 1:
+						break;
+
+				}
+			}
+
+        }
+
+        public int LoadingTime()
+        {
+            int totalLoadingTime = _gameRepo.CountAllGames() * 5;
+            return totalLoadingTime;
+        }
+
+    }
 }
