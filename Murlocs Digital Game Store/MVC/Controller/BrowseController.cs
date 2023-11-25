@@ -103,7 +103,6 @@ namespace NextGaming.Controller
         {
 			var game = _gameRepo.GetGameInfo(gameId);
 			
-
             if (CheckInterestState(gameId) == false)
             {
 				List<string> options = new List<string> { "Add to interest list", "Return to previous menu" };
@@ -132,10 +131,8 @@ namespace NextGaming.Controller
 						break;
 					case 1:
 						break;
-
 				}
 			}
-
         }
 
         public int LoadingTime()
@@ -143,6 +140,5 @@ namespace NextGaming.Controller
             int totalLoadingTime = _gameRepo.CountAllGames() * 5;
             return totalLoadingTime;
         }
-
     }
 }
