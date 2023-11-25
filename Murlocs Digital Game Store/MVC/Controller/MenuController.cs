@@ -180,15 +180,11 @@ public class MenuController {
             case 0: // Return to main menu
                 ReturnToMainMenu();
                 break;
-            case 1: // Next Page
-            case 2: // Previous Page
-                RecommendMenu();
-                break;
-            case 3: // Divider between menu options and interactive objects.
+            case 1: // Divider between menu options and interactive objects.
                 RecommendMenu();
                 break;
             default:
-                _recommendController.GetSelectedGame(selectedIndex-4);
+                _recommendController.GetSelectedGame(selectedIndex-2);
 			    RecommendMenu();
 			    break;
 	    }

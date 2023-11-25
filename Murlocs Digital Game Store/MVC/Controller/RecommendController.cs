@@ -30,7 +30,7 @@ public class RecommendController {
 
     public List<string> GetRecommendedGameWithOptions() {
         
-        List<string> options = new List<string> { "Back to main menu", "Next page", "Previous page", "------------"};
+        List<string> options = new List<string> { "Back to main menu", "------------"};
         var totalGenresInInterstList = _gameGenreRepo.GetIntGenres().Count(); 
         foreach (var game in _gamesOnPage)
         {
