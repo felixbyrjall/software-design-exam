@@ -54,11 +54,10 @@ public class RecommendController {
         }
     }
 
-    public void GetSelectedGame(int gameId)
+    public void GetSelectedGameFromRecommendMenu(int gameId)
     {
         int currentGameId = _gamesOnPage[gameId].ID;
-        var game = _gameRepo.GetGameInfo(currentGameId);
-        _recommendView.ShowGame(game);
+        _interestController.GetSelectedGame(currentGameId);
     }
 
 	public void Check(int i)
