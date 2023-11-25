@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace DigitalGameStore.Migrations
+namespace NextGaming.Migrations
 {
     /// <inheritdoc />
     public partial class update : Migration

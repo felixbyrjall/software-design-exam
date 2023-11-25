@@ -1,8 +1,8 @@
-﻿using DigitalGameStore.Interfaces;
-using DigitalGameStore.Views;
-using DigitalGameStore.Model;
-using DigitalGameStore.Tools;
-namespace DigitalGameStore.Controller
+﻿using NextGaming.Interfaces;
+using NextGaming.Views;
+using NextGaming.Model;
+using NextGaming.Tools;
+namespace NextGaming.Controller
 {
 
     public class BrowseController

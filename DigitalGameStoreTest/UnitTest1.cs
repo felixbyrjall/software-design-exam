@@ -1,4 +1,4 @@
-using DigitalGameStore.Model;
+using NextGaming.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace DigitalGameStoreTest;

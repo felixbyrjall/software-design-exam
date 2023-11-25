@@ -1,8 +1,8 @@
-using DigitalGameStore.Interfaces;
-using DigitalGameStore.Model;
-using DigitalGameStore.Tools;
+using NextGaming.Interfaces;
+using NextGaming.Model;
+using NextGaming.Tools;
 
-namespace DigitalGameStore.Views;
+namespace NextGaming.Views;
 
 public class RecommendView
 {

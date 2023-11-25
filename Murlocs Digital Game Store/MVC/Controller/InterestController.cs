@@ -1,10 +1,10 @@
-using DigitalGameStore.Interfaces;
-using DigitalGameStore.Model;
-using DigitalGameStore.Repo;
-using DigitalGameStore.Tools;
-using DigitalGameStore.Views;
+using NextGaming.Interfaces;
+using NextGaming.Model;
+using NextGaming.Repo;
+using NextGaming.Tools;
+using NextGaming.Views;
 
-namespace DigitalGameStore.Controller;
+namespace NextGaming.Controller;
 
 public class InterestController
 {
