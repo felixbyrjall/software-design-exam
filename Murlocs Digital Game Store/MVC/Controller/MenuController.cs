@@ -1,11 +1,11 @@
-﻿using DigitalGameStore.Model;
-using DigitalGameStore.Controller;
-using DigitalGameStore.Views;
-using DigitalGameStore.Tools;
-using DigitalGameStore.Interfaces;
-using DigitalGameStore.Repo;
+﻿using NextGaming.Model;
+using NextGaming.Controller;
+using NextGaming.Views;
+using NextGaming.Tools;
+using NextGaming.Interfaces;
+using NextGaming.Repo;
 
-namespace DigitalGameStore.Views;
+namespace NextGaming.Views;
 
 public class MenuController {
 

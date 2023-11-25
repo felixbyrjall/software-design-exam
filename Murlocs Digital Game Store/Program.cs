@@ -1,10 +1,10 @@
-using DigitalGameStore.Controller;
-using DigitalGameStore.Model;
-using DigitalGameStore.Tools;
-using DigitalGameStore.Views;
-using DigitalGameStore.Repo;
+using NextGaming.Controller;
+using NextGaming.Model;
+using NextGaming.Tools;
+using NextGaming.Views;
+using NextGaming.Repo;
 
-namespace DigitalGameStore;
+namespace NextGaming;
 
 public class Program
 {
@@ -25,7 +25,7 @@ public class Program
 		var browseController = new BrowseController(gameRepo, browseView, interestRepo, menuLogic, gameInfoView);
 		var interestController = new InterestController(interestRepo, interestView, gameRepo, browseController, menuLogic, gameInfoView);
         var recommendController = new RecommendController(gameGenresRepo, gameRepo, recommendView, interestController, gameInfoView);
-        
+  
         var menuController = new MenuController(menuLogic, browseController, interestController, recommendController, interestRepo);
 
         // Run the main menu
