@@ -17,9 +17,9 @@ namespace DigitalGameStore.Controller
         private readonly BrowseView _browseView;
         private readonly IInterestRepo _interestRepo;
         private readonly MenuLogic _menuLogic;
-        private readonly GameDisplay _gameDisplay;
+        private readonly GameInfoView _gameDisplay;
 
-        public BrowseController(IGameRepo gameRepo, BrowseView browseView, IInterestRepo interestRepo, MenuLogic menuLogic, GameDisplay gameDisplay)
+        public BrowseController(IGameRepo gameRepo, BrowseView browseView, IInterestRepo interestRepo, MenuLogic menuLogic, GameInfoView gameDisplay)
         {
             _gameRepo = gameRepo;
             _browseView = browseView;

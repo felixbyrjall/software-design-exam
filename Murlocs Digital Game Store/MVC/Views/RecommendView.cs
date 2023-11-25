@@ -6,9 +6,9 @@ namespace DigitalGameStore.Views;
 
 public class RecommendView
 {
-	private readonly GameDisplay _gameDisplay;
+	private readonly GameInfoView _gameDisplay;
 
-	public RecommendView(GameDisplay gameDisplay)
+	public RecommendView(GameInfoView gameDisplay)
 	{
 		_gameDisplay = gameDisplay;
 	}

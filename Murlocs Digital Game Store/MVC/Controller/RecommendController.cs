@@ -16,9 +16,9 @@ public class RecommendController {
     private readonly IGameRepo _gameRepo;
     private readonly RecommendView _recommendView;
     private readonly InterestController _interestController;
-	private readonly GameDisplay _gameDisplay;
+	private readonly GameInfoView _gameDisplay;
 
-	public RecommendController(IGameGenreRepo gameGenreRepo, IGameRepo gameRepo, RecommendView recommendView, InterestController interestController, GameDisplay gameDisplay){
+	public RecommendController(IGameGenreRepo gameGenreRepo, IGameRepo gameRepo, RecommendView recommendView, InterestController interestController, GameInfoView gameDisplay){
         _gameGenreRepo = gameGenreRepo;
         _gameRepo = gameRepo;
         _recommendView = recommendView;

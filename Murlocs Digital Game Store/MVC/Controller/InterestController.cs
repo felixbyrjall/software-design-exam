@@ -16,11 +16,11 @@ public class InterestController
     private readonly GameRepo _gameRepo;
 	private readonly BrowseController _browseController;
 	private readonly MenuLogic _menuLogic;
-	private readonly GameDisplay _gameDisplay;
+	private readonly GameInfoView _gameDisplay;
 
 	public static int currentIndex = 0;
 
-	public InterestController(IInterestRepo interestRepo, InterestView interestView, GameRepo gameRepo, BrowseController browseController, MenuLogic menuLogic, GameDisplay gameDisplay)
+	public InterestController(IInterestRepo interestRepo, InterestView interestView, GameRepo gameRepo, BrowseController browseController, MenuLogic menuLogic, GameInfoView gameDisplay)
     {
         _interestRepo = interestRepo;
         _interestView = interestView;
