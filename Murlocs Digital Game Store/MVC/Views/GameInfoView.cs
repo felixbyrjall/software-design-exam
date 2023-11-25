@@ -3,7 +3,7 @@ using DigitalGameStore.Model;
 
 namespace DigitalGameStore.Tools
 {
-	public class GameDisplay
+	public class GameInfoView
 	{
 		public static void ShowGameDetails(GameObject game)
 		{
