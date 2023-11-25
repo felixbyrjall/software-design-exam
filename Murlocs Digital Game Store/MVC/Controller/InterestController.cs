@@ -116,7 +116,7 @@ public class InterestController
 		int currentGameId = _gamesNotAdded[gameId].ID;
 		var game = _gameRepo.GetGameInfo(currentGameId);
 
-		if (CheckInterestState(gameId) == false)
+		if (CheckInterestState(currentGameId) == false)
 		{
 			List<string> options = new List<string> { "Add to interest list", "Return to previous menu" };
 			var selectedIndex = _menuLogic.CallMenu(_gameDisplay.ShowGameDetails2(game), options, currentIndex);
@@ -125,7 +125,7 @@ public class InterestController
 			switch (selectedIndex)
 			{
 				case 0:
-					_interestRepo.AddGameToInterest(gameId);
+					_interestRepo.AddGameToInterest(currentGameId);
 					break;
 				case 1:
 					break;
@@ -141,7 +141,7 @@ public class InterestController
 			switch (selectedIndex)
 			{
 				case 0:
-					_interestRepo.RemoveGameFromInterest(gameId);
+					_interestRepo.RemoveGameFromInterest(currentGameId);
 					break;
 				case 1:
 					break;
