@@ -27,7 +27,8 @@ public class MenuController {
 		_interestRepo = interestRepo;
 	}
 
-    public void ResetInteretList()
+    // Mainly for debugging logic error
+    public void ClearInterestList()
     {
         Console.Clear();
         for (int i = 0; i < 100; i++)
@@ -35,6 +36,7 @@ public class MenuController {
 			_interestRepo.RemoveGameFromInterest(i);
 		}
         Console.WriteLine("Interest list cleared");
+        Console.WriteLine("Press any KEY to go back to Main menu");
         Console.ReadLine();
     }
 
@@ -48,16 +50,15 @@ public class MenuController {
         {
             case 0: // Browse games
 				Func.Clear();
-
 				_browseController.ListGames();
 				BrowseMenu();
 				break;
-			case 1: // See list of interested games
+			case 1: // See list of games added to interest list
                 _interestController.GetGamesOnInterestListWithOptions();
                 _interestController.ListInterested();
 				ShowInterestList();
 				break;
-            case 2:
+            case 2: // 
 	            _recommendController.GetRecommendedGameWithOptions();
                 _recommendController.ListRecommendedGames();
                 RecommendMenu();
@@ -66,7 +67,7 @@ public class MenuController {
                 Environment.Exit(0);
                 break;
             case 4:
-                ResetInteretList();
+                ClearInterestList();
                 MainMenu();
                 break;
         }
@@ -100,6 +101,7 @@ public class MenuController {
 		}
 	}
 
+    // Lists all games added to interest list
     public void ShowInterestList()
     {
         List<string> interestListWithOptions = _interestController.GetGamesOnInterestListWithOptions();
@@ -140,6 +142,7 @@ public class MenuController {
 
 	}
 
+    // Lists all games that are NOT on the users interest list
     public void InterestMenu()
     {
         List<string> gamesWithOptions = _interestController.GetGamesOnPageWithOptions();
@@ -167,6 +170,7 @@ public class MenuController {
                 break;
         }
     }
+
     public void RecommendMenu() {
 	    List<string> gamesWithOptions = _recommendController.GetRecommendedGameWithOptions();
         var selectedIndex = _menuLogic.CallMenu(_prompt, gamesWithOptions, currentIndex);
