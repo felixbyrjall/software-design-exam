@@ -90,7 +90,7 @@ public class MenuController {
 			case 1: // Next Page
             case 2: // Previous Page
 				Func.Clear();
-				_browseController.Check(selectedIndex);
+				_browseController.CheckCurrentPage(selectedIndex);
 				BrowseMenu();
 				break;
             case 3: // Divider between menu options and interactive objects.

@@ -196,7 +196,7 @@ public class InterestController
 	{
 		_lastPage = _interestRepo.CountGamesInInterestList();
 
-		int numberOfGamesInList = 2;
+		int numberOfGamesInList = _gamesInInterestList.Count();
 		List<string> o = new List<string> { "Back to main menu", "Next page", "Previous page", "Add games to interest list", "Look for recommendations", "---- Games on list: " + numberOfGamesInList + " -----" };
 		foreach (var game in _gamesInInterestList)
 		{
