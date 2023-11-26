@@ -97,7 +97,7 @@ public class MenuController {
                 BrowseMenu();
                 break;
             default: // Displayed objects
-				_browseController.GetSelectedGame((selectedIndex - 3) + _browseController.GetCurrentPage() - 10);
+				_browseController.GetSelectedGameFromBrowseMenu((selectedIndex - 3) + _browseController.GetCurrentPage() - 10);
 				BrowseMenu();
 				break;
 		}

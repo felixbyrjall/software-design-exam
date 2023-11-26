@@ -12,20 +12,16 @@ public class InterestController
 	private int _lastPage;
 	private const int _firstPage = 10;
 	private readonly IInterestRepo _interestRepo;
-	private readonly InterestView _interestView;
 	private readonly GameRepo _gameRepo;
-	private readonly BrowseController _browseController;
 	private readonly MenuLogic _menuLogic;
 	private readonly GameInfoView _gameDisplay;
 
 	public static int currentIndex = 0;
 
-	public InterestController(IInterestRepo interestRepo, InterestView interestView, GameRepo gameRepo, BrowseController browseController, MenuLogic menuLogic, GameInfoView gameDisplay)
+	public InterestController(IInterestRepo interestRepo, GameRepo gameRepo, MenuLogic menuLogic, GameInfoView gameDisplay)
 	{
 		_interestRepo = interestRepo;
-		_interestView = interestView;
 		_gameRepo = gameRepo;
-		_browseController = browseController;
 		_menuLogic = menuLogic;
 		_gameDisplay = gameDisplay;
 	}
