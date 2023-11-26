@@ -140,7 +140,8 @@ public class MenuController {
 			default:
 				_interestController.GetSelectedGameFromInterestList((selectedIndex - 6));
 				_interestController.Check(selectedIndex);
-                ShowInterestList();
+				_interestController.ListInterested();
+				ShowInterestList();
 				break;
 		}
 
@@ -189,7 +190,8 @@ public class MenuController {
                 break;
             default:
                 _recommendController.GetSelectedGameFromRecommendMenu(selectedIndex-2);
-                RecommendMenu();
+				_recommendController.ListRecommendedGames();
+				RecommendMenu();
 			    break;
 	    }
 
