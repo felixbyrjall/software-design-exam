@@ -1,7 +1,7 @@
-﻿using DigitalGameStore.Interfaces;
-using DigitalGameStore.Model;
+﻿using NextGaming.Interfaces;
+using NextGaming.Model;
 
-namespace DigitalGameStore.Repo;
+namespace NextGaming.Repo;
 
 public class GameRepo : IGameRepo
 {

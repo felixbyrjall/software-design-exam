@@ -1,5 +1,5 @@
 ﻿//using static System.Console;
-namespace DigitalGameStore.Tools;
+namespace NextGaming.Tools;
 
 	public class MenuLogic
 	{

@@ -1,33 +1,34 @@
-using DigitalGameStore.Controller;
-using DigitalGameStore.Model;
-using DigitalGameStore.Tools;
-using DigitalGameStore.Views;
-using DigitalGameStore.Repo;
+using NextGaming.Controller;
+using NextGaming.Model;
+using NextGaming.Tools;
+using NextGaming.Views;
+using NextGaming.Repo;
 
-namespace DigitalGameStore;
+namespace NextGaming;
 
 public class Program
 {
     public static void Main(string[] args)
     {
         var context = new Context();
-        var gameRepo = new GameRepo(context);
-        var browseView = new BrowseView();
-		var interestRepo = new InterestRepo(context);
 		var menuLogic = new MenuLogic();
-		var interestView = new InterestView();
-        var gameDisplay = new GameDisplay();
 
-		var recommendView = new RecommendView(gameDisplay);
+		var gameRepo = new GameRepo(context);
 		var gameGenresRepo = new GameGenresRepo(context);
-		var browseController = new BrowseController(gameRepo, browseView, interestRepo, menuLogic, gameDisplay);
-		var interestController = new InterestController(interestRepo, interestView, gameRepo, browseController, menuLogic, gameDisplay);
-        var recommendController = new RecommendController(gameGenresRepo, gameRepo, recommendView, interestController, gameDisplay);
+		var interestRepo = new InterestRepo(context);
 
-        
-        var menu = new Menu(menuLogic, browseController, interestController, recommendController, interestRepo);
+		var gameInfoView = new GameInfoView();
+		var browseView = new BrowseView();
+		var recommendView = new RecommendView(gameInfoView);
+
+		var interestController = new InterestController(interestRepo, gameRepo, menuLogic, gameInfoView);
+		var browseController = new BrowseController(gameRepo, browseView, interestRepo, menuLogic, gameInfoView, interestController);
+		
+        var recommendController = new RecommendController(gameGenresRepo, gameRepo, recommendView, interestController, gameInfoView);
+  
+        var menuController = new MenuController(menuLogic, browseController, interestController, recommendController, interestRepo);
 
         // Run the main menu
-        menu.MainMenu();
+        menuController.MainMenu();
     }
 }

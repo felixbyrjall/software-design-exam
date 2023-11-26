@@ -1,9 +1,9 @@
 ﻿using System;
-using DigitalGameStore.Model;
+using NextGaming.Model;
 
-namespace DigitalGameStore.Tools
+namespace NextGaming.Tools
 {
-	public class GameDisplay
+	public class GameInfoView
 	{
 		public static void ShowGameDetails(GameObject game)
 		{

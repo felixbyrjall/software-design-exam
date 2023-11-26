@@ -1,6 +1,6 @@
-using DigitalGameStore.Model;
+using NextGaming.Model;
 
-namespace DigitalGameStore.Interfaces; 
+namespace NextGaming.Interfaces; 
 
 public interface IGameGenreRepo {
     public List<GameObject> RecommendGames();

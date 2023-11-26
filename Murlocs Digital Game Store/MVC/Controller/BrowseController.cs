@@ -1,8 +1,8 @@
-﻿using DigitalGameStore.Interfaces;
-using DigitalGameStore.Views;
-using DigitalGameStore.Model;
-using DigitalGameStore.Tools;
-namespace DigitalGameStore.Controller
+﻿using NextGaming.Interfaces;
+using NextGaming.Views;
+using NextGaming.Model;
+using NextGaming.Tools;
+namespace NextGaming.Controller
 {
 
     public class BrowseController
@@ -17,15 +17,17 @@ namespace DigitalGameStore.Controller
         private readonly BrowseView _browseView;
         private readonly IInterestRepo _interestRepo;
         private readonly MenuLogic _menuLogic;
-        private readonly GameDisplay _gameDisplay;
+        private readonly GameInfoView _gameDisplay;
+        private readonly InterestController _interestController;
 
-        public BrowseController(IGameRepo gameRepo, BrowseView browseView, IInterestRepo interestRepo, MenuLogic menuLogic, GameDisplay gameDisplay)
+        public BrowseController(IGameRepo gameRepo, BrowseView browseView, IInterestRepo interestRepo, MenuLogic menuLogic, GameInfoView gameDisplay, InterestController interestController)
         {
             _gameRepo = gameRepo;
             _browseView = browseView;
             _interestRepo = interestRepo;
             _menuLogic = menuLogic;
             _gameDisplay = gameDisplay;
+            _interestController = interestController;
         }
 
 		public static int currentIndex = 0;
@@ -40,7 +42,7 @@ namespace DigitalGameStore.Controller
             _currentPage = currentPage;
         }
 
-        public void Check(int i)
+        public void CheckCurrentPage(int i)
         {
             if (i == 1 && GetCurrentPage() != _lastPage)
             {
@@ -54,19 +56,6 @@ namespace DigitalGameStore.Controller
             }
             ListGames();
         }
-
-        public bool CheckInterestState(int gameID)
-        {
-            var list = _interestRepo.GetGamesOnInterestList(_currentPage);
-            foreach(var game in list)
-            {
-				if (gameID == game.ID)
-                {
-                    return true;
-                }
-			}
-            return false;
-		}
 
         public void ListGames()
         {
@@ -99,50 +88,17 @@ namespace DigitalGameStore.Controller
             }
         }
 
-        public void GetSelectedGame(int gameId)
+        public void GetSelectedGameFromBrowseMenu(int gameId)
         {
 			var game = _gameRepo.GetGameInfo(gameId);
-			
-
-            if (CheckInterestState(gameId) == false)
-            {
-				List<string> options = new List<string> { "Add to interest list", "Return to previous menu" };
-				var selectedIndex = _menuLogic.CallMenu(_gameDisplay.ShowGameDetails2(game), options , currentIndex);
-				currentIndex = selectedIndex;
-
-				switch (selectedIndex)
-                {
-                    case 0:
-						_interestRepo.AddGameToInterest(gameId);
-						break;
-                    case 1:
-                        break; 
-                }
-            }
-            else
-            {
-				List<string> options = new List<string> { "Remove from interest list", "Return to previous menu" };
-				var selectedIndex = _menuLogic.CallMenu(_gameDisplay.ShowGameDetails2(game), options, currentIndex);
-				currentIndex = selectedIndex;
-
-				switch (selectedIndex)
-				{
-					case 0:
-						_interestRepo.RemoveGameFromInterest(gameId);
-						break;
-					case 1:
-						break;
-
-				}
-			}
-
-        }
+			string gameDetails = _gameDisplay.ShowGameDetails2(game);
+            _interestController.GetSelectedGameFromAllMenus(gameId, gameDetails);
+		}
 
         public int LoadingTime()
         {
             int totalLoadingTime = _gameRepo.CountAllGames() * 5;
             return totalLoadingTime;
         }
-
     }
 }
