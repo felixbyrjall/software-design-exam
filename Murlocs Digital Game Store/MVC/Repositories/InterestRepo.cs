@@ -11,13 +11,13 @@ public class InterestRepo : IInterestRepo {
         _context = context;
     }
 
-    public List<GameObject> GetNotInterestedGames(int page)
+    public List<GameObject> GetNotInterestedGames()
     {
         var notInterestedList =
             (from Game in _context.Game
              from Interest in _context.Interest.Where(mapping => mapping.GameID == Game.ID).DefaultIfEmpty()
 			 where Interest.ID == null
-			 select new { GameName = Game.Name, GameID = Game.ID }).Skip(page - 10).Take(10);
+			 select new { GameName = Game.Name, GameID = Game.ID });
         List<GameObject> list = new List<GameObject>();
 
         foreach (var item in notInterestedList)
