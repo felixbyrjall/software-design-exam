@@ -134,7 +134,7 @@ public class MenuController {
                 ShowInterestList(); // Line
                 break;
 			default:
-				_interestController.GetSelectedGame((selectedIndex - 6));
+				_interestController.GetSelectedGameFromInterestList((selectedIndex - 6));
 				_interestController.Check(selectedIndex);
                 ShowInterestList();
 				break;
@@ -164,7 +164,7 @@ public class MenuController {
                 InterestMenu();
                 break;
             default: // Displayed objects
-				_interestController.GetSelectedGame((selectedIndex - 4));
+				_interestController.GetSelectedGameFromAddToInterestMenu((selectedIndex - 4));
                 _interestController.Check(selectedIndex);
                 InterestMenu();
                 break;
@@ -184,7 +184,7 @@ public class MenuController {
                 RecommendMenu();
                 break;
             default:
-                _recommendController.GetSelectedGame(selectedIndex-2);
+                _recommendController.GetSelectedGameFromRecommendMenu(selectedIndex-2);
 			    RecommendMenu();
 			    break;
 	    }
