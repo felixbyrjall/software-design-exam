@@ -35,7 +35,7 @@ public class MenuController {
     public void ClearInterestList()
     {
         Console.Clear();
-        for (int i = 0; i < 100; i++)
+        for (int i = 1; i <= 100; i++)
         {
 			_interestRepo.RemoveGameFromInterest(i);
 		}
@@ -181,7 +181,12 @@ public class MenuController {
         _notificationController.Changed += OnChange;
         _notificationController.Leave += OnLeave;
 
-        var selectedIndex = _menuLogic.CallMenu(_prompt, gamesWithOptions, currentIndex, _notification);
+		if (currentIndex + 1 > gamesWithOptions.Count())
+		{
+			currentIndex--;
+		}
+
+		var selectedIndex = _menuLogic.CallMenu(_prompt, gamesWithOptions, currentIndex, _notification);
         currentIndex = selectedIndex;
 
         switch (selectedIndex)
