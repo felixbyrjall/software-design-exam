@@ -28,7 +28,7 @@ public class InterestController
 
 	private List<GameObject> _gamesNotInInterestListOnCurrentPage = new();
 	private List<GameObject> _allGamesNotInInterestList = new();
-	private List<GameObject> _gamesInInterestList = new();
+	private List<GameObject> _gamesInInterestListOnCurrentPage = new();
 
 	#region Getter and setter for _currentPage
 	public int GetCurrentPage()
@@ -72,7 +72,7 @@ public class InterestController
 		GamesNotAddedToListOnCurrentPage(gamesInterested);
 	}
 
-	public void Check(int i)
+	public void CheckCurrentPageAndDisplayGamesNotOnInterestList(int i)
 	{
 		if (i == 1 && GetCurrentPage() < _lastPage)
 		{
@@ -110,7 +110,7 @@ public class InterestController
 	public List<string> GetGamesOnPageWithOptions()
 	{
 		_lastPage = _interestRepo.CountGamesNotInInterestList();
-		List<string> options = new List<string> { "Back to main menu", "Next page", "Previous page", "---- Games remaining: " + _lastPage + " -----" };
+		List<string> options = new List<string> { "Back to interest list", "Next page", "Previous page", "---- Games remaining: " + _lastPage + " -----" };
 		foreach (var game in _gamesNotInInterestListOnCurrentPage)
 		{
 			options.Add("ID: " + game.ID + " Name: " + game.Name);
@@ -122,7 +122,7 @@ public class InterestController
 	#region Gets the correct gameId from the different menus to add/delete games from interest list
 	public void GetSelectedGameFromInterestList(int gameId)
 	{
-		var currentGameId = _gamesInInterestList[gameId].ID;
+		var currentGameId = _gamesInInterestListOnCurrentPage[gameId].ID;
 		var game = _gameRepo.GetGameInfo(currentGameId);
 		string gameDetails = _gameDisplay.ShowGameDetails2(game);
 		GetSelectedGameFromAllMenus(currentGameId, gameDetails);
@@ -195,21 +195,19 @@ public class InterestController
 
 	public List<string> GetGamesOnInterestListWithOptions()
 	{
-		_lastPage = _interestRepo.CountGamesInInterestList();
-
-		int numberOfGamesInList = _gamesInInterestList.Count();
-		List<string> o = new List<string> { "Back to main menu", "Next page", "Previous page", "Add games to interest list", "Look for recommendations", "---- Games on list: " + numberOfGamesInList + " -----" };
-		foreach (var game in _gamesInInterestList)
+		int numberOfGamesInList = (_interestRepo.CountGamesInInterestList());
+		List<string> options = new List<string> { "Back to main menu", "Next page", "Previous page", "Add games to interest list", "Look for recommendations", "---- Games on list: " + numberOfGamesInList + " -----" };
+		foreach (var game in _gamesInInterestListOnCurrentPage)
 		{
-			o.Add("ID: " + game.ID + " Name: " + game.Name);
+			options.Add("ID: " + game.ID + " Name: " + game.Name);
 		}
-		return o;
+		return options;
 	}
 
 	public void ListInterested()
 	{
 		var gamesInterested = _interestRepo.GetGamesOnInterestList(GetCurrentPage());
-		_gamesInInterestList.Clear();
+		_gamesInInterestListOnCurrentPage.Clear();
 		GamesAddedToList(gamesInterested);
 	}
 
@@ -218,11 +216,11 @@ public class InterestController
 		foreach (var game in games)
 		{
 			GameObject gameObject = new GameObject(game.ID, game.Name);
-			_gamesInInterestList.Add(gameObject);
+			_gamesInInterestListOnCurrentPage.Add(gameObject);
 		}
 	}
 
-	public void Check2(int i)
+	public void CheckCurrentPageAndDisplayInterestList(int i)
 	{
 		if (i == 1 && GetCurrentPage() < _lastPage)
 		{

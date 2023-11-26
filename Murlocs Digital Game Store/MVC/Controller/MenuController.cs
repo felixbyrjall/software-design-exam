@@ -108,6 +108,11 @@ public class MenuController {
     {
         List<string> interestListWithOptions = _interestController.GetGamesOnInterestListWithOptions();
 
+		if (currentIndex+1 > interestListWithOptions.Count())
+		{
+			currentIndex--;
+		}
+
 		var selectedIndex = _menuLogic.CallMenu(_prompt, interestListWithOptions, currentIndex);
         currentIndex = selectedIndex;
 
@@ -119,12 +124,12 @@ public class MenuController {
             case 1:
             case 2:
 				Func.Clear(); // NEXT AND PREVIOUS PAGE
-				_interestController.Check2(selectedIndex);
+				_interestController.CheckCurrentPageAndDisplayGamesNotOnInterestList(selectedIndex);
 				ShowInterestList();
 				break;
             case 3:
 				_interestController.GetGamesOnPageWithOptions(); //ADD GAMES TO INTEREST LIST
-				_interestController.Check(selectedIndex - 1);
+				_interestController.CheckCurrentPageAndDisplayGamesNotOnInterestList(selectedIndex - 1);
                 currentIndex = 0;
 				InterestMenu();
                 break;
@@ -139,7 +144,6 @@ public class MenuController {
                 break;
 			default:
 				_interestController.GetSelectedGameFromInterestList((selectedIndex - 6));
-				_interestController.Check(selectedIndex);
 				_interestController.ListInterested();
 				ShowInterestList();
 				break;
@@ -158,11 +162,12 @@ public class MenuController {
         switch (selectedIndex)
         {
             case 0: // Return to main menu
-                ReturnToMainMenu();
+				_interestController.ListInterested();
+				ShowInterestList();
                 break;
             case 1: // Next Page
             case 2: // Previous Page
-                _interestController.Check(selectedIndex);
+                _interestController.CheckCurrentPageAndDisplayGamesNotOnInterestList(selectedIndex);
                 InterestMenu();
                 break;
             case 3: // Divider between menu options and interactive objects.
@@ -170,7 +175,7 @@ public class MenuController {
                 break;
             default: // Displayed objects
 				_interestController.GetSelectedGameFromAddToInterestMenu((selectedIndex - 4));
-                _interestController.Check(selectedIndex);
+                _interestController.CheckCurrentPageAndDisplayGamesNotOnInterestList(selectedIndex);
                 InterestMenu();
                 break;
         }
@@ -178,7 +183,13 @@ public class MenuController {
 
 	public void RecommendMenu() {
 	    List<string> gamesWithOptions = _recommendController.GetRecommendedGameWithOptions();
-        var selectedIndex = _menuLogic.CallMenu(_prompt, gamesWithOptions, currentIndex);
+
+		if (currentIndex + 1 > gamesWithOptions.Count())
+		{
+			currentIndex--;
+		}
+
+		var selectedIndex = _menuLogic.CallMenu(_prompt, gamesWithOptions, currentIndex);
 		currentIndex = selectedIndex;
 		switch (selectedIndex)
 	    {
@@ -186,8 +197,8 @@ public class MenuController {
                 ReturnToMainMenu();
                 break;
             case 1: // Divider between menu options and interactive objects.
-                RecommendMenu();
-                break;
+				RecommendMenu();
+				break;
             default:
                 _recommendController.GetSelectedGameFromRecommendMenu(selectedIndex-2);
 				_recommendController.ListRecommendedGames();
