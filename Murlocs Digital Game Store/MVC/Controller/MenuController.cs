@@ -1,4 +1,5 @@
-﻿using NextGaming.Model;
+﻿using DigitalGameStore.MVC.Controller;
+using NextGaming.Model;
 using NextGaming.Controller;
 using NextGaming.Views;
 using NextGaming.Tools;
@@ -14,18 +15,21 @@ public class MenuController {
 	private readonly InterestController _interestController;
 	private readonly RecommendController _recommendController;
 	private readonly IInterestRepo _interestRepo;
+	private readonly NotificationController _notificationController;
 
 	private string _prompt = "(Use the arrows to select an option)";
+	private string _notification = "";
 	public static int currentIndex = 0;
 
-	public MenuController(MenuLogic menuTools, BrowseController browseController, InterestController interestController, RecommendController recommendController, IInterestRepo interestRepo)
+	public MenuController(MenuLogic menuTools, BrowseController browseController, InterestController interestController, RecommendController recommendController, IInterestRepo interestRepo, NotificationController notificationController)
     {
         _menuLogic = menuTools;
         _browseController = browseController;
 		_interestController = interestController;
 		_recommendController = recommendController;
 		_interestRepo = interestRepo;
-	}
+		_notificationController = notificationController;
+    }
 
     // Mainly for debugging logic error
     public void ClearInterestList()
@@ -43,7 +47,7 @@ public class MenuController {
 	public void MainMenu()
     {
 		List<String> menuOptions = new List<string> { "Browse Games", "Interest List", "Recommendations", "Exit", "Reset interest list" };
-		var selectedIndex = _menuLogic.CallMenu(_prompt, menuOptions, currentIndex);
+		var selectedIndex = _menuLogic.CallMenu(_prompt, menuOptions, currentIndex, _notification);
 		currentIndex = selectedIndex;
 
 		switch (selectedIndex)
@@ -74,12 +78,26 @@ public class MenuController {
                 break;
         }
     }
+	
+	public void OnChange(object source, ChangeArgs e)
+	{
+		if (e.method == "add") {
+			_notification = $"GameID: {e.gameId.ToString()} has been added to the interest list!";
+		}
+		
+		else if (e.method == "remove") {
+			_notification = $"GameID: {e.gameId.ToString()} has been removed from the interest list!";
+		}
+	}
 
 	public void BrowseMenu()
 	{
         List<string> gamesWithOptions = _browseController.GetGamesOnPageWithOptions();
+        
+        _notificationController.Changed += OnChange;
+        _notificationController.Leave += OnLeave;
 
-        var selectedIndex = _menuLogic.CallMenu(_prompt, gamesWithOptions, currentIndex);
+        var selectedIndex = _menuLogic.CallMenu(_prompt, gamesWithOptions, currentIndex, _notification);
 		currentIndex = selectedIndex;
 
 		switch (selectedIndex)
@@ -107,18 +125,22 @@ public class MenuController {
     public void ShowInterestList()
     {
         List<string> interestListWithOptions = _interestController.GetGamesOnInterestListWithOptions();
+        
+        _notificationController.Changed += OnChange;
+        _notificationController.Leave += OnLeave;
 
 		if (currentIndex+1 > interestListWithOptions.Count())
 		{
 			currentIndex--;
 		}
 
-		var selectedIndex = _menuLogic.CallMenu(_prompt, interestListWithOptions, currentIndex);
+		var selectedIndex = _menuLogic.CallMenu(_prompt, interestListWithOptions, currentIndex, _notification);
         currentIndex = selectedIndex;
 
         switch (selectedIndex)
         {
             case 0:
+	            _notificationController.OnLeave();
 				ReturnToMainMenu(); // Return to main menu
 				break;
             case 1:
@@ -155,14 +177,18 @@ public class MenuController {
     public void InterestMenu()
     {
         List<string> gamesWithOptions = _interestController.GetGamesOnPageWithOptions();
+        
+        _notificationController.Changed += OnChange;
+        _notificationController.Leave += OnLeave;
 
-        var selectedIndex = _menuLogic.CallMenu(_prompt, gamesWithOptions, currentIndex);
+        var selectedIndex = _menuLogic.CallMenu(_prompt, gamesWithOptions, currentIndex, _notification);
         currentIndex = selectedIndex;
 
         switch (selectedIndex)
         {
             case 0: // Return to main menu
 				_interestController.ListInterested();
+				_notificationController.Leave += OnLeave;
 				ShowInterestList();
                 break;
             case 1: // Next Page
@@ -183,13 +209,16 @@ public class MenuController {
 
 	public void RecommendMenu() {
 	    List<string> gamesWithOptions = _recommendController.GetRecommendedGameWithOptions();
+	    
+	    _notificationController.Changed += OnChange;
+	    _notificationController.Leave += OnLeave;
 
 		if (currentIndex + 1 > gamesWithOptions.Count())
 		{
 			currentIndex--;
 		}
 
-		var selectedIndex = _menuLogic.CallMenu(_prompt, gamesWithOptions, currentIndex);
+		var selectedIndex = _menuLogic.CallMenu(_prompt, gamesWithOptions, currentIndex, _notification);
 		currentIndex = selectedIndex;
 		switch (selectedIndex)
 	    {
@@ -208,8 +237,14 @@ public class MenuController {
 
     }
 
+	public void OnLeave(object source, EventArgs e)
+	{
+		_notification = "";
+	}
+
     public void ReturnToMainMenu()
     {
+	    _notificationController.OnLeave();
 		_browseController.SetCurrentPage(10);
         _interestController.SetCurrentPage(10);
 		MainMenu();

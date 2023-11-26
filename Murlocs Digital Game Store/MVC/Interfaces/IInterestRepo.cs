@@ -1,4 +1,5 @@
 ﻿using NextGaming.Model;
+using NextGaming.Repo;
 
 namespace NextGaming.Interfaces {
     public interface IInterestRepo

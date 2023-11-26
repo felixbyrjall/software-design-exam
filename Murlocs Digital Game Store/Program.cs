@@ -1,3 +1,4 @@
+using DigitalGameStore.MVC.Controller;
 using NextGaming.Controller;
 using NextGaming.Model;
 using NextGaming.Tools;
@@ -12,21 +13,22 @@ public class Program
     {
         var context = new Context();
 		var menuLogic = new MenuLogic();
+		var notificationController = new NotificationController();
 
 		var gameRepo = new GameRepo(context);
 		var gameGenresRepo = new GameGenresRepo(context);
-		var interestRepo = new InterestRepo(context);
+		var interestRepo = new InterestRepo(context, notificationController);
 
 		var gameInfoView = new GameInfoView();
 		var browseView = new BrowseView();
 		var recommendView = new RecommendView(gameInfoView);
 
-		var interestController = new InterestController(interestRepo, gameRepo, menuLogic, gameInfoView);
+		var interestController = new InterestController(interestRepo, gameRepo, menuLogic, gameInfoView, notificationController);
 		var browseController = new BrowseController(gameRepo, browseView, interestRepo, menuLogic, gameInfoView, interestController);
 		
         var recommendController = new RecommendController(gameGenresRepo, gameRepo, recommendView, interestController, gameInfoView);
   
-        var menuController = new MenuController(menuLogic, browseController, interestController, recommendController, interestRepo);
+        var menuController = new MenuController(menuLogic, browseController, interestController, recommendController, interestRepo, notificationController);
 
         // Run the main menu
         menuController.MainMenu();

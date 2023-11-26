@@ -1,3 +1,4 @@
+using DigitalGameStore.MVC.Controller;
 using NextGaming.Interfaces;
 using NextGaming.Model;
 using NextGaming.Repo;
@@ -15,15 +16,18 @@ public class InterestController
 	private readonly GameRepo _gameRepo;
 	private readonly MenuLogic _menuLogic;
 	private readonly GameInfoView _gameDisplay;
+	private readonly NotificationController _notificationController;
 
 	public static int currentIndex = 0;
-
-	public InterestController(IInterestRepo interestRepo, GameRepo gameRepo, MenuLogic menuLogic, GameInfoView gameDisplay)
+	private string _notification = "";
+	
+	public InterestController(IInterestRepo interestRepo, GameRepo gameRepo, MenuLogic menuLogic, GameInfoView gameDisplay, NotificationController notificationController)
 	{
 		_interestRepo = interestRepo;
 		_gameRepo = gameRepo;
 		_menuLogic = menuLogic;
 		_gameDisplay = gameDisplay;
+		_notificationController = notificationController;
 	}
 
 	private List<GameObject> _gamesNotInInterestListOnCurrentPage = new();
@@ -151,7 +155,8 @@ public class InterestController
 		if (CheckInterestState(currentGameId) == false)
 		{
 			List<string> options = new List<string> { "Add to interest list", "Return to previous menu" };
-			var selectedIndex = _menuLogic.CallMenu(gameDetails, options, currentIndex);
+			
+			var selectedIndex = _menuLogic.CallMenu(gameDetails, options, currentIndex, _notification);
 			currentIndex = selectedIndex;
 
 			switch (selectedIndex)
@@ -166,7 +171,7 @@ public class InterestController
 		else
 		{
 			List<string> options = new List<string> { "Remove from interest list", "Return to previous menu" };
-			var selectedIndex = _menuLogic.CallMenu(gameDetails, options, currentIndex);
+			var selectedIndex = _menuLogic.CallMenu(gameDetails, options, currentIndex, _notification);
 			currentIndex = selectedIndex;
 
 			switch (selectedIndex)
