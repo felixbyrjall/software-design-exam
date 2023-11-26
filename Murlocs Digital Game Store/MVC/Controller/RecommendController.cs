@@ -26,13 +26,13 @@ public class RecommendController {
         _gameDisplay = gameDisplay;
     }
 
-    private List<GameObject> _gamesOnPage = new();
+    private List<GameObject> _recommendedGames = new();
 
     public List<string> GetRecommendedGameWithOptions() {
         
         List<string> options = new List<string> { "Back to main menu", "------------"};
         var totalGenresInInterstList = _gameGenreRepo.GetIntGenres().Count(); 
-        foreach (var game in _gamesOnPage)
+        foreach (var game in _recommendedGames)
         {
             options.Add("ID: " + game.ID + " Name: " + game.Name + " Match: " + (game.Score / totalGenresInInterstList).ToString() + "%");
         }
@@ -41,7 +41,7 @@ public class RecommendController {
     public void ListRecommendedGames()
     {
         var recommendedGames = _gameGenreRepo.RecommendGames();
-        _gamesOnPage.Clear();
+        _recommendedGames.Clear();
         addRecommendedGamesList(recommendedGames);
     }
 
@@ -50,14 +50,14 @@ public class RecommendController {
         foreach (var game in games)
         {
             GameObject gameObject = new GameObject(game.ID, game.Name, game.Score);
-            _gamesOnPage.Add(gameObject);
+            _recommendedGames.Add(gameObject);
         }
     }
 
 	public void GetSelectedGameFromRecommendMenu(int gameId)
 	{
 
-		int currentGameId = _gamesOnPage[gameId].ID;
+		int currentGameId = _recommendedGames[gameId].ID;
 		_interestController.GetSelectedGameFromRecommendMenu(currentGameId);
 	}
 }
