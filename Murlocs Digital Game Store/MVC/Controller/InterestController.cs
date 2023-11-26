@@ -147,6 +147,7 @@ public class InterestController
 	#region Add/remove/list games on interest list
 	public void GetSelectedGameFromAllMenus(int currentGameId, string gameDetails)
 	{
+		currentIndex = 1;
 		if (CheckInterestState(currentGameId) == false)
 		{
 			List<string> options = new List<string> { "Add to interest list", "Return to previous menu" };

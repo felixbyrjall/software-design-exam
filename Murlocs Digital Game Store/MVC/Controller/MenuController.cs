@@ -175,7 +175,7 @@ public class MenuController {
         }
     }
 
-    public void RecommendMenu() {
+	public void RecommendMenu() {
 	    List<string> gamesWithOptions = _recommendController.GetRecommendedGameWithOptions();
         var selectedIndex = _menuLogic.CallMenu(_prompt, gamesWithOptions, currentIndex);
 		currentIndex = selectedIndex;
@@ -189,7 +189,7 @@ public class MenuController {
                 break;
             default:
                 _recommendController.GetSelectedGameFromRecommendMenu(selectedIndex-2);
-			    RecommendMenu();
+                RecommendMenu();
 			    break;
 	    }
 
