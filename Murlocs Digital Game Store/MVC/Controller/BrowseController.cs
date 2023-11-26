@@ -42,7 +42,7 @@ namespace NextGaming.Controller
             _currentPage = currentPage;
         }
 
-        public void Check(int i)
+        public void CheckCurrentPage(int i)
         {
             if (i == 1 && GetCurrentPage() != _lastPage)
             {
@@ -56,19 +56,6 @@ namespace NextGaming.Controller
             }
             ListGames();
         }
-
-        public bool CheckInterestState(int gameID)
-        {
-            var list = _interestRepo.GetGamesOnInterestList(_currentPage);
-            foreach(var game in list)
-            {
-				if (gameID == game.ID)
-                {
-                    return true;
-                }
-			}
-            return false;
-		}
 
         public void ListGames()
         {
