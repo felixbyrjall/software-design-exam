@@ -78,17 +78,6 @@ public class MenuController {
                 break;
         }
     }
-	
-	public void OnChange(object source, ChangeArgs e)
-	{
-		if (e.method == "add") {
-			_notification = $"GameID: {e.gameId.ToString()} has been added to the interest list!";
-		}
-		
-		else if (e.method == "remove") {
-			_notification = $"GameID: {e.gameId.ToString()} has been removed from the interest list!";
-		}
-	}
 
 	public void BrowseMenu()
 	{
@@ -150,13 +139,15 @@ public class MenuController {
 				ShowInterestList();
 				break;
             case 3:
-				_interestController.GetGamesOnPageWithOptions(); //ADD GAMES TO INTEREST LIST
+                _notificationController.OnLeave();
+                _interestController.GetGamesOnPageWithOptions(); //ADD GAMES TO INTEREST LIST
 				_interestController.CheckCurrentPageAndDisplayGamesNotOnInterestList(selectedIndex - 1);
                 currentIndex = 0;
 				InterestMenu();
                 break;
 			case 4:
-				_recommendController.GetRecommendedGameWithOptions(); // LOOK FOR RECOMMENDATIONS
+                _notificationController.OnLeave();
+                _recommendController.GetRecommendedGameWithOptions(); // LOOK FOR RECOMMENDATIONS
 				_recommendController.ListRecommendedGames();
 				currentIndex = 0;
 				RecommendMenu();
@@ -193,8 +184,8 @@ public class MenuController {
         {
             case 0: // Return to main menu
 				_interestController.ListInterested();
-				_notificationController.Leave += OnLeave;
-				ShowInterestList();
+                _notificationController.OnLeave();
+                ShowInterestList();
                 break;
             case 1: // Next Page
             case 2: // Previous Page
@@ -242,10 +233,25 @@ public class MenuController {
 
     }
 
+	// Region !!!
 	public void OnLeave(object source, EventArgs e)
 	{
 		_notification = "";
 	}
+
+
+    public void OnChange(object source, ChangeArgs e)
+    {
+        if (e.method == "add")
+        {
+            _notification = $"GameID: {e.gameId.ToString()} has been added to the interest list!";
+        }
+
+        else if (e.method == "remove")
+        {
+            _notification = $"GameID: {e.gameId.ToString()} has been removed from the interest list!";
+        }
+    }
 
     public void ReturnToMainMenu()
     {
