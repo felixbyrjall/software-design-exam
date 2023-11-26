@@ -21,8 +21,6 @@ public class Tests
         db.SaveChanges();
     }
     
-    //Testing based on Arrange, Act, Assert pattern.
-
     [Test]
     public void AddGameTest()
     {
@@ -33,18 +31,15 @@ public class Tests
         int expectedPublisher = 1;
         
         using (var db = new Context()) {
-            //Arrange
             var publisher = new Publisher { ID = expectedPublisher, Name = "Valve" };
             db.Publisher.Add(publisher);
             db.SaveChanges();
             
-            //Act
             var addedGame = new Game
             { ID = expectedId, Name = expectedName, ReleaseDate = expectedRelease, Score = expectedScore, PublisherID = expectedPublisher };
             db.Game.Add(addedGame);
             db.SaveChanges();
         
-            //Assert
             var retrievedGame = db.Game.Single();
         
             Assert.AreEqual(expectedId, retrievedGame.ID);
@@ -61,19 +56,16 @@ public class Tests
         int expectedGame = 1;
         
         using (var db = new Context()) {
-            //Arrange
             var publisher = new Publisher { ID = 1, Name = "Valve" };
             db.Publisher.Add(publisher);
             var game = new Game { ID = 1, Name = "Counter Strike 2", ReleaseDate = "21.08.2012", Score = 0, PublisherID = 1 };
             db.Game.Add(game);
             db.SaveChanges();
             
-            //Act
             var addedInterest = new Interest { ID = expectedId, GameID = expectedGame };
             db.Interest.Add(addedInterest);
             db.SaveChanges();
             
-            //Assert
             var retrievedInterest = db.Interest.Single();
             Assert.AreEqual(expectedId, retrievedInterest.ID);
             Assert.AreEqual(expectedGame, retrievedInterest.GameID);
@@ -85,7 +77,6 @@ public class Tests
         int deleteId = 1; //ID of the game you want to delete
         var interests = new List<Interest>();
         using (var db = new Context()) {
-            //Arrange
             var publisher = new Publisher { ID = 1, Name = "Valve" };
             db.Publisher.Add(publisher); //Adding a publisher so the foreign key works
 
@@ -103,14 +94,12 @@ public class Tests
             db.Interest.AddRange(interest);
             db.SaveChanges();
    
-            //Act
             var removedInterest = db.Interest.FirstOrDefault(i => i.GameID == deleteId);
             if (removedInterest!=null) {
                 db.Interest.Remove(removedInterest);
                 db.SaveChanges();
             }
    
-            //Assert
             int actualCount = db.Interest.Count();
             Assert.AreNotEqual(interests.Count(), actualCount);
         }

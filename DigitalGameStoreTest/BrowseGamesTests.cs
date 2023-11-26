@@ -6,6 +6,7 @@ public class BrowseGamesTests {
     public void CheckGenres() {
         int[] retrieveGameId = {1}; //the game ids of how many games you want to check
         int[] expectedGenreId = {1,2,3,4,5}; // fill inn the expected genreIds here, there is always 5 ids or empty list if check with query
+        
         using (var db = new Context()) {
             foreach (var gameId in retrieveGameId) {
                 var retrievedGameGenres = (
@@ -32,7 +33,6 @@ public class BrowseGamesTests {
                         else {
                             Assert.That(expectedGenreId, Contains.Item(genreIdGg)); //assert to check for specified genre ids
                         }
-                        
                     }
                 });
             }
@@ -41,18 +41,39 @@ public class BrowseGamesTests {
 
     [Test]
     public void CheckInfo() {
-        int retrieveGameId = 1;
+        
+        int retrieveGameId = 0;
         string expectedName = "Counter-Strike 2";
         string expectedRelease = "2012-08-21";
         int expectedPublisher = 1;
+        
         using (var db = new Context()) {
             var retrievedGame = db.Game.FirstOrDefault(g => g.ID == retrieveGameId);
             Assert.Multiple(() =>
             {
-                Assert.That(expectedName, Is.EqualTo(retrievedGame.Name));
-                Assert.That(expectedPublisher, Is.EqualTo(retrievedGame.PublisherID));
-                Assert.That(expectedRelease, Is.EqualTo(retrievedGame.ReleaseDate));
+                    Assert.That(expectedName, Is.EqualTo(retrievedGame.Name));
+                    Assert.That(expectedPublisher, Is.EqualTo(retrievedGame.PublisherID));
+                    Assert.That(expectedRelease, Is.EqualTo(retrievedGame.ReleaseDate));
             });
+        }
+    }
+
+    [Test]
+    public void AddInterest() {
+        int retrieveGameId = 50;
+
+        using (var db = new Context()) {
+
+            var retrieveGame = db.Game.FirstOrDefault(g => g.ID == retrieveGameId);
+            var newInterest = new Interest
+            {
+                GameID = retrieveGame.ID
+            };
+            db.Interest.Add(newInterest);
+
+            db.SaveChanges();
+            var retrieveInterest = db.Interest.FirstOrDefault();
+            Assert.That(retrieveGame.ID, Is.EqualTo(retrieveInterest?.GameID));
         }
     }
 }
