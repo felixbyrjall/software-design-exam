@@ -56,7 +56,6 @@ public class RecommendController {
 
 	public void GetSelectedGameFromRecommendMenu(int gameId)
 	{
-
 		int currentGameId = _recommendedGames[gameId].ID;
 		_interestController.GetSelectedGameFromRecommendMenu(currentGameId);
 	}

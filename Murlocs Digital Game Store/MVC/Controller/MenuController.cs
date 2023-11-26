@@ -56,12 +56,14 @@ public class MenuController {
 			case 1: // See list of games added to interest list
                 _interestController.GetGamesOnInterestListWithOptions();
                 _interestController.ListInterested();
+				currentIndex = 0;
 				ShowInterestList();
 				break;
             case 2: // 
 	            _recommendController.GetRecommendedGameWithOptions();
                 _recommendController.ListRecommendedGames();
-                RecommendMenu();
+				currentIndex = 0;
+				RecommendMenu();
 				break;
 			case 3: // Exit the application
                 Environment.Exit(0);
@@ -123,11 +125,13 @@ public class MenuController {
             case 3:
 				_interestController.GetGamesOnPageWithOptions(); //ADD GAMES TO INTEREST LIST
 				_interestController.Check(selectedIndex - 1);
+                currentIndex = 0;
 				InterestMenu();
                 break;
 			case 4:
 				_recommendController.GetRecommendedGameWithOptions(); // LOOK FOR RECOMMENDATIONS
 				_recommendController.ListRecommendedGames();
+				currentIndex = 0;
 				RecommendMenu();
 				break;
 			case 5:
