@@ -54,22 +54,10 @@ public class RecommendController {
         }
     }
 
-    public void GetSelectedGameFromRecommendMenu(int gameId)
-    {
-        int currentGameId = _gamesOnPage[gameId].ID;
-        _interestController.GetSelectedGame(currentGameId);
-    }
-
-	public void Check(int i)
+	public void GetSelectedGameFromRecommendMenu(int gameId)
 	{
-		if (i == 1 && _currentPage != _lastPage)
-		{
-			_currentPage += 10;
-		}
-		else if (i == 2 && _currentPage != _firstPage)
-		{
-			_currentPage -= 10;
-		}
-        _interestController.ListNotInterested();
+
+		int currentGameId = _gamesOnPage[gameId].ID;
+		_interestController.GetSelectedGameFromRecommendMenu(currentGameId);
 	}
 }
