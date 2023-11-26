@@ -1,4 +1,4 @@
-namespace DigitalGameStore.Model;
+namespace NextGaming.Model;
 
 public class Interest {
     public int ID { get; set; }

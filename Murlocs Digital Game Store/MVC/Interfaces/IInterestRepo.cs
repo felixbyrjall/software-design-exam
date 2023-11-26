@@ -1,9 +1,10 @@
-﻿using DigitalGameStore.Model;
+﻿using NextGaming.Model;
+using NextGaming.Repo;
 
-namespace DigitalGameStore.Interfaces {
+namespace NextGaming.Interfaces {
     public interface IInterestRepo
     {
-        public List<GameObject> GetNotInterestedGames(int page);
+        public List<GameObject> GetNotInterestedGames();
 
         public void AddGameToInterest(int gameId);
 

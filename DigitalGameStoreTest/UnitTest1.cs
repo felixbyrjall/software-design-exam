@@ -1,8 +1,7 @@
-using DigitalGameStore.Model;
+using NextGaming.Model;
 using Microsoft.EntityFrameworkCore;
 
-namespace DigitalGameStoreTest;
-
+namespace NextGamingTest;
 
 public class Tests
 {

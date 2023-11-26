@@ -1,6 +1,6 @@
-﻿using DigitalGameStore.Model;
-using DigitalGameStore.Tools;
-namespace DigitalGameStore.Views;
+﻿using NextGaming.Model;
+using NextGaming.Tools;
+namespace NextGaming.Views;
 
 public class BrowseView
 {

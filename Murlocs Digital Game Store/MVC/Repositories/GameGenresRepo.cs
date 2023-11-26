@@ -1,8 +1,8 @@
-using DigitalGameStore.Interfaces;
-using DigitalGameStore.Model;
+using NextGaming.Interfaces;
+using NextGaming.Model;
 using System.Collections.Generic;
 
-namespace DigitalGameStore.Repo;
+namespace NextGaming.Repo;
 
 public class GameGenresRepo : IGameGenreRepo {
 

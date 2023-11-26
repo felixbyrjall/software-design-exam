@@ -1,10 +1,10 @@
-using DigitalGameStore.Interfaces;
-using DigitalGameStore.Model;
-using DigitalGameStore.Repo;
-using DigitalGameStore.Tools;
-using DigitalGameStore.Views;
+using NextGaming.Interfaces;
+using NextGaming.Model;
+using NextGaming.Repo;
+using NextGaming.Tools;
+using NextGaming.Views;
 
-namespace DigitalGameStore.Controller; 
+namespace NextGaming.Controller; 
 
 public class RecommendController {
 
@@ -16,9 +16,9 @@ public class RecommendController {
     private readonly IGameRepo _gameRepo;
     private readonly RecommendView _recommendView;
     private readonly InterestController _interestController;
-	private readonly GameDisplay _gameDisplay;
+	private readonly GameInfoView _gameDisplay;
 
-	public RecommendController(IGameGenreRepo gameGenreRepo, IGameRepo gameRepo, RecommendView recommendView, InterestController interestController, GameDisplay gameDisplay){
+	public RecommendController(IGameGenreRepo gameGenreRepo, IGameRepo gameRepo, RecommendView recommendView, InterestController interestController, GameInfoView gameDisplay){
         _gameGenreRepo = gameGenreRepo;
         _gameRepo = gameRepo;
         _recommendView = recommendView;
@@ -26,13 +26,13 @@ public class RecommendController {
         _gameDisplay = gameDisplay;
     }
 
-    private List<GameObject> _gamesOnPage = new();
+    private List<GameObject> _recommendedGames = new();
 
     public List<string> GetRecommendedGameWithOptions() {
         
-        List<string> options = new List<string> { "Back to main menu", "Next page", "Previous page", "------------"};
+        List<string> options = new List<string> { "Back to main menu", "------------"};
         var totalGenresInInterstList = _gameGenreRepo.GetIntGenres().Count(); 
-        foreach (var game in _gamesOnPage)
+        foreach (var game in _recommendedGames)
         {
             options.Add("ID: " + game.ID + " Name: " + game.Name + " Match: " + (game.Score / totalGenresInInterstList).ToString() + "%");
         }
@@ -41,7 +41,7 @@ public class RecommendController {
     public void ListRecommendedGames()
     {
         var recommendedGames = _gameGenreRepo.RecommendGames();
-        _gamesOnPage.Clear();
+        _recommendedGames.Clear();
         addRecommendedGamesList(recommendedGames);
     }
 
@@ -50,27 +50,13 @@ public class RecommendController {
         foreach (var game in games)
         {
             GameObject gameObject = new GameObject(game.ID, game.Name, game.Score);
-            _gamesOnPage.Add(gameObject);
+            _recommendedGames.Add(gameObject);
         }
     }
 
-    public void GetSelectedGame(int gameId)
-    {
-        int currentGameId = _gamesOnPage[gameId].ID;
-        var game = _gameRepo.GetGameInfo(currentGameId);
-        _recommendView.ShowGame(game);
-    }
-
-	public void Check(int i)
+	public void GetSelectedGameFromRecommendMenu(int gameId)
 	{
-		if (i == 1 && _currentPage != _lastPage)
-		{
-			_currentPage += 10;
-		}
-		else if (i == 2 && _currentPage != _firstPage)
-		{
-			_currentPage -= 10;
-		}
-        _interestController.ListNotInterested();
+		int currentGameId = _recommendedGames[gameId].ID;
+		_interestController.GetSelectedGameFromRecommendMenu(currentGameId);
 	}
 }

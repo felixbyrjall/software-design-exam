@@ -1,23 +1,26 @@
-using DigitalGameStore.Interfaces;
-using DigitalGameStore.Model;
+using DigitalGameStore.MVC.Controller;
+using NextGaming.Interfaces;
+using NextGaming.Model;
 
-namespace DigitalGameStore.Repo;
+namespace NextGaming.Repo;
 
 public class InterestRepo : IInterestRepo {
 
     private readonly Context _context;
+    private readonly NotificationController _notificationController;
 
-    public InterestRepo(Context context) {
+    public InterestRepo(Context context, NotificationController notificationController) {
         _context = context;
+        _notificationController = notificationController;
     }
 
-    public List<GameObject> GetNotInterestedGames(int page)
+    public List<GameObject> GetNotInterestedGames()
     {
         var notInterestedList =
             (from Game in _context.Game
              from Interest in _context.Interest.Where(mapping => mapping.GameID == Game.ID).DefaultIfEmpty()
 			 where Interest.ID == null
-			 select new { GameName = Game.Name, GameID = Game.ID }).Skip(page - 10).Take(10);
+			 select new { GameName = Game.Name, GameID = Game.ID });
         List<GameObject> list = new List<GameObject>();
 
         foreach (var item in notInterestedList)
@@ -43,7 +46,7 @@ public class InterestRepo : IInterestRepo {
 
 		return interestList;
 	}
-
+	
 	public void AddGameToInterest(int gameId)
     {
         Interest newInterest = new()
@@ -53,6 +56,7 @@ public class InterestRepo : IInterestRepo {
 
         _context.Interest.Add(newInterest);
         _context.SaveChanges();
+        _notificationController.OnChange(gameId, "add");
     }
 
     public void RemoveGameFromInterest(int gameId)
@@ -62,6 +66,7 @@ public class InterestRepo : IInterestRepo {
         {
 			_context.Interest.Remove(findInterest);
 			_context.SaveChanges();
+			_notificationController.OnChange(gameId, "remove");
 		}
     }
 

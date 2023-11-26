@@ -1,4 +1,4 @@
-namespace DigitalGameStore.Repo;
+namespace NextGaming.Repo;
 
 public class PublisherRepo {
 
