@@ -41,6 +41,7 @@ namespace NextGaming.Controller
         }
 		#endregion
 
+		#region Methods for checking page, listing and adding games
 		public void CheckCurrentPage(int i)
         {
             if (i == 1 && GetCurrentPage() != _lastPage)
@@ -92,11 +93,14 @@ namespace NextGaming.Controller
 			string gameDetails = _gameInfoView.ShowGameDetails2(game);
             _interestController.GetSelectedGameFromAllMenus(gameId, gameDetails);
 		}
+		#endregion
 
-        public int LoadingTime()
+		#region Loading method
+		public int LoadingTime()
         {
             int totalLoadingTime = _gameRepo.CountAllGames() * 5;
             return totalLoadingTime;
         }
-    }
+		#endregion
+	}
 }
