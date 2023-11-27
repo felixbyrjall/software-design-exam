@@ -1,7 +1,6 @@
 using NextGaming.Model;
 using Moq;
 using NextGaming.Interfaces;
-using NextGaming.Repo;
 
 namespace NextGamingTest;
 
