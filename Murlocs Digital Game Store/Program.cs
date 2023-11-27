@@ -21,7 +21,6 @@ public class Program
 
 		var gameInfoView = new GameInfoView();
 		var browseView = new BrowseView();
-		var recommendView = new RecommendView(gameInfoView);
 
 		var interestController = new InterestController(interestRepo, gameRepo, menuLogic, gameInfoView);
 		var browseController = new BrowseController(gameRepo, browseView, gameInfoView, interestController);
