@@ -1,3 +1,4 @@
+using DigitalGameStore.MVC.Controller;
 using NextGaming.Interfaces;
 using NextGaming.Interfaces;
 using NextGaming.Model;
@@ -13,7 +14,7 @@ public class InterestTests {
         db.RemoveRange(db.Interest);
         db.SaveChanges();
     }
-    private readonly InterestRepo _interestRepo = new(new Context());
+    private readonly InterestRepo _interestRepo = new(new Context(), new NotificationController());
     [Test]
     public void Test_GetNotInterestedGames_AddGameToInterest() {
         //Arrange

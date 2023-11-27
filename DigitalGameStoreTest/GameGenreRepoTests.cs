@@ -1,3 +1,4 @@
+using DigitalGameStore.MVC.Controller;
 using NextGaming.Model;
 using NextGaming.Repo;
 
@@ -5,7 +6,7 @@ namespace NextGamingTest;
 
 public class GameGenreRepoTests {
     private readonly GameGenresRepo _gameGenresRepo = new GameGenresRepo(new Context());
-    private readonly InterestRepo _interestRepo = new InterestRepo(new Context());
+    private readonly InterestRepo _interestRepo = new InterestRepo(new Context(), new NotificationController());
 
     [SetUp]
     public void Setup()
