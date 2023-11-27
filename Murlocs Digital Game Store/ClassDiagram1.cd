@@ -1,0 +1,192 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="NextGaming.Views.BrowseView">
+    <Position X="12.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MVC\Views\BrowseView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NextGaming.Tools.GameInfoView">
+    <Position X="15" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MVC\Views\GameInfoView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NextGaming.Views.RecommendView">
+    <Position X="17" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAACAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MVC\Views\RecommendView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NextGaming.Controller.BrowseController">
+    <Position X="11.5" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>JAQAAADAAIAABACCACBAAqAAAgBAAAAAAABAAAKAAAA=</HashCode>
+      <FileName>MVC\Controller\BrowseController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_gameRepo" />
+      <Field Name="_interestRepo" />
+      <Field Name="_browseView" />
+      <Field Name="_gameDisplay" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="NextGaming.Repo.GameRepo">
+    <Position X="9" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAABAAAAAAAAAAAAAAAAAAAAIAAAAAQAAA=</HashCode>
+      <FileName>MVC\Repositories\GameRepo.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NextGaming.Repo.InterestRepo">
+    <Position X="9" Y="6.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAABABAAIAAACAAAAAAAAAAAAAAAAQACAg=</HashCode>
+      <FileName>MVC\Repositories\InterestRepo.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NextGaming.Repo.GameGenresRepo">
+    <Position X="9" Y="15.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAABAAAEAAAAAAAAAAAACAAAAAAAAAQIAA=</HashCode>
+      <FileName>MVC\Repositories\GameGenresRepo.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NextGaming.Controller.RecommendController">
+    <Position X="15.25" Y="10.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>IAABEEBAAAAAAACAAABgAKAAAAAQAAAAAABABAAAAAA=</HashCode>
+      <FileName>MVC\Controller\RecommendController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_gameGenreRepo" />
+      <Field Name="_gameRepo" />
+      <Field Name="_gameDisplay" />
+      <Field Name="_recommendView" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="NextGaming.Views.MenuController">
+    <Position X="15.25" Y="14.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>oAAIAAAAAQAAAACAEAACAJAQAABAhAABAAAAAATAACA=</HashCode>
+      <FileName>MVC\Controller\MenuController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_browseController" />
+      <Field Name="_interestController" />
+      <Field Name="_recommendController" />
+      <Field Name="_notificationController" />
+      <Field Name="_interestRepo" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="NextGaming.Controller.InterestController">
+    <Position X="13.25" Y="10.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>MACBAIDgAAgMAAKGECDAACAAAABCACAAAQRgAAyACAA=</HashCode>
+      <FileName>MVC\Controller\InterestController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_gameRepo" />
+      <Field Name="_interestRepo" />
+      <Field Name="_gameDisplay" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="DigitalGameStore.MVC.Controller.NotificationController">
+    <Position X="17.75" Y="10.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAABAAAABAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MVC\Controller\NotificationController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NextGaming.Program">
+    <Position X="17.75" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NextGaming.Model.ChangeArgs">
+    <Position X="5.25" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAAAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MVC\Model\ChangeArgs.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NextGaming.Model.Context">
+    <Position X="7" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAACAIAACAAEAgAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>MVC\Model\Context.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NextGaming.Model.Game">
+    <Position X="5.25" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIgAgACAAAACQAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>MVC\Model\Game.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NextGaming.Model.GameGenres">
+    <Position X="7" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAgAAAAgAAAAAMAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MVC\Model\GameGenres.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NextGaming.Model.GameObject">
+    <Position X="7" Y="9.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIgAgACAIAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MVC\Model\GameObject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NextGaming.Model.Genre">
+    <Position X="5.25" Y="10.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAAAAAQAAAAAAAAAAIAAAAAAAAA=</HashCode>
+      <FileName>MVC\Model\Genre.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NextGaming.Model.Interest">
+    <Position X="5.25" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAgAAAAAEAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MVC\Model\Interest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NextGaming.Model.Publisher">
+    <Position X="7" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>MVC\Model\Publisher.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="NextGaming.Interfaces.IGameRepo">
+    <Position X="9" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAQAAA=</HashCode>
+      <FileName>MVC\Interfaces\IGameRepo.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="NextGaming.Interfaces.IInterestRepo">
+    <Position X="9" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAAAAAAABAAIAAACAAAAAAAAAAAAAAAAAACAg=</HashCode>
+      <FileName>MVC\Interfaces\IInterestRepo.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="NextGaming.Interfaces.IGameGenreRepo">
+    <Position X="9" Y="13.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>MVC\Interfaces\IGameGenreRepo.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

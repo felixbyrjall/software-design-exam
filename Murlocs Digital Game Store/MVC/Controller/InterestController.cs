@@ -13,7 +13,7 @@ public class InterestController
 	private int _lastPage;
 	private const int _firstPage = 10;
 	private readonly IInterestRepo _interestRepo;
-	private readonly GameRepo _gameRepo;
+	private readonly IGameRepo _gameRepo;
 	private readonly MenuLogic _menuLogic;
 	private readonly GameInfoView _gameDisplay;
 	private readonly NotificationController _notificationController;
