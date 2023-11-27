@@ -1,8 +1,5 @@
 using NextGaming.Interfaces;
 using NextGaming.Model;
-using NextGaming.Repo;
-using NextGaming.Tools;
-using NextGaming.Views;
 
 namespace NextGaming.Controller; 
 
