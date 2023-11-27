@@ -47,8 +47,8 @@ public class MenuLogic
 
 	private void ShowMenu()
 	{
-		Func.TextColor("blue");
-		Func.WriteOutput(_additionalText);
+		TextColor("blue");
+		Console.WriteLine(_additionalText);
 		Console.ResetColor();
 
 		for (int i = 0; i < _menuOptions.Length; i++)
@@ -59,54 +59,79 @@ public class MenuLogic
 			if(i == _selectedIndex)
 			{
 				prefix = "> ";
-				Func.TextColor("black");
-				Func.BgColor("white");
+				TextColor("black");
+				BgColor("white");
 			}
 			else
 			{
 				prefix = "  ";
-				Func.TextColor("white");
-				Func.BgColor("black");
+				TextColor("white");
+				BgColor("black");
 			}
-			Func.WriteOutput($"{prefix}{selectedOption}");
+			Console.WriteLine($"{prefix}{selectedOption}");
 		}
-			Console.ResetColor();
-			Func.TextColor("green");
-			Func.WriteOutput(_notification);
-			Console.ResetColor();
-		}
+		Console.ResetColor();
+		TextColor("green");
+		Console.WriteLine(_notification);
+		Console.ResetColor();
+	}
 
-		public int Start()
+	public int Start()
+	{
+		ConsoleKey keyPressed;
+
+		do
 		{
-			ConsoleKey keyPressed;
-			do
+			Console.Clear();
+			ShowMenu();
+			ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+			keyPressed = keyInfo.Key;
+
+			//Update SelectedIndex based on arrow keys.
+			if (keyPressed == ConsoleKey.UpArrow)
 			{
-				Func.Clear();
-				ShowMenu();
+				_selectedIndex--;
 
-				ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-				keyPressed = keyInfo.Key;
-
-				//Update SelectedIndex based on arrow keys.
-
-				if (keyPressed == ConsoleKey.UpArrow)
+				if (_selectedIndex == -1)
 				{
-					_selectedIndex--;
-					if (_selectedIndex == -1)
-					{
-						_selectedIndex = _menuOptions.Length - 1;
-					}
+					_selectedIndex = _menuOptions.Length - 1;
 				}
-				else if (keyPressed == ConsoleKey.DownArrow)
-				{
-					_selectedIndex++;
-					if (_selectedIndex == _menuOptions.Length)
-					{
-						_selectedIndex = 0;
-					}
-				}
-			}while(keyPressed != ConsoleKey.Enter);
+			}
+			else if (keyPressed == ConsoleKey.DownArrow)
+			{
+				_selectedIndex++;
 
-			return _selectedIndex;
+				if (_selectedIndex == _menuOptions.Length)
+				{
+					_selectedIndex = 0;
+				}
+			}
+		}while(keyPressed != ConsoleKey.Enter);
+
+		return _selectedIndex;
+	}
+
+	public static void TextColor(string color)
+	{
+		try
+		{
+			Console.ForegroundColor = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), color, true);
+		}
+		catch (Exception)
+		{
+			Console.ForegroundColor = ConsoleColor.Red; // If developer types in an invalid color (ex. typo), sets the text color to red for easy debugging
 		}
 	}
+
+	public static void BgColor(string color)
+	{
+		try
+		{
+			Console.BackgroundColor = (ConsoleColor)Enum.Parse(typeof(ConsoleColor), color, true);
+		}
+		catch (Exception)
+		{
+			Console.BackgroundColor = ConsoleColor.Green; // If developer types in an invalid color (ex. typo), sets the background color to green for easy debugging
+		}
+	}
+}
