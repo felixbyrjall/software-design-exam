@@ -28,7 +28,6 @@ public class InterestRepo : IInterestRepo {
             GameObject gameObject = new GameObject(item.GameID, item.GameName);
             list.Add(gameObject);
         }
-
         return list;
     }
 
@@ -85,7 +84,6 @@ public class InterestRepo : IInterestRepo {
 			GameObject gameObject = new GameObject(item.GameID, item.GameName);
 			list.Add(gameObject);
 		}
-
 		return list;
 	}
 }

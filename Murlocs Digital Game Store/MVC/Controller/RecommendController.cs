@@ -3,8 +3,8 @@ using NextGaming.Model;
 
 namespace NextGaming.Controller; 
 
-public class RecommendController {
-
+public class RecommendController
+{
 	#region Fields and dependencies
 	private List<GameObject> _recommendedGames = new();
 
@@ -18,10 +18,10 @@ public class RecommendController {
 	#endregion
 
 	#region Methods for listing recommendations, adding and viewing games
-	public List<string> GetRecommendedGameWithOptions() {
-        
+	public List<string> GetRecommendedGameWithOptions()
+    {
         List<string> options = new List<string> { "Back to main menu", "------------"};
-        var totalGenresInInterstList = _gameGenreRepo.GetIntGenres().Count(); 
+        var totalGenresInInterstList = _gameGenreRepo.GetIntGenres().Count();
         foreach (var game in _recommendedGames)
         {
             options.Add("ID: " + game.ID + " Name: " + game.Name + " Match: " + (game.Score / totalGenresInInterstList).ToString() + "%");

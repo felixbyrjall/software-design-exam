@@ -1,6 +1,7 @@
 ﻿using NextGaming.Model;
 
-namespace NextGaming.Interfaces {
+namespace NextGaming.Interfaces
+{
     public interface IGameRepo
     {
         IList<Game> GetGamesOnPage(int start, int end);
@@ -8,6 +9,5 @@ namespace NextGaming.Interfaces {
         public GameObject GetGameInfo(int GameID);
 
         public int CountAllGames();
-
     }
 }

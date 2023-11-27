@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace NextGaming.Model;
 
-    public partial class Context : DbContext
+public partial class Context : DbContext
 {
     public DbSet<Game> Game => Set<Game>();
     public DbSet<Publisher> Publisher => Set<Publisher>();

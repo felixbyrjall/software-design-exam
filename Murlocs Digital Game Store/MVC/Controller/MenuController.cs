@@ -8,8 +8,8 @@ using NextGaming.Repo;
 
 namespace NextGaming.Views;
 
-public class MenuController {
-
+public class MenuController
+{
     private readonly MenuLogic _menuLogic;
 	private readonly BrowseController _browseController;
 	private readonly InterestController _interestController;
@@ -162,7 +162,6 @@ public class MenuController {
 				ShowInterestList();
 				break;
 		}
-
 	}
 
     // Lists all games that are NOT on the users interest list
@@ -205,7 +204,8 @@ public class MenuController {
         }
     }
 
-	public void RecommendMenu() {
+	public void RecommendMenu()
+	{
 	    List<string> gamesWithOptions = _recommendController.GetRecommendedGameWithOptions();
 	    
 	    _notificationController.Changed += OnChange;
@@ -232,7 +232,6 @@ public class MenuController {
 				RecommendMenu();
 			    break;
 	    }
-
     }
 
 	// Region !!!
@@ -240,7 +239,6 @@ public class MenuController {
 	{
 		_notification = "";
 	}
-
 
     public void OnChange(object source, ChangeArgs e)
     {

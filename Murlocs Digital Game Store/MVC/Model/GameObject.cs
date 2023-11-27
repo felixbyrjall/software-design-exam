@@ -9,9 +9,6 @@ public class GameObject
     public List<string> Genres;
     public int Score;
 
-
-
-
     public GameObject(int id, string name, string publisher, string releasedate, List<string> genres)
     {
         ID = id;
@@ -48,6 +45,5 @@ public class GameObject
         Genres = genres;
         Score = score;
     }
-
 }
 
