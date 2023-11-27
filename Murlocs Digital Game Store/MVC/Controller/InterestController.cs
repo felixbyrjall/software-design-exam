@@ -9,30 +9,30 @@ namespace NextGaming.Controller;
 
 public class InterestController
 {
-	private int _currentPage = 10;
-	private int _lastPage;
+	#region Fields and dependencies
 	private const int _firstPage = 10;
+	private int _currentPage = 10;
+	private int _lastPageOnAddToInterestList;
+	private int _numberOfGamesInList;
+	public static int currentIndex;
+	private string _notification = "";
 	private readonly IInterestRepo _interestRepo;
 	private readonly IGameRepo _gameRepo;
 	private readonly MenuLogic _menuLogic;
-	private readonly GameInfoView _gameDisplay;
-	private readonly NotificationController _notificationController;
-
-	public static int currentIndex = 0;
-	private string _notification = "";
-	
-	public InterestController(IInterestRepo interestRepo, GameRepo gameRepo, MenuLogic menuLogic, GameInfoView gameDisplay, NotificationController notificationController)
-	{
-		_interestRepo = interestRepo;
-		_gameRepo = gameRepo;
-		_menuLogic = menuLogic;
-		_gameDisplay = gameDisplay;
-		_notificationController = notificationController;
-	}
+	private readonly GameInfoView _gameInfoView;
 
 	private List<GameObject> _gamesNotInInterestListOnCurrentPage = new();
 	private List<GameObject> _allGamesNotInInterestList = new();
 	private List<GameObject> _gamesInInterestListOnCurrentPage = new();
+
+	public InterestController(IInterestRepo interestRepo, IGameRepo gameRepo, MenuLogic menuLogic, GameInfoView gameInfoView)
+	{
+		_interestRepo = interestRepo;
+		_gameRepo = gameRepo;
+		_menuLogic = menuLogic;
+		_gameInfoView = gameInfoView;
+	}
+	#endregion
 
 	#region Getter and setter for _currentPage
 	public int GetCurrentPage()
@@ -78,7 +78,7 @@ public class InterestController
 
 	public void CheckCurrentPageAndDisplayGamesNotOnInterestList(int i)
 	{
-		if (i == 1 && GetCurrentPage() < _lastPage)
+		if (i == 1 && GetCurrentPage() < _lastPageOnAddToInterestList)
 		{
 			int j = GetCurrentPage();
 			SetCurrentPage(j += 10);
@@ -113,8 +113,8 @@ public class InterestController
 	#region Menu logic
 	public List<string> GetGamesOnPageWithOptions()
 	{
-		_lastPage = _interestRepo.CountGamesNotInInterestList();
-		List<string> options = new List<string> { "Back to interest list", "Next page", "Previous page", "---- Games remaining: " + _lastPage + " -----" };
+		_lastPageOnAddToInterestList = _interestRepo.CountGamesNotInInterestList();
+		List<string> options = new List<string> { "Back to interest list", "Next page", "Previous page", "---- Games remaining: " + _lastPageOnAddToInterestList + " -----" };
 		foreach (var game in _gamesNotInInterestListOnCurrentPage)
 		{
 			options.Add("ID: " + game.ID + " Name: " + game.Name);
@@ -123,12 +123,12 @@ public class InterestController
 	}
 	#endregion
 
-	#region Gets the correct gameId from the different menus to add/delete games from interest list
+	#region Methods that get the correct gameId from the different menus to add/delete games from interest list
 	public void GetSelectedGameFromInterestList(int gameId)
 	{
 		var currentGameId = _gamesInInterestListOnCurrentPage[gameId].ID;
 		var game = _gameRepo.GetGameInfo(currentGameId);
-		string gameDetails = _gameDisplay.ShowGameDetails2(game);
+		string gameDetails = _gameInfoView.ShowGameDetails2(game);
 		GetSelectedGameFromAllMenus(currentGameId, gameDetails);
 	}
 
@@ -136,14 +136,14 @@ public class InterestController
 	{
 		int currentGameId = _gamesNotInInterestListOnCurrentPage[gameId].ID;
 		var game = _gameRepo.GetGameInfo(currentGameId);
-		string gameDetails = _gameDisplay.ShowGameDetails2(game);
+		string gameDetails = _gameInfoView.ShowGameDetails2(game);
 		GetSelectedGameFromAllMenus(currentGameId, gameDetails);
 	}
 
 	public void GetSelectedGameFromRecommendMenu(int gameId)
 	{
 		var game = _gameRepo.GetGameInfo(gameId);
-		string gameDetails = _gameDisplay.ShowGameDetails2(game);
+		string gameDetails = _gameInfoView.ShowGameDetails2(game);
 		GetSelectedGameFromAllMenus(gameId, gameDetails);
 	}
 	#endregion
@@ -200,8 +200,8 @@ public class InterestController
 
 	public List<string> GetGamesOnInterestListWithOptions()
 	{
-		int numberOfGamesInList = (_interestRepo.CountGamesInInterestList());
-		List<string> options = new List<string> { "Back to main menu", "Next page", "Previous page", "Add games to interest list", "Look for recommendations", "---- Games on list: " + numberOfGamesInList + " -----" };
+		_numberOfGamesInList = (_interestRepo.CountGamesInInterestList());
+		List<string> options = new List<string> { "Back to main menu", "Next page", "Previous page", "Add games to interest list", "Look for recommendations", "---- Games on list: " + _numberOfGamesInList + " -----" };
 		foreach (var game in _gamesInInterestListOnCurrentPage)
 		{
 			options.Add("ID: " + game.ID + " Name: " + game.Name);
@@ -227,7 +227,7 @@ public class InterestController
 
 	public void CheckCurrentPageAndDisplayInterestList(int i)
 	{
-		if (i == 1 && GetCurrentPage() < _lastPage)
+		if (i == 1 && GetCurrentPage() < _numberOfGamesInList)
 		{
 			int j = GetCurrentPage();
 			SetCurrentPage(j += 10);

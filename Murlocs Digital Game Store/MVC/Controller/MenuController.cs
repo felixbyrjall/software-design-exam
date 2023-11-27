@@ -19,7 +19,7 @@ public class MenuController {
 
 	private string _prompt = "(Use the arrows to select an option)";
 	private string _notification = "";
-	public static int currentIndex = 0;
+	public int currentIndex = 0;
 
 	public MenuController(MenuLogic menuTools, BrowseController browseController, InterestController interestController, RecommendController recommendController, IInterestRepo interestRepo, NotificationController notificationController)
     {
@@ -135,13 +135,13 @@ public class MenuController {
             case 1:
             case 2:
 				Func.Clear(); // NEXT AND PREVIOUS PAGE
-				_interestController.CheckCurrentPageAndDisplayGamesNotOnInterestList(selectedIndex);
+				_interestController.CheckCurrentPageAndDisplayInterestList(selectedIndex);
 				ShowInterestList();
 				break;
             case 3:
                 _notificationController.OnLeave();
                 _interestController.GetGamesOnPageWithOptions(); //ADD GAMES TO INTEREST LIST
-				_interestController.CheckCurrentPageAndDisplayGamesNotOnInterestList(selectedIndex - 1);
+				_interestController.ListNotInterestedOnCurrentPage();
                 currentIndex = 0;
 				InterestMenu();
                 break;
@@ -183,6 +183,7 @@ public class MenuController {
         switch (selectedIndex)
         {
             case 0: // Return to main menu
+				_interestController.SetCurrentPage(10);
 				_interestController.ListInterested();
                 _notificationController.OnLeave();
                 ShowInterestList();
@@ -197,8 +198,8 @@ public class MenuController {
                 break;
             default: // Displayed objects
 				_interestController.GetSelectedGameFromAddToInterestMenu((selectedIndex - 4));
-                _interestController.CheckCurrentPageAndDisplayGamesNotOnInterestList(selectedIndex);
-                InterestMenu();
+				_interestController.ListNotInterestedOnCurrentPage();
+				InterestMenu();
                 break;
         }
     }
