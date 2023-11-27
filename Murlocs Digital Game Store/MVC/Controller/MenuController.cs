@@ -39,6 +39,7 @@ public class MenuController {
         {
 			_interestRepo.RemoveGameFromInterest(i);
 		}
+		_notificationController.OnLeave();
         Console.WriteLine("Interest list cleared");
         Console.WriteLine("Press any KEY to go back to Main menu");
         Console.ReadLine();
