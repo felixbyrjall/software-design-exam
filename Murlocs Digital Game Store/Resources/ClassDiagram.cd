@@ -112,56 +112,56 @@
     </TypeIdentifier>
   </Class>
   <Class Name="NextGaming.Model.ChangeArgs">
-    <Position X="5" Y="4.25" Width="1.5" />
+    <Position X="5.25" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAACAAAAAAAAABAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>MVC\Model\ChangeArgs.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="NextGaming.Model.Context">
-    <Position X="6.75" Y="4.25" Width="1.5" />
+    <Position X="7" Y="4.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAQAAAAAACAIAACAAEAgAAAAAAIAAAAAAAAA=</HashCode>
       <FileName>MVC\Model\Context.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="NextGaming.Model.Game">
-    <Position X="5" Y="6" Width="1.5" />
+    <Position X="5.25" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAIgAgACAAAACQAAAAAAAAAAAABAAAAAAA=</HashCode>
       <FileName>MVC\Model\Game.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="NextGaming.Model.GameGenres">
-    <Position X="6.75" Y="7.25" Width="1.5" />
+    <Position X="7" Y="7.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QAAAAAAgAAAAgAAAAAMAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>MVC\Model\GameGenres.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="NextGaming.Model.GameObject">
-    <Position X="6.75" Y="9.25" Width="1.5" />
+    <Position X="7" Y="9.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAIgAgACAIAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>MVC\Model\GameObject.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="NextGaming.Model.Genre">
-    <Position X="5" Y="10.25" Width="1.5" />
+    <Position X="5.25" Y="10.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAgAAAAAAAAAQAAAAAAAAAAIAAAAAAAAA=</HashCode>
       <FileName>MVC\Model\Genre.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="NextGaming.Model.Interest">
-    <Position X="5" Y="8.5" Width="1.5" />
+    <Position X="5.25" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAgAAAAAEAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>MVC\Model\Interest.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="NextGaming.Model.Publisher">
-    <Position X="6.75" Y="12" Width="1.5" />
+    <Position X="7" Y="12" Width="1.5" />
     <TypeIdentifier>
       <HashCode>QAAAAAAAAAAAgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>MVC\Model\Publisher.cs</FileName>
