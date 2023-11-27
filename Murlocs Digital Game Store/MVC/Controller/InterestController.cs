@@ -240,9 +240,5 @@ public class InterestController
 		ListInterested();
 	}
 
-	public void RemoveInterest(int gameId)
-	{
-		_interestRepo.RemoveGameFromInterest(gameId);
-	}
 	#endregion
 }
