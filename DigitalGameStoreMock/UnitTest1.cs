@@ -2,11 +2,40 @@ using NextGaming.Model;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 using NextGaming.Interfaces;
+using NextGaming.Repo;
 
 namespace NextGamingTest;
 
 public class Tests {
-    private readonly Mock<IInterestRepo> _mockInterestDa;
+    
+    [Test]
+    public void Test_GetGameInfo() {
+        
+        //Arrange
+        var mockGameRepo = new Mock<IGameRepo>();
+        int gameId = 4;
+        var expectedGame = new GameObject()
+        {
+            Name = "Counter-Strike 2",
+            Publisher = "Valve",
+            ReleaseDate = "2012-08-21",
+            Genres = new List<string>{"FPS", "Shooter", "Multiplayer", "Competitive", "Action"},
+        };
+        mockGameRepo.Setup(r => r.GetGameInfo(gameId)).Returns(expectedGame);
+        //Act
+        var gameInfo = mockGameRepo.Object.GetGameInfo(gameId);
+        
+        //Assert
+        Assert.Multiple(() =>
+        {
+            Console.WriteLine(gameInfo.Name);
+            Assert.That(gameInfo.Name, Is.EqualTo(expectedGame.Name));
+            Assert.That(gameInfo.ReleaseDate, Is.EqualTo(expectedGame.ReleaseDate));
+            Assert.That(gameInfo.Publisher, Is.EqualTo(expectedGame.Publisher));
+            Assert.That(gameInfo.Genres, Is.EqualTo(expectedGame.Genres).AsCollection);
+
+        });
+    }
     
     [OneTimeSetUp]
     public void OneTimeSetup() {
@@ -15,11 +44,7 @@ public class Tests {
     public void Setup()
     {
     }
-
-    [Test]
-    public void AddIntrest() {
-        
-    }
+    
     [Test]
     public void AddGameTest()
     {

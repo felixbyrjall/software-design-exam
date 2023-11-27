@@ -4,12 +4,12 @@ using NextGaming.Repo;
 namespace NextGamingTest; 
 
 public class GameRepoTests {
-    private readonly GameRepo _gameRepo = new GameRepo(new Context());
+    private readonly GameRepo _gameRepo = new(new Context());
 
     [Test]
     public void Test_GetGamesOnPage() {
         //Arrange
-        int startPage = 25;
+        int startPage = 15;
         int endPage = 100;
         int expectedCount = endPage - startPage + 1;
         //Act

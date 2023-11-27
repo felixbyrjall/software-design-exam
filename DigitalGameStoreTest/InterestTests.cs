@@ -5,7 +5,7 @@ using NextGaming.Repo;
 namespace NextGamingTest; 
 
 public class InterestTests {
-    private readonly Context _context = new Context();
+    private readonly Context _context = new();
     private readonly InterestRepo _interestRepo = new(new Context(), new NotificationController());
 
     [SetUp]
@@ -44,8 +44,6 @@ public class InterestTests {
             //Assert
             Assert.That(item.ID, Does.Not.EqualTo(newInterest.GameID));
         }
-        
-        
     }
     [Test]
     public void Test_CountGamesIn_And_NotInInterestList() {
