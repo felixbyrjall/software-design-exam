@@ -6,12 +6,12 @@ public class BrowseView
 {
 	public void LoadingScreen(int time)
 	{
-		Func.WriteOutput("Loading.");
+		Console.WriteLine("Loading.");
 		Thread.Sleep(time);
-		Func.Clear();
-		Func.WriteOutput("Loading..");
+		Console.WriteLine();
+		Console.WriteLine("Loading..");
 		Thread.Sleep(time);
-		Func.Clear();
-		Func.WriteOutput("Loading...");
+		Console.Clear();
+		Console.WriteLine("Loading...");
 	}
 }

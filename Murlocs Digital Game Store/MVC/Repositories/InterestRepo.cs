@@ -4,31 +4,32 @@ using NextGaming.Model;
 
 namespace NextGaming.Repo;
 
-public class InterestRepo : IInterestRepo {
-
+public class InterestRepo : IInterestRepo
+{
     private readonly Context _context;
     private readonly NotificationController _notificationController;
 
-    public InterestRepo(Context context, NotificationController notificationController) {
+    public InterestRepo(Context context, NotificationController notificationController)
+    {
         _context = context;
         _notificationController = notificationController;
     }
 
     public List<GameObject> GetNotInterestedGames()
     {
-        var notInterestedList =
+		List<GameObject> list = new List<GameObject>();
+
+		var notInterestedList =
             (from Game in _context.Game
              from Interest in _context.Interest.Where(mapping => mapping.GameID == Game.ID).DefaultIfEmpty()
 			 where Interest.ID == null
 			 select new { GameName = Game.Name, GameID = Game.ID });
-        List<GameObject> list = new List<GameObject>();
-
+        
         foreach (var item in notInterestedList)
         {
             GameObject gameObject = new GameObject(item.GameID, item.GameName);
             list.Add(gameObject);
         }
-
         return list;
     }
 
@@ -72,20 +73,19 @@ public class InterestRepo : IInterestRepo {
 
 	public List<GameObject> GetGamesOnInterestList(int page)
 	{
-        var interestList =
+		List<GameObject> list = new List<GameObject>();
+
+		var interestList =
             (from Game in _context.Game
              from Interest in _context.Interest.Where(mapping => mapping.GameID == Game.ID).DefaultIfEmpty()
              where Interest.ID != null
              select new { GameName = Game.Name, GameID = Game.ID }).Skip(page - 10).Take(10);
 		
-        List<GameObject> list = new List<GameObject>();
-
 		foreach (var item in interestList)
 		{
 			GameObject gameObject = new GameObject(item.GameID, item.GameName);
 			list.Add(gameObject);
 		}
-
 		return list;
 	}
 }

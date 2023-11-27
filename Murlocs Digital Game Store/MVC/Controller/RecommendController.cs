@@ -1,43 +1,35 @@
 using NextGaming.Interfaces;
 using NextGaming.Model;
-using NextGaming.Repo;
-using NextGaming.Tools;
-using NextGaming.Views;
 
 namespace NextGaming.Controller; 
 
-public class RecommendController {
-
-	private int _currentPage = 10;
-	private int _lastPage;
-	private const int _firstPage = 10;
+public class RecommendController
+{
+	#region Fields and dependencies
+	private List<GameObject> _recommendedGames = new();
 
 	private readonly IGameGenreRepo _gameGenreRepo;
-    private readonly IGameRepo _gameRepo;
-    private readonly RecommendView _recommendView;
     private readonly InterestController _interestController;
-	private readonly GameInfoView _gameDisplay;
 
-	public RecommendController(IGameGenreRepo gameGenreRepo, IGameRepo gameRepo, RecommendView recommendView, InterestController interestController, GameInfoView gameDisplay){
+	public RecommendController(IGameGenreRepo gameGenreRepo, InterestController interestController)
+    {
         _gameGenreRepo = gameGenreRepo;
-        _gameRepo = gameRepo;
-        _recommendView = recommendView;
         _interestController = interestController;
-        _gameDisplay = gameDisplay;
     }
+	#endregion
 
-    private List<GameObject> _recommendedGames = new();
-
-    public List<string> GetRecommendedGameWithOptions() {
-        
+	#region Methods for listing recommendations, adding and viewing games
+	public List<string> GetRecommendedGameWithOptions()
+    {
         List<string> options = new List<string> { "Back to main menu", "------------"};
-        var totalGenresInInterstList = _gameGenreRepo.GetIntGenres().Count(); 
+        var totalGenresInInterstList = _gameGenreRepo.GetIntGenres().Count();
         foreach (var game in _recommendedGames)
         {
             options.Add("ID: " + game.ID + " Name: " + game.Name + " Match: " + (game.Score / totalGenresInInterstList).ToString() + "%");
         }
         return options;
     }
+
     public void ListRecommendedGames()
     {
         var recommendedGames = _gameGenreRepo.RecommendGames();
@@ -59,4 +51,5 @@ public class RecommendController {
 		int currentGameId = _recommendedGames[gameId].ID;
 		_interestController.GetSelectedGameFromRecommendMenu(currentGameId);
 	}
+	#endregion
 }

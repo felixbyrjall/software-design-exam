@@ -4,9 +4,9 @@ namespace DigitalGameStore.MVC.Controller;
 
 public class NotificationController
 {
-    public event EventHandler<ChangeArgs> Changed;
+    public event EventHandler<ChangeArgs>? Changed;
     
-    public event EventHandler Leave;
+    public event EventHandler? Leave;
     
     public virtual void OnChange(int gameId, string method)
     {

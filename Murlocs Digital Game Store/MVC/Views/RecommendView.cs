@@ -6,21 +6,20 @@ namespace NextGaming.Views;
 
 public class RecommendView
 {
-	private readonly GameInfoView _gameDisplay;
+	private readonly GameInfoView _gameInfoView;
 
-	public RecommendView(GameInfoView gameDisplay)
+	public RecommendView(GameInfoView gameInfoView)
 	{
-		_gameDisplay = gameDisplay;
+		_gameInfoView = gameInfoView;
 	}
 
 	public void ShowGame(GameObject game)
     {
         Console.Clear();
-        Console.WriteLine(_gameDisplay.ShowGameDetails2(game));
-		Func.TextColor("blue");
+        Console.WriteLine(_gameInfoView.ShowGameDetails(game));
+		MenuLogic.TextColor("blue");
 		Console.WriteLine("\nPress ENTER to continue");
 		Console.ResetColor();
 		Console.ReadLine();
-
 	}
 }

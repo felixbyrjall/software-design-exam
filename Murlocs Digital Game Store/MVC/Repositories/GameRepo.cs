@@ -26,7 +26,9 @@ public class GameRepo : IGameRepo
 
     public GameObject GetGameInfo(int GameID)
     {
-        var gamePublishers =
+		List<string> genres = new List<string>();
+
+		var gamePublishers =
             (from Game in _context.Game
              join Publisher in _context.Publisher
                      on Game.PublisherID equals Publisher.ID
@@ -39,8 +41,6 @@ public class GameRepo : IGameRepo
              join Genre in _context.Genre
                      on GameGenres.GenreID equals Genre.ID
              select new { GenreName = Genre.Name, GameID = Game.ID });
-
-        List<string> genres = new List<string>();
 
         var getGame = gamePublishers.SingleOrDefault(g => g.GameID == GameID);
         foreach (var genre in genresList)

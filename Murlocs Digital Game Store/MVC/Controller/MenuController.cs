@@ -8,8 +8,8 @@ using NextGaming.Repo;
 
 namespace NextGaming.Views;
 
-public class MenuController {
-
+public class MenuController
+{
     private readonly MenuLogic _menuLogic;
 	private readonly BrowseController _browseController;
 	private readonly InterestController _interestController;
@@ -19,7 +19,7 @@ public class MenuController {
 
 	private string _prompt = "(Use the arrows to select an option)";
 	private string _notification = "";
-	public static int currentIndex = 0;
+	public int currentIndex = 0;
 
 	public MenuController(MenuLogic menuTools, BrowseController browseController, InterestController interestController, RecommendController recommendController, IInterestRepo interestRepo, NotificationController notificationController)
     {
@@ -39,6 +39,7 @@ public class MenuController {
         {
 			_interestRepo.RemoveGameFromInterest(i);
 		}
+		_notificationController.OnLeave();
         Console.WriteLine("Interest list cleared");
         Console.WriteLine("Press any KEY to go back to Main menu");
         Console.ReadLine();
@@ -53,7 +54,7 @@ public class MenuController {
 		switch (selectedIndex)
         {
             case 0: // Browse games
-				Func.Clear();
+				Console.Clear();
 				_browseController.ListGames();
 				BrowseMenu();
 				break;
@@ -96,7 +97,7 @@ public class MenuController {
 				break;
 			case 1: // Next Page
             case 2: // Previous Page
-				Func.Clear();
+				Console.Clear();
 				_browseController.CheckCurrentPage(selectedIndex);
 				BrowseMenu();
 				break;
@@ -134,14 +135,14 @@ public class MenuController {
 				break;
             case 1:
             case 2:
-				Func.Clear(); // NEXT AND PREVIOUS PAGE
-				_interestController.CheckCurrentPageAndDisplayGamesNotOnInterestList(selectedIndex);
+				Console.Clear(); // NEXT AND PREVIOUS PAGE
+				_interestController.CheckCurrentPageAndDisplayInterestList(selectedIndex);
 				ShowInterestList();
 				break;
             case 3:
                 _notificationController.OnLeave();
                 _interestController.GetGamesOnPageWithOptions(); //ADD GAMES TO INTEREST LIST
-				_interestController.CheckCurrentPageAndDisplayGamesNotOnInterestList(selectedIndex - 1);
+				_interestController.ListNotInterestedOnCurrentPage();
                 currentIndex = 0;
 				InterestMenu();
                 break;
@@ -161,7 +162,6 @@ public class MenuController {
 				ShowInterestList();
 				break;
 		}
-
 	}
 
     // Lists all games that are NOT on the users interest list
@@ -183,6 +183,7 @@ public class MenuController {
         switch (selectedIndex)
         {
             case 0: // Return to main menu
+				_interestController.SetCurrentPage(10);
 				_interestController.ListInterested();
                 _notificationController.OnLeave();
                 ShowInterestList();
@@ -197,13 +198,14 @@ public class MenuController {
                 break;
             default: // Displayed objects
 				_interestController.GetSelectedGameFromAddToInterestMenu((selectedIndex - 4));
-                _interestController.CheckCurrentPageAndDisplayGamesNotOnInterestList(selectedIndex);
-                InterestMenu();
+				_interestController.ListNotInterestedOnCurrentPage();
+				InterestMenu();
                 break;
         }
     }
 
-	public void RecommendMenu() {
+	public void RecommendMenu()
+	{
 	    List<string> gamesWithOptions = _recommendController.GetRecommendedGameWithOptions();
 	    
 	    _notificationController.Changed += OnChange;
@@ -230,17 +232,15 @@ public class MenuController {
 				RecommendMenu();
 			    break;
 	    }
-
     }
 
 	// Region !!!
-	public void OnLeave(object source, EventArgs e)
+	public void OnLeave(object? source, EventArgs e)
 	{
 		_notification = "";
 	}
 
-
-    public void OnChange(object source, ChangeArgs e)
+    public void OnChange(object? source, ChangeArgs e)
     {
         if (e.method == "add")
         {

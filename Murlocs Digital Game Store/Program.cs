@@ -21,12 +21,11 @@ public class Program
 
 		var gameInfoView = new GameInfoView();
 		var browseView = new BrowseView();
-		var recommendView = new RecommendView(gameInfoView);
 
-		var interestController = new InterestController(interestRepo, gameRepo, menuLogic, gameInfoView, notificationController);
-		var browseController = new BrowseController(gameRepo, browseView, interestRepo, menuLogic, gameInfoView, interestController);
+		var interestController = new InterestController(interestRepo, gameRepo, menuLogic, gameInfoView);
+		var browseController = new BrowseController(gameRepo, browseView, gameInfoView, interestController);
 		
-        var recommendController = new RecommendController(gameGenresRepo, gameRepo, recommendView, interestController, gameInfoView);
+        var recommendController = new RecommendController(gameGenresRepo, interestController);
   
         var menuController = new MenuController(menuLogic, browseController, interestController, recommendController, interestRepo, notificationController);
 

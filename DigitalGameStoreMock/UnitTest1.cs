@@ -1,28 +1,50 @@
 using NextGaming.Model;
 using Microsoft.EntityFrameworkCore;
+using Moq;
+using NextGaming.Interfaces;
+using NextGaming.Repo;
 
 namespace NextGamingTest;
 
-public class Tests
-{
+public class Tests {
+    
+    [Test]
+    public void Test_GetGameInfo() {
+        
+        //Arrange
+        var mockGameRepo = new Mock<IGameRepo>();
+        int gameId = 4;
+        var expectedGame = new GameObject()
+        {
+            Name = "Counter-Strike 2",
+            Publisher = "Valve",
+            ReleaseDate = "2012-08-21",
+            Genres = new List<string>{"FPS", "Shooter", "Multiplayer", "Competitive", "Action"},
+        };
+        mockGameRepo.Setup(r => r.GetGameInfo(gameId)).Returns(expectedGame);
+        //Act
+        var gameInfo = mockGameRepo.Object.GetGameInfo(gameId);
+        
+        //Assert
+        Assert.Multiple(() =>
+        {
+            Console.WriteLine(gameInfo.Name);
+            Assert.That(gameInfo.Name, Is.EqualTo(expectedGame.Name));
+            Assert.That(gameInfo.ReleaseDate, Is.EqualTo(expectedGame.ReleaseDate));
+            Assert.That(gameInfo.Publisher, Is.EqualTo(expectedGame.Publisher));
+            Assert.That(gameInfo.Genres, Is.EqualTo(expectedGame.Genres).AsCollection);
+
+        });
+    }
     
     [OneTimeSetUp]
     public void OneTimeSetup() {
-        using Context db = new();
-        db.Database.EnsureDeleted();
-        db.Database.Migrate();
     }
     [SetUp]
     public void Setup()
     {
-        using Context db = new();
-        db.RemoveRange(db.Game);
-        db.RemoveRange(db.Publisher);
-        db.SaveChanges();
     }
     
-    //Testing based on Arrange, Act, Assert pattern.
-
     [Test]
     public void AddGameTest()
     {
@@ -33,18 +55,15 @@ public class Tests
         int expectedPublisher = 1;
         
         using (var db = new Context()) {
-            //Arrange
             var publisher = new Publisher { ID = expectedPublisher, Name = "Valve" };
             db.Publisher.Add(publisher);
             db.SaveChanges();
             
-            //Act
             var addedGame = new Game
             { ID = expectedId, Name = expectedName, ReleaseDate = expectedRelease, Score = expectedScore, PublisherID = expectedPublisher };
             db.Game.Add(addedGame);
             db.SaveChanges();
         
-            //Assert
             var retrievedGame = db.Game.Single();
         
             Assert.AreEqual(expectedId, retrievedGame.ID);
@@ -61,19 +80,16 @@ public class Tests
         int expectedGame = 1;
         
         using (var db = new Context()) {
-            //Arrange
             var publisher = new Publisher { ID = 1, Name = "Valve" };
             db.Publisher.Add(publisher);
             var game = new Game { ID = 1, Name = "Counter Strike 2", ReleaseDate = "21.08.2012", Score = 0, PublisherID = 1 };
             db.Game.Add(game);
             db.SaveChanges();
             
-            //Act
             var addedInterest = new Interest { ID = expectedId, GameID = expectedGame };
             db.Interest.Add(addedInterest);
             db.SaveChanges();
             
-            //Assert
             var retrievedInterest = db.Interest.Single();
             Assert.AreEqual(expectedId, retrievedInterest.ID);
             Assert.AreEqual(expectedGame, retrievedInterest.GameID);
@@ -85,7 +101,6 @@ public class Tests
         int deleteId = 1; //ID of the game you want to delete
         var interests = new List<Interest>();
         using (var db = new Context()) {
-            //Arrange
             var publisher = new Publisher { ID = 1, Name = "Valve" };
             db.Publisher.Add(publisher); //Adding a publisher so the foreign key works
 
@@ -103,14 +118,12 @@ public class Tests
             db.Interest.AddRange(interest);
             db.SaveChanges();
    
-            //Act
             var removedInterest = db.Interest.FirstOrDefault(i => i.GameID == deleteId);
             if (removedInterest!=null) {
                 db.Interest.Remove(removedInterest);
                 db.SaveChanges();
             }
    
-            //Assert
             int actualCount = db.Interest.Count();
             Assert.AreNotEqual(interests.Count(), actualCount);
         }
