@@ -54,7 +54,7 @@ public class MenuController
 		switch (selectedIndex)
         {
             case 0: // Browse games
-				Func.Clear();
+				Console.Clear();
 				_browseController.ListGames();
 				BrowseMenu();
 				break;
@@ -97,7 +97,7 @@ public class MenuController
 				break;
 			case 1: // Next Page
             case 2: // Previous Page
-				Func.Clear();
+				Console.Clear();
 				_browseController.CheckCurrentPage(selectedIndex);
 				BrowseMenu();
 				break;
@@ -135,7 +135,7 @@ public class MenuController
 				break;
             case 1:
             case 2:
-				Func.Clear(); // NEXT AND PREVIOUS PAGE
+				Console.Clear(); // NEXT AND PREVIOUS PAGE
 				_interestController.CheckCurrentPageAndDisplayInterestList(selectedIndex);
 				ShowInterestList();
 				break;
@@ -235,12 +235,12 @@ public class MenuController
     }
 
 	// Region !!!
-	public void OnLeave(object source, EventArgs e)
+	public void OnLeave(object? source, EventArgs e)
 	{
 		_notification = "";
 	}
 
-    public void OnChange(object source, ChangeArgs e)
+    public void OnChange(object? source, ChangeArgs e)
     {
         if (e.method == "add")
         {

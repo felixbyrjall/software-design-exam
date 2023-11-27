@@ -17,15 +17,17 @@ public class GameGenresRepo : IGameGenreRepo
         var interestedGameIds = (
             from interest in _context.Interest
             select interest.GameID).ToList();
+
         return interestedGameIds;
     }
     
     public List<int> GetIntGenres()
     {
         var interestedGameIds = GetIntGames();
-        var interestedGenreIds = (from gameGenres in _context.GameGenres
+        var interestedGenreIds = (
+            from gameGenres in _context.GameGenres
             where interestedGameIds.Contains(gameGenres.GameID)
-                   select gameGenres.GenreID).ToList();
+            select gameGenres.GenreID).ToList();
 
         return interestedGenreIds;
     }
@@ -33,20 +35,22 @@ public class GameGenresRepo : IGameGenreRepo
     public int CompareGenres(List<int> gameGenresIds)
     {
         var interestedGenreIds = GetIntGenres();
+
         return gameGenresIds.Count(genreId => interestedGenreIds.Contains(genreId));
     }
 
     public int ScoreGame(Game game)
     {
-        var interestedGenreIds = GetIntGenres();
+		int score = 0;
+		const int matchingScore = 100;
+
+		var interestedGenreIds = GetIntGenres();
         var gameGenreIds = _context.GameGenres
             .Where(gameGenres => gameGenres.GameID == game.ID)
             .Select(gameGenres => gameGenres.GenreID)
             .ToList();
         int matchingGenreCount = CompareGenres(gameGenreIds);
 
-        int score = 0;
-        const int matchingScore = 100;
         foreach (var genreId in gameGenreIds)
         {
             score += interestedGenreIds.Count(id => id == genreId) * matchingScore;
@@ -54,7 +58,8 @@ public class GameGenresRepo : IGameGenreRepo
         return score;
     }
 
-    public List<GameObject> RecommendGames() {
+    public List<GameObject> RecommendGames()
+    {
         {
             var interestedGameIds = _context.Interest
                 .Select(i => i.GameID)
@@ -69,6 +74,7 @@ public class GameGenresRepo : IGameGenreRepo
                                            .OrderByDescending(gameObject => gameObject.Score)
                                            .Take(5)
                                            .ToList();
+
             return recommendedGames;
         }
     }

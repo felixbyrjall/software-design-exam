@@ -46,4 +46,3 @@ public class GameObject
         Score = score;
     }
 }
-

@@ -11,7 +11,8 @@ public class RecommendController
 	private readonly IGameGenreRepo _gameGenreRepo;
     private readonly InterestController _interestController;
 
-	public RecommendController(IGameGenreRepo gameGenreRepo, InterestController interestController){
+	public RecommendController(IGameGenreRepo gameGenreRepo, InterestController interestController)
+    {
         _gameGenreRepo = gameGenreRepo;
         _interestController = interestController;
     }

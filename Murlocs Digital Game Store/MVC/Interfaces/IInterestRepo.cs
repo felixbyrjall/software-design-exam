@@ -1,7 +1,8 @@
 ﻿using NextGaming.Model;
 using NextGaming.Repo;
 
-namespace NextGaming.Interfaces {
+namespace NextGaming.Interfaces
+{
     public interface IInterestRepo
     {
         public List<GameObject> GetNotInterestedGames();
