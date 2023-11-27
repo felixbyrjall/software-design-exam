@@ -1,26 +1,25 @@
 using NextGaming.Model;
 using Microsoft.EntityFrameworkCore;
+using Moq;
+using NextGaming.Interfaces;
 
 namespace NextGamingTest;
 
-public class Tests
-{
+public class Tests {
+    private readonly Mock<IInterestRepo> _mockInterestDa;
     
     [OneTimeSetUp]
     public void OneTimeSetup() {
-        using Context db = new();
-        db.Database.EnsureDeleted();
-        db.Database.Migrate();
     }
     [SetUp]
     public void Setup()
     {
-        using Context db = new();
-        db.RemoveRange(db.Game);
-        db.RemoveRange(db.Publisher);
-        db.SaveChanges();
     }
-    
+
+    [Test]
+    public void AddIntrest() {
+        
+    }
     [Test]
     public void AddGameTest()
     {

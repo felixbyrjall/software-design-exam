@@ -7,13 +7,13 @@ namespace NextGamingTest;
 public class GameGenreRepoTests {
     private readonly GameGenresRepo _gameGenresRepo = new GameGenresRepo(new Context());
     private readonly InterestRepo _interestRepo = new InterestRepo(new Context(), new NotificationController());
-
+    private readonly Context _context = new Context();
+    
     [SetUp]
     public void Setup()
     {
-        using Context db = new();
-        db.RemoveRange(db.Interest);
-        db.SaveChanges();
+        _context.RemoveRange(_context.Interest);
+        _context.SaveChanges();
     }
     [Test]
     public void Test_RecommendGames() {
