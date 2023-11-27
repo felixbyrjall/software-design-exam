@@ -7,6 +7,13 @@ public class GameGenreRepoTests {
     private readonly GameGenresRepo _gameGenresRepo = new GameGenresRepo(new Context());
     private readonly InterestRepo _interestRepo = new InterestRepo(new Context());
 
+    [SetUp]
+    public void Setup()
+    {
+        using Context db = new();
+        db.RemoveRange(db.Interest);
+        db.SaveChanges();
+    }
     [Test]
     public void Test_RecommendGames() {
         //Arrange

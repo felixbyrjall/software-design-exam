@@ -6,6 +6,13 @@ using NextGaming.Repo;
 namespace NextGamingTest; 
 
 public class InterestTests {
+    [SetUp]
+    public void Setup()
+    {
+        using Context db = new();
+        db.RemoveRange(db.Interest);
+        db.SaveChanges();
+    }
     private readonly InterestRepo _interestRepo = new(new Context());
     [Test]
     public void Test_GetNotInterestedGames_AddGameToInterest() {
