@@ -7,31 +7,29 @@ namespace NextGaming.Controller
 
     public class BrowseController
     {
-        private List<String> _gamesOnPage = new();
-        private int _currentPage = 10;
-        private int _lastPage;
-        private const int _firstPage = 10;
+		#region Fields and dependencies
+		private const int _firstPage = 10;
+		private int _currentPage = 10;
+		private int _lastPage;
         private bool gamesLoaded = false;
 
-        private readonly IGameRepo _gameRepo;
+		private List<String> _gamesOnPage = new();
+
+		private readonly IGameRepo _gameRepo;
         private readonly BrowseView _browseView;
-        private readonly IInterestRepo _interestRepo;
-        private readonly MenuLogic _menuLogic;
-        private readonly GameInfoView _gameDisplay;
+        private readonly GameInfoView _gameInfoView;
         private readonly InterestController _interestController;
 
-        public BrowseController(IGameRepo gameRepo, BrowseView browseView, IInterestRepo interestRepo, MenuLogic menuLogic, GameInfoView gameDisplay, InterestController interestController)
+        public BrowseController(IGameRepo gameRepo, BrowseView browseView, GameInfoView gameInfoView, InterestController interestController)
         {
             _gameRepo = gameRepo;
             _browseView = browseView;
-            _interestRepo = interestRepo;
-            _menuLogic = menuLogic;
-            _gameDisplay = gameDisplay;
+            _gameInfoView = gameInfoView;
             _interestController = interestController;
         }
+		#endregion
 
-		public static int currentIndex = 0;
-
+		#region Getter and setter for current page
 		public int GetCurrentPage()
         {
             return _currentPage;
@@ -41,8 +39,9 @@ namespace NextGaming.Controller
         {
             _currentPage = currentPage;
         }
+		#endregion
 
-        public void CheckCurrentPage(int i)
+		public void CheckCurrentPage(int i)
         {
             if (i == 1 && GetCurrentPage() != _lastPage)
             {
@@ -68,11 +67,18 @@ namespace NextGaming.Controller
 
             var games = _gameRepo.GetGamesOnPage((GetCurrentPage() - 9), GetCurrentPage());
             _gamesOnPage.Clear();
-            GetGamesOnPageWithOptions();
             AddGamesToMenu(games); // Kaller på metoden AddGames for å legge til spill i _allGames feltet i view.
         }
 
-        public List<string> GetGamesOnPageWithOptions()
+		private void AddGamesToMenu(IEnumerable<Game> games)
+		{
+			foreach (Game game in games)
+			{
+				_gamesOnPage.Add("ID: " + game.ID + " Name: " + game.Name);
+			}
+		}
+
+		public List<string> GetGamesOnPageWithOptions()
         {
             _lastPage = _gameRepo.CountAllGames();
             List<string> options = new List<string> { "Back to main menu", "Next page", "Previous page", "---------" };
@@ -80,18 +86,10 @@ namespace NextGaming.Controller
             return options;
         }
 
-        private void AddGamesToMenu(IEnumerable<Game> games)
-        {
-            foreach (Game game in games)
-            {
-                _gamesOnPage.Add("ID: " + game.ID + " Name: " + game.Name);
-            }
-        }
-
         public void GetSelectedGameFromBrowseMenu(int gameId)
         {
 			var game = _gameRepo.GetGameInfo(gameId);
-			string gameDetails = _gameDisplay.ShowGameDetails2(game);
+			string gameDetails = _gameInfoView.ShowGameDetails2(game);
             _interestController.GetSelectedGameFromAllMenus(gameId, gameDetails);
 		}
 
