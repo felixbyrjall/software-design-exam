@@ -16,7 +16,7 @@ public class RecommendView
 	public void ShowGame(GameObject game)
     {
         Console.Clear();
-        Console.WriteLine(_gameDisplay.ShowGameDetails2(game));
+        Console.WriteLine(_gameDisplay.ShowGameDetails(game));
 		Func.TextColor("blue");
 		Console.WriteLine("\nPress ENTER to continue");
 		Console.ResetColor();

@@ -90,7 +90,7 @@ namespace NextGaming.Controller
         public void GetSelectedGameFromBrowseMenu(int gameId)
         {
 			var game = _gameRepo.GetGameInfo(gameId);
-			string gameDetails = _gameInfoView.ShowGameDetails2(game);
+			string gameDetails = _gameInfoView.ShowGameDetails(game);
             _interestController.GetSelectedGameFromAllMenus(gameId, gameDetails);
 		}
 		#endregion

@@ -128,7 +128,7 @@ public class InterestController
 	{
 		var currentGameId = _gamesInInterestListOnCurrentPage[gameId].ID;
 		var game = _gameRepo.GetGameInfo(currentGameId);
-		string gameDetails = _gameInfoView.ShowGameDetails2(game);
+		string gameDetails = _gameInfoView.ShowGameDetails(game);
 		GetSelectedGameFromAllMenus(currentGameId, gameDetails);
 	}
 
@@ -136,14 +136,14 @@ public class InterestController
 	{
 		int currentGameId = _gamesNotInInterestListOnCurrentPage[gameId].ID;
 		var game = _gameRepo.GetGameInfo(currentGameId);
-		string gameDetails = _gameInfoView.ShowGameDetails2(game);
+		string gameDetails = _gameInfoView.ShowGameDetails(game);
 		GetSelectedGameFromAllMenus(currentGameId, gameDetails);
 	}
 
 	public void GetSelectedGameFromRecommendMenu(int gameId)
 	{
 		var game = _gameRepo.GetGameInfo(gameId);
-		string gameDetails = _gameInfoView.ShowGameDetails2(game);
+		string gameDetails = _gameInfoView.ShowGameDetails(game);
 		GetSelectedGameFromAllMenus(gameId, gameDetails);
 	}
 	#endregion
