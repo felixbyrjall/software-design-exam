@@ -6,7 +6,9 @@ public class NotificationController
 {
     public event EventHandler<ChangeArgs>? Changed;
     
-    public event EventHandler? Leave;
+    public event EventHandler? Navigated;
+    
+    public event EventHandler? Cleared;
     
     public virtual void OnChange(int gameId, string method)
     {
@@ -16,11 +18,19 @@ public class NotificationController
         }
     }
     
-    public virtual void OnLeave()
+    public virtual void OnNavigate()
     {
-        if (Leave != null)
+        if (Navigated != null)
         {
-            Leave(this, EventArgs.Empty);
+            Navigated(this, EventArgs.Empty);
+        }
+    }
+    
+    public virtual void OnClear()
+    {
+        if (Cleared != null)
+        {
+            Cleared(this, EventArgs.Empty);
         }
     }
 }
