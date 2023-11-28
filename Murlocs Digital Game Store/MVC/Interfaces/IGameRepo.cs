@@ -6,7 +6,7 @@ namespace NextGaming.Interfaces
     {
         IList<Game> GetGamesOnPage(int start, int end);
 
-        public GameObject GetGameInfo(int GameID);
+        public GameObject GetGameInfo(int gameId);
 
         public int CountAllGames();
     }

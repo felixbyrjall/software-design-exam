@@ -34,7 +34,7 @@ namespace NextGaming.Migrations
                     b.ToTable("Publisher");
                 });
 
-            modelBuilder.Entity("DigitalGameStore.DB.Game", b =>
+            modelBuilder.Entity("NextGaming.DB.Game", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -61,7 +61,7 @@ namespace NextGaming.Migrations
                     b.ToTable("Game");
                 });
 
-            modelBuilder.Entity("DigitalGameStore.DB.GameGenres", b =>
+            modelBuilder.Entity("NextGaming.DB.GameGenres", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -82,7 +82,7 @@ namespace NextGaming.Migrations
                     b.ToTable("GameGenres");
                 });
 
-            modelBuilder.Entity("DigitalGameStore.DB.Genre", b =>
+            modelBuilder.Entity("NextGaming.DB.Genre", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -97,7 +97,7 @@ namespace NextGaming.Migrations
                     b.ToTable("Genre");
                 });
 
-            modelBuilder.Entity("DigitalGameStore.DB.Interest", b =>
+            modelBuilder.Entity("NextGaming.DB.Interest", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -113,7 +113,7 @@ namespace NextGaming.Migrations
                     b.ToTable("Interest");
                 });
 
-            modelBuilder.Entity("DigitalGameStore.DB.Game", b =>
+            modelBuilder.Entity("NextGaming.DB.Game", b =>
                 {
                     b.HasOne("DB.Publisher", "Publisher")
                         .WithMany("Games")
@@ -124,15 +124,15 @@ namespace NextGaming.Migrations
                     b.Navigation("Publisher");
                 });
 
-            modelBuilder.Entity("DigitalGameStore.DB.GameGenres", b =>
+            modelBuilder.Entity("NextGaming.DB.GameGenres", b =>
                 {
-                    b.HasOne("DigitalGameStore.DB.Game", "Games")
+                    b.HasOne("NextGaming.DB.Game", "Games")
                         .WithMany()
                         .HasForeignKey("GameID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DigitalGameStore.DB.Genre", "Genres")
+                    b.HasOne("NextGaming.DB.Genre", "Genres")
                         .WithMany("GameGenres")
                         .HasForeignKey("GenreID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -143,9 +143,9 @@ namespace NextGaming.Migrations
                     b.Navigation("Genres");
                 });
 
-            modelBuilder.Entity("DigitalGameStore.DB.Interest", b =>
+            modelBuilder.Entity("NextGaming.DB.Interest", b =>
                 {
-                    b.HasOne("DigitalGameStore.DB.Game", "Game")
+                    b.HasOne("NextGaming.DB.Game", "Game")
                         .WithMany("Interests")
                         .HasForeignKey("GameID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -159,12 +159,12 @@ namespace NextGaming.Migrations
                     b.Navigation("Games");
                 });
 
-            modelBuilder.Entity("DigitalGameStore.DB.Game", b =>
+            modelBuilder.Entity("NextGaming.DB.Game", b =>
                 {
                     b.Navigation("Interests");
                 });
 
-            modelBuilder.Entity("DigitalGameStore.DB.Genre", b =>
+            modelBuilder.Entity("NextGaming.DB.Genre", b =>
                 {
                     b.Navigation("GameGenres");
                 });

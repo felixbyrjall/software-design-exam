@@ -2,7 +2,7 @@ using DigitalGameStore.MVC.Controller;
 using NextGaming.Model;
 using NextGaming.Repo;
 
-namespace NextGamingTest; 
+namespace NextGamingIntegrationTest; 
 
 public class GameGenreRepoTests {
     private readonly GameGenresRepo _gameGenresRepo = new(new Context());

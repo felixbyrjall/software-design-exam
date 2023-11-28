@@ -13,7 +13,7 @@ public partial class Context : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlite($@"Data source = Resources/DigitalGameStore.db");
+        optionsBuilder.UseSqlite($@"Data source = Resources/NextGaming.db");
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

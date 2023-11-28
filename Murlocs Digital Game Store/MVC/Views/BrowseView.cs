@@ -8,7 +8,7 @@ public class BrowseView
 	{
 		Console.WriteLine("Loading.");
 		Thread.Sleep(time);
-		Console.WriteLine();
+		Console.Clear();
 		Console.WriteLine("Loading..");
 		Thread.Sleep(time);
 		Console.Clear();

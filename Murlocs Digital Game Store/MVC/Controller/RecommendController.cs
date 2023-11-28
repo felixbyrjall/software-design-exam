@@ -23,9 +23,12 @@ public class RecommendController
     {
         List<string> options = new List<string> { "Back to main menu", "------------"};
         var totalGenresInInterstList = _gameGenreRepo.GetIntGenres().Count();
-        foreach (var game in _recommendedGames)
+        if (totalGenresInInterstList != 0) 
         {
-            options.Add("ID: " + game.ID + " Name: " + game.Name + " Match: " + (game.Score / totalGenresInInterstList).ToString() + "%");
+	        foreach (var game in _recommendedGames) {
+		        options.Add("ID: " + game.ID + " Name: " + game.Name + " Match: " +
+		                    (game.Score / totalGenresInInterstList).ToString() + "%");
+	        }
         }
         return options;
     }
@@ -34,10 +37,10 @@ public class RecommendController
     {
         var recommendedGames = _gameGenreRepo.RecommendGames();
         _recommendedGames.Clear();
-        addRecommendedGamesList(recommendedGames);
+        AddRecommendedGamesList(recommendedGames);
     }
 
-    private void addRecommendedGamesList(List<GameObject> games)
+    private void AddRecommendedGamesList(List<GameObject> games)
     {
         foreach (var game in games)
         {

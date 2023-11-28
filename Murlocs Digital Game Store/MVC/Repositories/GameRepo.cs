@@ -24,28 +24,28 @@ public class GameRepo : IGameRepo
         return allGames;
     }
 
-    public GameObject GetGameInfo(int GameID)
+    public GameObject GetGameInfo(int gameId)
     {
 		List<string> genres = new List<string>();
 
 		var gamePublishers =
-            (from Game in _context.Game
-             join Publisher in _context.Publisher
-                     on Game.PublisherID equals Publisher.ID
-             select new { GameName = Game.Name, GameID = Game.ID, PublisherName = Publisher.Name, GameRelease = Game.ReleaseDate }).ToList();
+            (from game in _context.Game
+             join publisher in _context.Publisher
+                     on game.PublisherID equals publisher.ID
+             select new { GameName = game.Name, GameID = game.ID, PublisherName = publisher.Name, GameRelease = game.ReleaseDate }).ToList();
 
         var genresList =
-            (from GameGenres in _context.GameGenres
-             join Game in _context.Game
-                     on GameGenres.GameID equals Game.ID
-             join Genre in _context.Genre
-                     on GameGenres.GenreID equals Genre.ID
-             select new { GenreName = Genre.Name, GameID = Game.ID });
+            (from gameGenres in _context.GameGenres
+             join game in _context.Game
+                     on gameGenres.GameID equals game.ID
+             join genre in _context.Genre
+                     on gameGenres.GenreID equals genre.ID
+             select new { GenreName = genre.Name, GameID = game.ID });
 
-        var getGame = gamePublishers.SingleOrDefault(g => g.GameID == GameID);
+        var getGame = gamePublishers.SingleOrDefault(g => g.GameID == gameId);
         foreach (var genre in genresList)
         {
-            if (genre.GameID == GameID)
+            if (genre.GameID == gameId)
             {
                 genres.Add(genre.GenreName);
             }

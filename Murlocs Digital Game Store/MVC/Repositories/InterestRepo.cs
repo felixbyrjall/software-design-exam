@@ -76,10 +76,10 @@ public class InterestRepo : IInterestRepo
 		List<GameObject> list = new List<GameObject>();
 
 		var interestList =
-            (from Game in _context.Game
-             from Interest in _context.Interest.Where(mapping => mapping.GameID == Game.ID).DefaultIfEmpty()
-             where Interest.ID != null
-             select new { GameName = Game.Name, GameID = Game.ID }).Skip(page - 10).Take(10);
+            (from game in _context.Game
+             from interest in _context.Interest.Where(mapping => mapping.GameID == game.ID).DefaultIfEmpty()
+             where interest.ID != null
+             select new { GameName = game.Name, GameID = game.ID }).Skip(page - 10).Take(10);
 		
 		foreach (var item in interestList)
 		{
