@@ -10,28 +10,20 @@
   <Class Name="NextGaming.Tools.GameInfoView">
     <Position X="15.75" Y="4.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAIAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>MVC\Views\GameInfoView.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="NextGaming.Views.RecommendView">
-    <Position X="17.5" Y="4.5" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAACAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
-      <FileName>MVC\Views\RecommendView.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="NextGaming.Controller.BrowseController">
     <Position X="13.25" Y="9.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>JAQAAADAAIAABACCACBAAqAAAgBAAAAAAABAAAKAAAA=</HashCode>
+      <HashCode>JAQAAADAAIABBAACACBAAoAAAgAAAAAAAABAAAMAAAA=</HashCode>
       <FileName>MVC\Controller\BrowseController.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="_gameRepo" />
-      <Field Name="_interestRepo" />
       <Field Name="_browseView" />
-      <Field Name="_gameDisplay" />
+      <Field Name="_gameInfoView" />
     </ShowAsAssociation>
   </Class>
   <Class Name="NextGaming.Repo.GameRepo">
@@ -61,40 +53,38 @@
   <Class Name="NextGaming.Controller.RecommendController">
     <Position X="16.75" Y="9.75" Width="2" />
     <TypeIdentifier>
-      <HashCode>IAABEEBAAAAAAACAAABgAKAAAAAQAAAAAABABAAAAAA=</HashCode>
+      <HashCode>AAABEEAAAAAAAAAAAAAgAIAAAAAQAAAEAAAAAAAAAAA=</HashCode>
       <FileName>MVC\Controller\RecommendController.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="_gameGenreRepo" />
-      <Field Name="_gameRepo" />
-      <Field Name="_gameDisplay" />
-      <Field Name="_recommendView" />
+      <Field Name="_interestController" />
     </ShowAsAssociation>
   </Class>
   <Class Name="NextGaming.Views.MenuController">
     <Position X="17" Y="13.25" Width="2" />
     <TypeIdentifier>
-      <HashCode>oAAIAAAAAQAAAACAEAACAJAQAABAhAABAAAAAATAACA=</HashCode>
+      <HashCode>oAAIAAAAAQAAAAAAEAACgJAQAABAhAABAAAAAATAACA=</HashCode>
       <FileName>MVC\Controller\MenuController.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Field Name="_browseController" />
       <Field Name="_interestController" />
       <Field Name="_recommendController" />
-      <Field Name="_notificationController" />
       <Field Name="_interestRepo" />
+      <Field Name="_notificationController" />
     </ShowAsAssociation>
   </Class>
   <Class Name="NextGaming.Controller.InterestController">
     <Position X="15" Y="9.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>MACBAIDgAAgMAAKGECDAACAAAABCACAAAQRgAAyACAA=</HashCode>
+      <HashCode>MACBAIDgQAgNAAIGECCAgAAAAABCACAAAQRgIACACAA=</HashCode>
       <FileName>MVC\Controller\InterestController.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
-      <Field Name="_gameRepo" />
       <Field Name="_interestRepo" />
-      <Field Name="_gameDisplay" />
+      <Field Name="_gameRepo" />
+      <Field Name="_gameInfoView" />
     </ShowAsAssociation>
   </Class>
   <Class Name="DigitalGameStore.MVC.Controller.NotificationController">
@@ -102,13 +92,6 @@
     <TypeIdentifier>
       <HashCode>AAAAAAAAAQAAAAAABAAAABAAAAEAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>MVC\Controller\NotificationController.cs</FileName>
-    </TypeIdentifier>
-  </Class>
-  <Class Name="NextGaming.Program">
-    <Position X="19.25" Y="13.25" Width="1.5" />
-    <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
-      <FileName>Program.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="NextGaming.Model.ChangeArgs">
