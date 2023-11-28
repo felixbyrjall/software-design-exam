@@ -47,12 +47,13 @@ public class MenuController
 		switch (selectedIndex)
         {
             case 0: // Browse games
-				Console.Clear();
+	            _browseController.CheckLoading();
 				_browseController.ListGames();
 				_notificationController.OnNavigate();
 				BrowseMenu();
 				break;
 			case 1: // See list of games added to interest list
+				_browseController.CheckLoading();
                 _interestController.GetGamesOnInterestListWithOptions();
                 _interestController.ListInterested();
 				CurrentIndex = 0;

@@ -59,13 +59,6 @@ public class BrowseController
 
     public void ListGames()
     {
-        var totalTime = LoadingTime();
-        if (_gamesLoaded == false)
-        {
-            _browseView.LoadingScreen(totalTime);
-            _gamesLoaded = true;
-        }
-
         var games = _gameRepo.GetGamesOnPage((GetCurrentPage() - 9), GetCurrentPage());
         _gamesOnPage.Clear();
         AddGamesToMenu(games); // Kaller på metoden AddGames for å legge til spill i _allGames feltet i view.
@@ -101,5 +94,15 @@ public class BrowseController
         int totalLoadingTime = _gameRepo.CountAllGames() * 5;
         return totalLoadingTime;
     }
+	
+	public void CheckLoading()
+	{
+		var totalTime = LoadingTime();
+		if (_gamesLoaded == false)
+		{
+			_browseView.LoadingScreen(totalTime);
+			_gamesLoaded = true;
+		}
+	}
 	#endregion
 }
