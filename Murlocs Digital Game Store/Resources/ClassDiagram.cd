@@ -15,7 +15,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="NextGaming.Controller.BrowseController">
-    <Position X="13.25" Y="9.75" Width="1.5" />
+    <Position X="13.25" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>JAQAAADAAIABBAACACBAAoAAAgAAAAAAAABAAAMAAAA=</HashCode>
       <FileName>MVC\Controller\BrowseController.cs</FileName>
@@ -24,6 +24,7 @@
       <Field Name="_gameRepo" />
       <Field Name="_browseView" />
       <Field Name="_gameInfoView" />
+      <Field Name="_interestController" />
     </ShowAsAssociation>
   </Class>
   <Class Name="NextGaming.Repo.GameRepo">
@@ -51,7 +52,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="NextGaming.Controller.RecommendController">
-    <Position X="16.75" Y="9.75" Width="2" />
+    <Position X="16.75" Y="8.5" Width="2" />
     <TypeIdentifier>
       <HashCode>AAABEEAAAAAAAAAAAAAgAIAAAAAQAAAEAAAAAAAAAAA=</HashCode>
       <FileName>MVC\Controller\RecommendController.cs</FileName>
@@ -62,9 +63,9 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="NextGaming.Views.MenuController">
-    <Position X="17" Y="13.25" Width="2" />
+    <Position X="17" Y="12" Width="2" />
     <TypeIdentifier>
-      <HashCode>oAAIAAAAAQAAAAAAEAACgJAQAABAhAABAAAAAATAACA=</HashCode>
+      <HashCode>oAAIAgAAAQQAAAAAEAACgIAQAABAhCABAAAAAATAACA=</HashCode>
       <FileName>MVC\Controller\MenuController.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -76,7 +77,7 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="NextGaming.Controller.InterestController">
-    <Position X="15" Y="9.75" Width="1.5" />
+    <Position X="15" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>MACBAIDgQAgNAAIGECCAgAAAAABCACAAAQRgIACACAA=</HashCode>
       <FileName>MVC\Controller\InterestController.cs</FileName>
@@ -88,9 +89,9 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="DigitalGameStore.MVC.Controller.NotificationController">
-    <Position X="19" Y="9.75" Width="2" />
+    <Position X="19" Y="8.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAQAAAAAABAAAABAAAAEAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAQQAAAAABAAAAAAAAAAAACAAAAAQAAAEAAA=</HashCode>
       <FileName>MVC\Controller\NotificationController.cs</FileName>
     </TypeIdentifier>
   </Class>
