@@ -32,7 +32,10 @@ public class MenuController
     }
 
 	public void MainMenu()
-    {
+	{
+
+		_notificationController.Navigated += OnNavigate;
+	    
 		List<String> menuOptions = new List<string> { "Browse Games", "Interest List", "Recommendations", "Reset interest list", "Exit" };
 		var selectedIndex = _menuLogic.CallMenu(_prompt, menuOptions, CurrentIndex, _notification);
 		CurrentIndex = selectedIndex;
@@ -42,18 +45,21 @@ public class MenuController
             case 0: // Browse games
 				Console.Clear();
 				_browseController.ListGames();
+				_notificationController.OnNavigate();
 				BrowseMenu();
 				break;
 			case 1: // See list of games added to interest list
                 _interestController.GetGamesOnInterestListWithOptions();
                 _interestController.ListInterested();
 				CurrentIndex = 0;
+                _notificationController.OnNavigate();
 				ShowInterestList();
 				break;
             case 2: // 
 	            _recommendController.GetRecommendedGameWithOptions();
                 _recommendController.ListRecommendedGames();
 				CurrentIndex = 0;
+	            _notificationController.OnNavigate();
 				RecommendMenu();
 				break;
             case 3:
@@ -71,7 +77,7 @@ public class MenuController
         List<string> gamesWithOptions = _browseController.GetGamesOnPageWithOptions();
         
         _notificationController.Changed += OnChange;
-        _notificationController.Leave += OnLeave;
+        _notificationController.Navigated += OnNavigate;
 
         var selectedIndex = _menuLogic.CallMenu(_prompt, gamesWithOptions, CurrentIndex, _notification);
 		CurrentIndex = selectedIndex;
@@ -103,7 +109,7 @@ public class MenuController
         List<string> interestListWithOptions = _interestController.GetGamesOnInterestListWithOptions();
         
         _notificationController.Changed += OnChange;
-        _notificationController.Leave += OnLeave;
+        _notificationController.Navigated += OnNavigate;
 
 		if (CurrentIndex+1 > interestListWithOptions.Count())
 		{
@@ -116,7 +122,7 @@ public class MenuController
         switch (selectedIndex)
         {
             case 0:
-	            _notificationController.OnLeave();
+	            _notificationController.OnNavigate();
 				ReturnToMainMenu(); // Return to main menu
 				break;
             case 1:
@@ -126,14 +132,14 @@ public class MenuController
 				ShowInterestList();
 				break;
             case 3:
-                _notificationController.OnLeave();
+                _notificationController.OnNavigate();
                 _interestController.GetGamesOnPageWithOptions(); //ADD GAMES TO INTEREST LIST
 				_interestController.ListNotInterestedOnCurrentPage();
                 CurrentIndex = 0;
 				InterestMenu();
                 break;
 			case 4:
-                _notificationController.OnLeave();
+                _notificationController.OnNavigate();
                 _recommendController.GetRecommendedGameWithOptions(); // LOOK FOR RECOMMENDATIONS
 				_recommendController.ListRecommendedGames();
 				CurrentIndex = 0;
@@ -156,7 +162,7 @@ public class MenuController
         List<string> gamesWithOptions = _interestController.GetGamesOnPageWithOptions();
         
         _notificationController.Changed += OnChange;
-        _notificationController.Leave += OnLeave;
+        _notificationController.Navigated += OnNavigate;
 
 		if (CurrentIndex + 1 > gamesWithOptions.Count())
 		{
@@ -171,7 +177,7 @@ public class MenuController
             case 0: // Return to main menu
 				_interestController.SetCurrentPage(10);
 				_interestController.ListInterested();
-                _notificationController.OnLeave();
+                _notificationController.OnNavigate();
                 ShowInterestList();
                 break;
             case 1: // Next Page
@@ -195,7 +201,7 @@ public class MenuController
 	    List<string> gamesWithOptions = _recommendController.GetRecommendedGameWithOptions();
 	    
 	    _notificationController.Changed += OnChange;
-	    _notificationController.Leave += OnLeave;
+	    _notificationController.Navigated += OnNavigate;
 
 		if (CurrentIndex + 1 > gamesWithOptions.Count())
 		{
@@ -221,7 +227,7 @@ public class MenuController
     }
 
 	// Region !!!
-	public void OnLeave(object? source, EventArgs e)
+	public void OnNavigate(object? source, EventArgs e)
 	{
 		_notification = "";
 	}
@@ -238,10 +244,15 @@ public class MenuController
             _notification = $"GameID: {e.gameId.ToString()} has been removed from the interest list!";
         }
     }
+    
+    public void OnClear(object? source, EventArgs e)
+    {
+	    _notification = "Your interest list has been cleared!";
+    }
 
     public void ReturnToMainMenu()
     {
-	    _notificationController.OnLeave();
+	    _notificationController.OnNavigate();
 		_browseController.SetCurrentPage(10);
         _interestController.SetCurrentPage(10);
 		MainMenu();
@@ -250,14 +261,17 @@ public class MenuController
 	// Mainly for debugging logic error
 	public void ClearInterestList()
 	{
+		_notificationController.Cleared += OnClear;
+		
 		Console.Clear();
 		for (int i = 1; i <= 100; i++)
 		{
 			_interestRepo.RemoveGameFromInterest(i);
 		}
-		_notificationController.OnLeave();
+		_notificationController.OnNavigate();
 		Console.WriteLine("Interest list cleared");
 		Console.WriteLine("Press any KEY to go back to Main menu");
 		Console.ReadLine();
+		_notificationController.OnClear();
 	}
 }
