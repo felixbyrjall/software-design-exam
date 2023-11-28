@@ -1,7 +1,7 @@
 using NextGaming.Model;
 using NextGaming.Repo;
 
-namespace NextGamingTest; 
+namespace NextGamingIntegrationTest; 
 
 public class GameRepoTests {
     private readonly GameRepo _gameRepo = new(new Context());

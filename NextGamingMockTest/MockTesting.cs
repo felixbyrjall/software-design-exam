@@ -2,7 +2,7 @@ using NextGaming.Model;
 using Moq;
 using NextGaming.Interfaces;
 
-namespace NextGamingTest;
+namespace NextGamingMockTest;
 
 public class Tests {
     
