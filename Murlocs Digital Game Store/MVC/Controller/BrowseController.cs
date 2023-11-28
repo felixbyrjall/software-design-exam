@@ -2,105 +2,104 @@
 using NextGaming.Views;
 using NextGaming.Model;
 using NextGaming.Tools;
-namespace NextGaming.Controller
+
+namespace NextGaming.Controller;
+
+public class BrowseController
 {
+    #region Fields and dependencies
+	private const int _firstPage = 10;
+	private int _currentPage = 10;
+	private int _lastPage;
+    private bool _gamesLoaded = false;
 
-    public class BrowseController
+	private List<String> _gamesOnPage = new();
+
+	private readonly IGameRepo _gameRepo;
+    private readonly BrowseView _browseView;
+    private readonly GameInfoView _gameInfoView;
+    private readonly InterestController _interestController;
+
+    public BrowseController(IGameRepo gameRepo, BrowseView browseView, GameInfoView gameInfoView, InterestController interestController)
     {
-		#region Fields and dependencies
-		private const int _firstPage = 10;
-		private int _currentPage = 10;
-		private int _lastPage;
-        private bool _gamesLoaded = false;
+        _gameRepo = gameRepo;
+        _browseView = browseView;
+        _gameInfoView = gameInfoView;
+        _interestController = interestController;
+    }
+	#endregion
 
-		private List<String> _gamesOnPage = new();
+	#region Getter and setter for current page
+	public int GetCurrentPage()
+    {
+        return _currentPage;
+    }
 
-		private readonly IGameRepo _gameRepo;
-        private readonly BrowseView _browseView;
-        private readonly GameInfoView _gameInfoView;
-        private readonly InterestController _interestController;
+    public void SetCurrentPage(int currentPage)
+    {
+        _currentPage = currentPage;
+    }
+	#endregion
 
-        public BrowseController(IGameRepo gameRepo, BrowseView browseView, GameInfoView gameInfoView, InterestController interestController)
+	#region Methods for checking page, listing and adding games
+	public void CheckCurrentPage(int i)
+    {
+        if (i == 1 && GetCurrentPage() != _lastPage)
         {
-            _gameRepo = gameRepo;
-            _browseView = browseView;
-            _gameInfoView = gameInfoView;
-            _interestController = interestController;
+            int j = GetCurrentPage();
+            SetCurrentPage(j += 10);
         }
-		#endregion
-
-		#region Getter and setter for current page
-		public int GetCurrentPage()
+        else if (i == 2 && GetCurrentPage() != _firstPage)
         {
-            return _currentPage;
+            int j = GetCurrentPage();
+            SetCurrentPage(j -= 10);
         }
+        ListGames();
+    }
 
-        public void SetCurrentPage(int currentPage)
+    public void ListGames()
+    {
+        var totalTime = LoadingTime();
+        if (_gamesLoaded == false)
         {
-            _currentPage = currentPage;
-        }
-		#endregion
-
-		#region Methods for checking page, listing and adding games
-		public void CheckCurrentPage(int i)
-        {
-            if (i == 1 && GetCurrentPage() != _lastPage)
-            {
-                int j = GetCurrentPage();
-                SetCurrentPage(j += 10);
-            }
-            else if (i == 2 && GetCurrentPage() != _firstPage)
-            {
-                int j = GetCurrentPage();
-                SetCurrentPage(j -= 10);
-            }
-            ListGames();
+            _browseView.LoadingScreen(totalTime);
+            _gamesLoaded = true;
         }
 
-        public void ListGames()
-        {
-            var totalTime = LoadingTime();
-            if (_gamesLoaded == false)
-            {
-                _browseView.LoadingScreen(totalTime);
-                _gamesLoaded = true;
-            }
+        var games = _gameRepo.GetGamesOnPage((GetCurrentPage() - 9), GetCurrentPage());
+        _gamesOnPage.Clear();
+        AddGamesToMenu(games); // Kaller på metoden AddGames for å legge til spill i _allGames feltet i view.
+    }
 
-            var games = _gameRepo.GetGamesOnPage((GetCurrentPage() - 9), GetCurrentPage());
-            _gamesOnPage.Clear();
-            AddGamesToMenu(games); // Kaller på metoden AddGames for å legge til spill i _allGames feltet i view.
-        }
-
-		private void AddGamesToMenu(IEnumerable<Game> games)
+	private void AddGamesToMenu(IEnumerable<Game> games)
+	{
+		foreach (Game game in games)
 		{
-			foreach (Game game in games)
-			{
-				_gamesOnPage.Add("ID: " + game.ID + " Name: " + game.Name);
-			}
+			_gamesOnPage.Add("ID: " + game.ID + " Name: " + game.Name);
 		}
-
-		public List<string> GetGamesOnPageWithOptions()
-        {
-            _lastPage = _gameRepo.CountAllGames();
-            List<string> options = new List<string> { "Back to main menu", "Next page", "Previous page", "---------" };
-            options.AddRange(_gamesOnPage);
-            return options;
-        }
-
-        public void GetSelectedGameFromBrowseMenu(int gameId)
-        {
-			var game = _gameRepo.GetGameInfo(gameId);
-			string gameDetails = _gameInfoView.ShowGameDetails(game);
-            _interestController.GetSelectedGameFromAllMenus(gameId, gameDetails);
-		}
-		#endregion
-
-		#region Loading method
-		public int LoadingTime()
-        {
-            int totalLoadingTime = _gameRepo.CountAllGames() * 5;
-            return totalLoadingTime;
-        }
-		#endregion
 	}
+
+	public List<string> GetGamesOnPageWithOptions()
+    {
+        _lastPage = _gameRepo.CountAllGames();
+        List<string> options = new List<string> { "Back to main menu", "Next page", "Previous page", "---------" };
+        options.AddRange(_gamesOnPage);
+        return options;
+    }
+
+    public void GetSelectedGameFromBrowseMenu(int gameId)
+    {
+		var game = _gameRepo.GetGameInfo(gameId);
+		string gameDetails = _gameInfoView.ShowGameDetails(game);
+        _interestController.GetSelectedGameFromAllMenus(gameId, gameDetails);
+	}
+	#endregion
+
+	#region Loading method
+	public int LoadingTime()
+    {
+        int totalLoadingTime = _gameRepo.CountAllGames() * 5;
+        return totalLoadingTime;
+    }
+	#endregion
 }

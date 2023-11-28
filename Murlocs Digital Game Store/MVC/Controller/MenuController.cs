@@ -10,7 +10,8 @@ namespace NextGaming.Views;
 
 public class MenuController
 {
-    private readonly MenuLogic _menuLogic;
+	#region Fields and dependencies
+	private readonly MenuLogic _menuLogic;
 	private readonly BrowseController _browseController;
 	private readonly InterestController _interestController;
 	private readonly RecommendController _recommendController;
@@ -30,9 +31,12 @@ public class MenuController
 		_interestRepo = interestRepo;
 		_notificationController = notificationController;
     }
+	#endregion
 
+	#region Menus
 	public void MainMenu()
 	{
+		CurrentIndex = 0;
 
 		_notificationController.Navigated += OnNavigate;
 	    
@@ -63,7 +67,7 @@ public class MenuController
 				RecommendMenu();
 				break;
             case 3:
-                ClearInterestList();
+                ResetMenu();
                 MainMenu();
                 break;
 			case 4: // Exit the application
@@ -226,7 +230,24 @@ public class MenuController
 	    }
     }
 
-	// Region !!!
+	public void ResetMenu()
+	{
+		List<string> options = new List<string> { "Clear interest list", "Return to main menu" };
+		var selectedIndex = _menuLogic.CallMenu(_prompt, options, 1, _notification);
+		CurrentIndex = selectedIndex;
+		switch (selectedIndex)
+		{
+			case 0:
+				ClearInterestList();
+				break;
+			case 1:
+				ReturnToMainMenu();
+				break;
+		}
+	}
+	#endregion
+
+	#region Event handler methods
 	public void OnNavigate(object? source, EventArgs e)
 	{
 		_notification = "";
@@ -236,12 +257,12 @@ public class MenuController
     {
         if (e.method == "add")
         {
-            _notification = $"GameID: {e.gameId.ToString()} has been added to the interest list!";
+            _notification = $"GameID: {e.gameId} has been added to the interest list!";
         }
 
         else if (e.method == "remove")
         {
-            _notification = $"GameID: {e.gameId.ToString()} has been removed from the interest list!";
+            _notification = $"GameID: {e.gameId} has been removed from the interest list!";
         }
     }
     
@@ -249,8 +270,10 @@ public class MenuController
     {
 	    _notification = "Your interest list has been cleared!";
     }
+	#endregion
 
-    public void ReturnToMainMenu()
+	#region Misc methods
+	public void ReturnToMainMenu()
     {
 	    _notificationController.OnNavigate();
 		_browseController.SetCurrentPage(10);
@@ -269,9 +292,7 @@ public class MenuController
 			_interestRepo.RemoveGameFromInterest(i);
 		}
 		_notificationController.OnNavigate();
-		Console.WriteLine("Interest list cleared");
-		Console.WriteLine("Press any KEY to go back to Main menu");
-		Console.ReadLine();
 		_notificationController.OnClear();
 	}
+	#endregion
 }
