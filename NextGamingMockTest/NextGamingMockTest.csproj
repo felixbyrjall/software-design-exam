@@ -6,6 +6,8 @@
         <Nullable>enable</Nullable>
 
         <IsPackable>false</IsPackable>
+
+        <RootNamespace>DigitalGameStoreMock</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -18,7 +20,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Murlocs Digital Game Store\DigitalGameStore.csproj" />
+      <ProjectReference Include="..\Murlocs Digital Game Store\NextGaming.csproj" />
     </ItemGroup>
 
 </Project>
