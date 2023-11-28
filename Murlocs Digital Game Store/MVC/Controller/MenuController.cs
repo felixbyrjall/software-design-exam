@@ -31,23 +31,9 @@ public class MenuController
 		_notificationController = notificationController;
     }
 
-    // Mainly for debugging logic error
-    public void ClearInterestList()
-    {
-        Console.Clear();
-        for (int i = 1; i <= 100; i++)
-        {
-			_interestRepo.RemoveGameFromInterest(i);
-		}
-		_notificationController.OnLeave();
-        Console.WriteLine("Interest list cleared");
-        Console.WriteLine("Press any KEY to go back to Main menu");
-        Console.ReadLine();
-    }
-
 	public void MainMenu()
     {
-		List<String> menuOptions = new List<string> { "Browse Games", "Interest List", "Recommendations", "Exit", "Reset interest list" };
+		List<String> menuOptions = new List<string> { "Browse Games", "Interest List", "Recommendations", "Reset interest list", "Exit" };
 		var selectedIndex = _menuLogic.CallMenu(_prompt, menuOptions, CurrentIndex, _notification);
 		CurrentIndex = selectedIndex;
 
@@ -70,14 +56,14 @@ public class MenuController
 				CurrentIndex = 0;
 				RecommendMenu();
 				break;
-			case 3: // Exit the application
-                Environment.Exit(0);
-                break;
-            case 4:
+            case 3:
                 ClearInterestList();
                 MainMenu();
                 break;
-        }
+			case 4: // Exit the application
+				Environment.Exit(0);
+				break;
+		}
     }
 
 	public void BrowseMenu()
@@ -260,4 +246,18 @@ public class MenuController
         _interestController.SetCurrentPage(10);
 		MainMenu();
     }
+
+	// Mainly for debugging logic error
+	public void ClearInterestList()
+	{
+		Console.Clear();
+		for (int i = 1; i <= 100; i++)
+		{
+			_interestRepo.RemoveGameFromInterest(i);
+		}
+		_notificationController.OnLeave();
+		Console.WriteLine("Interest list cleared");
+		Console.WriteLine("Press any KEY to go back to Main menu");
+		Console.ReadLine();
+	}
 }
