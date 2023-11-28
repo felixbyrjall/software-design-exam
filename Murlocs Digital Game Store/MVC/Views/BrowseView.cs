@@ -6,6 +6,7 @@ public class BrowseView
 {
 	public void LoadingScreen(int time)
 	{
+		Console.Clear();
 		Console.WriteLine("Loading.");
 		Thread.Sleep(time);
 		Console.Clear();
