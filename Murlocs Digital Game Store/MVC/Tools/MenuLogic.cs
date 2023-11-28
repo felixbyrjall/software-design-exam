@@ -24,13 +24,6 @@ public class MenuLogic
 		}
 	}
 
-	public MenuLogic(string additionalText, string[] menuOptions)
-	{
-		_additionalText = additionalText;
-		_menuOptions = menuOptions;
-		_selectedIndex = 0;
-	}
-
 	public MenuLogic()
 	{
 

@@ -14,7 +14,7 @@ public class InterestController
 	private int _currentPage = 10;
 	private int _lastPageOnAddToInterestList;
 	private int _numberOfGamesInList;
-	public static int currentIndex;
+	public static int CurrentIndex;
 	private string _notification = "";
 	private readonly IInterestRepo _interestRepo;
 	private readonly IGameRepo _gameRepo;
@@ -151,13 +151,13 @@ public class InterestController
 	#region Add/remove/list games on interest list
 	public void GetSelectedGameFromAllMenus(int currentGameId, string gameDetails)
 	{
-		currentIndex = 1;
+		CurrentIndex = 1;
 		if (CheckInterestState(currentGameId) == false)
 		{
 			List<string> options = new List<string> { "Add to interest list", "Return to previous menu" };
 			
-			var selectedIndex = _menuLogic.CallMenu(gameDetails, options, currentIndex, _notification);
-			currentIndex = selectedIndex;
+			var selectedIndex = _menuLogic.CallMenu(gameDetails, options, CurrentIndex, _notification);
+			CurrentIndex = selectedIndex;
 
 			switch (selectedIndex)
 			{
@@ -171,8 +171,8 @@ public class InterestController
 		else
 		{
 			List<string> options = new List<string> { "Remove from interest list", "Return to previous menu" };
-			var selectedIndex = _menuLogic.CallMenu(gameDetails, options, currentIndex, _notification);
-			currentIndex = selectedIndex;
+			var selectedIndex = _menuLogic.CallMenu(gameDetails, options, CurrentIndex, _notification);
+			CurrentIndex = selectedIndex;
 
 			switch (selectedIndex)
 			{
@@ -185,12 +185,12 @@ public class InterestController
 		}
 	}
 
-	public bool CheckInterestState(int gameID)
+	public bool CheckInterestState(int gameId)
 	{
 		var list = _interestRepo.GetGamesOnInterestList(_currentPage);
 		foreach (var game in list)
 		{
-			if (gameID == game.ID)
+			if (gameId == game.ID)
 			{
 				return true;
 			}

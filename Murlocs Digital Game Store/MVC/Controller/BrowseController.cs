@@ -11,7 +11,7 @@ namespace NextGaming.Controller
 		private const int _firstPage = 10;
 		private int _currentPage = 10;
 		private int _lastPage;
-        private bool gamesLoaded = false;
+        private bool _gamesLoaded = false;
 
 		private List<String> _gamesOnPage = new();
 
@@ -60,10 +60,10 @@ namespace NextGaming.Controller
         public void ListGames()
         {
             var totalTime = LoadingTime();
-            if (gamesLoaded == false)
+            if (_gamesLoaded == false)
             {
                 _browseView.LoadingScreen(totalTime);
-                gamesLoaded = true;
+                _gamesLoaded = true;
             }
 
             var games = _gameRepo.GetGamesOnPage((GetCurrentPage() - 9), GetCurrentPage());

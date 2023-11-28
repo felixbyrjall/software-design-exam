@@ -37,10 +37,10 @@ public class RecommendController
     {
         var recommendedGames = _gameGenreRepo.RecommendGames();
         _recommendedGames.Clear();
-        addRecommendedGamesList(recommendedGames);
+        AddRecommendedGamesList(recommendedGames);
     }
 
-    private void addRecommendedGamesList(List<GameObject> games)
+    private void AddRecommendedGamesList(List<GameObject> games)
     {
         foreach (var game in games)
         {

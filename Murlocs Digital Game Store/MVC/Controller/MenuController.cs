@@ -19,7 +19,7 @@ public class MenuController
 
 	private string _prompt = "(Use the arrows to select an option)";
 	private string _notification = "";
-	public int currentIndex = 0;
+	public int CurrentIndex = 0;
 
 	public MenuController(MenuLogic menuTools, BrowseController browseController, InterestController interestController, RecommendController recommendController, IInterestRepo interestRepo, NotificationController notificationController)
     {
@@ -48,8 +48,8 @@ public class MenuController
 	public void MainMenu()
     {
 		List<String> menuOptions = new List<string> { "Browse Games", "Interest List", "Recommendations", "Exit", "Reset interest list" };
-		var selectedIndex = _menuLogic.CallMenu(_prompt, menuOptions, currentIndex, _notification);
-		currentIndex = selectedIndex;
+		var selectedIndex = _menuLogic.CallMenu(_prompt, menuOptions, CurrentIndex, _notification);
+		CurrentIndex = selectedIndex;
 
 		switch (selectedIndex)
         {
@@ -61,13 +61,13 @@ public class MenuController
 			case 1: // See list of games added to interest list
                 _interestController.GetGamesOnInterestListWithOptions();
                 _interestController.ListInterested();
-				currentIndex = 0;
+				CurrentIndex = 0;
 				ShowInterestList();
 				break;
             case 2: // 
 	            _recommendController.GetRecommendedGameWithOptions();
                 _recommendController.ListRecommendedGames();
-				currentIndex = 0;
+				CurrentIndex = 0;
 				RecommendMenu();
 				break;
 			case 3: // Exit the application
@@ -87,8 +87,8 @@ public class MenuController
         _notificationController.Changed += OnChange;
         _notificationController.Leave += OnLeave;
 
-        var selectedIndex = _menuLogic.CallMenu(_prompt, gamesWithOptions, currentIndex, _notification);
-		currentIndex = selectedIndex;
+        var selectedIndex = _menuLogic.CallMenu(_prompt, gamesWithOptions, CurrentIndex, _notification);
+		CurrentIndex = selectedIndex;
 
 		switch (selectedIndex)
 		{
@@ -119,13 +119,13 @@ public class MenuController
         _notificationController.Changed += OnChange;
         _notificationController.Leave += OnLeave;
 
-		if (currentIndex+1 > interestListWithOptions.Count())
+		if (CurrentIndex+1 > interestListWithOptions.Count())
 		{
-			currentIndex--;
+			CurrentIndex--;
 		}
 
-		var selectedIndex = _menuLogic.CallMenu(_prompt, interestListWithOptions, currentIndex, _notification);
-        currentIndex = selectedIndex;
+		var selectedIndex = _menuLogic.CallMenu(_prompt, interestListWithOptions, CurrentIndex, _notification);
+        CurrentIndex = selectedIndex;
 
         switch (selectedIndex)
         {
@@ -143,14 +143,14 @@ public class MenuController
                 _notificationController.OnLeave();
                 _interestController.GetGamesOnPageWithOptions(); //ADD GAMES TO INTEREST LIST
 				_interestController.ListNotInterestedOnCurrentPage();
-                currentIndex = 0;
+                CurrentIndex = 0;
 				InterestMenu();
                 break;
 			case 4:
                 _notificationController.OnLeave();
                 _recommendController.GetRecommendedGameWithOptions(); // LOOK FOR RECOMMENDATIONS
 				_recommendController.ListRecommendedGames();
-				currentIndex = 0;
+				CurrentIndex = 0;
 				RecommendMenu();
 				break;
 			case 5:
@@ -172,13 +172,13 @@ public class MenuController
         _notificationController.Changed += OnChange;
         _notificationController.Leave += OnLeave;
 
-		if (currentIndex + 1 > gamesWithOptions.Count())
+		if (CurrentIndex + 1 > gamesWithOptions.Count())
 		{
-			currentIndex--;
+			CurrentIndex--;
 		}
 
-		var selectedIndex = _menuLogic.CallMenu(_prompt, gamesWithOptions, currentIndex, _notification);
-        currentIndex = selectedIndex;
+		var selectedIndex = _menuLogic.CallMenu(_prompt, gamesWithOptions, CurrentIndex, _notification);
+        CurrentIndex = selectedIndex;
 
         switch (selectedIndex)
         {
@@ -211,13 +211,13 @@ public class MenuController
 	    _notificationController.Changed += OnChange;
 	    _notificationController.Leave += OnLeave;
 
-		if (currentIndex + 1 > gamesWithOptions.Count())
+		if (CurrentIndex + 1 > gamesWithOptions.Count())
 		{
-			currentIndex--;
+			CurrentIndex--;
 		}
 
-		var selectedIndex = _menuLogic.CallMenu(_prompt, gamesWithOptions, currentIndex, _notification);
-		currentIndex = selectedIndex;
+		var selectedIndex = _menuLogic.CallMenu(_prompt, gamesWithOptions, CurrentIndex, _notification);
+		CurrentIndex = selectedIndex;
 		switch (selectedIndex)
 	    {
             case 0: // Return to main menu
